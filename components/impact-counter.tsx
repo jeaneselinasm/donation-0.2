@@ -37,7 +37,7 @@ export default function ImpactCounter({ value, label, icon, className }: ImpactC
     <div className={cn("flex flex-col items-center", className)}>
       {icon && <div className="mb-2 text-primary">{icon}</div>}
       <div className="text-3xl md:text-4xl font-bold">{count.toLocaleString()}</div>
-      <p className="text-sm text-muted-foreground text-center mt-1">{label}</p>
+      <p className="text-md text-muted-foreground text-center mt-1">{label}</p>
     </div>
   )
 }
