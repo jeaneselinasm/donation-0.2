@@ -22,8 +22,7 @@ export default function Home() {
       <header className="border-b sticky top-0 bg-background z-10 p-2">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
-            {/* <BookOpen className="h-6 w-6 text-primary" /> */}
-            <span className="text-xl font-bold text-orange-400">BAHTRAKU</span>
+            <Image src="/icons/BAHTRAKU_logo.png" width={150} height={150} alt="BAHTRAKU Logo" />
           </div>
           <nav className="hidden md:flex gap-6">
             <Link
@@ -388,11 +387,11 @@ export default function Home() {
               <h4 className="text-sm font-medium">Connect With Us</h4>
               <ul className="">
                 <li className="flex flex-row text-sm text-muted-foreground hover:text-foreground">
-                  <Instagram className="h-6 w-6 mr-2"/> 
+                  <Instagram className="h-6 mr-2"/> 
                   <span>bahtraku</span>
                 </li>
                 <li className="flex flex-row text-sm text-muted-foreground hover:text-foreground">
-                  <Youtube className="h-6 w-6 mr-2"/> 
+                  <Youtube className="h-6 mr-2"/> 
                   <span>a ministry of bahtraku</span>
                 </li>
                 
