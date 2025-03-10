@@ -126,7 +126,7 @@ export default function Home() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-12 md:py-16 lg:py-24 scroll-mt-16">
+        <section id="about" className="py-10 md:py-16 lg:py-20 scroll-mt-16">
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="space-y-4 order-2 lg:order-1">
@@ -145,16 +145,18 @@ export default function Home() {
                   have waited generations for God's Word in their language.
                 </p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 order-1 lg:order-2">
-                <img
-                  src="/placeholder.svg?height=400&width=300"
-                  alt="Translator working with community members"
-                  className="rounded-lg object-cover w-full h-full"
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 order-1 lg:order-2 rounded-xl">
+              <Image
+                  src="/2.png"
+                  width={900}
+                  height={900}
+                  alt="Picture of the author"
                 />
-                <img
-                  src="/placeholder.svg?height=400&width=300"
-                  alt="New Testament dedication ceremony"
-                  className="rounded-lg object-cover w-full h-full hidden sm:block"
+               <Image
+                  src="/1.png"
+                  width={900}
+                  height={900}
+                  alt="Picture of the author"
                 />
               </div>
             </div>
@@ -162,7 +164,7 @@ export default function Home() {
         </section>
 
          {/* Donation Section */}
-         <section id="donate" className="py-12 md:py-16 lg:py-24 bg-primary/5 scroll-mt-16">
+         <section id="donate" className="py-12 bg-primary/5 scroll-mt-16">
           <div className="container px-4 md:px-6">
             <UnifiedDonationForm />
           </div>
