@@ -22,7 +22,12 @@ export default function Home() {
       <header className="border-b sticky top-0 bg-background z-10 p-2">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
-            <Image src="/icons/BAHTRAKU_logo.png" width={150} height={150} alt="BAHTRAKU Logo" />
+            <Image
+              src="/icons/BAHTRAKU_logo.png"
+              width={150}
+              height={150}
+              alt="BAHTRAKU Logo"
+            />
           </div>
           <nav className="hidden md:flex gap-6">
             <Link
@@ -69,9 +74,9 @@ export default function Home() {
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="space-y-4">
                 <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter">
-                  Bringing God's Word to Every Language
+                  Bringing God&apos;s Word to Every Language
                 </h1>
-                <p className="text-muted-foreground text-base md:text-xl">
+                <p className="text-muted-foreground text-base md:text-xl ">
                   Join our mission to translate the Bible into every language,
                   reaching communities that have never had Scripture in their
                   heart language.
@@ -144,16 +149,18 @@ export default function Home() {
                 <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">
                   Our Mission
                 </h2>
-                <p className="text-muted-foreground">
-                  We believe everyone should have access to God's Word in their
-                  heart language. Our translators work alongside local
-                  communities to create accurate, culturally relevant
-                  translations of the Bible.
+                <p className="text-muted-foreground text-justify">
+                  We believe that everyone should have access to God&apos;s Word in
+                  their heart language. That&apos;s why we partner with local
+                  churches and language communities to translate the Bible
+                  accurately and faithfully, ensuring it remains true to its
+                  original meaning.
                 </p>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground text-justify">
                   With your support, we can accelerate Bible translation
                   projects worldwide, bringing Scripture to communities that
-                  have waited generations for God's Word in their language.
+                  have waited for generations to experience God&apos;s Word in their
+                  own language.
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 order-1 lg:order-2 rounded-xl">
@@ -387,20 +394,18 @@ export default function Home() {
               <h4 className="text-sm font-medium">Connect With Us</h4>
               <ul className="">
                 <li className="flex flex-row text-sm text-muted-foreground hover:text-foreground">
-                  <Instagram className="h-6 mr-2"/> 
+                  <Instagram className="h-6 mr-2" />
                   <span>bahtraku</span>
                 </li>
                 <li className="flex flex-row text-sm text-muted-foreground hover:text-foreground">
-                  <Youtube className="h-6 mr-2"/> 
+                  <Youtube className="h-6 mr-2" />
                   <span>a ministry of bahtraku</span>
                 </li>
-                
               </ul>
             </div>
           </div>
           <div className="border-t p-4 text-center text-sm text-orange-400">
-            &copy; {new Date().getFullYear()} BAHTRAKU. All
-            rights reserved.
+            &copy; {new Date().getFullYear()} BAHTRAKU. All rights reserved.
           </div>
         </div>
       </footer>
