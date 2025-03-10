@@ -189,7 +189,7 @@ export default function Home() {
         </section>
 
         {/* Impact Section */}
-        <section id="impact" className="py-12 md:py-16 lg:py-24 scroll-mt-16">
+        {/* <section id="impact" className="py-12 md:py-16 lg:py-24 scroll-mt-16">
           <div className="container px-4 md:px-6">
             <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
               <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">
@@ -255,12 +255,12 @@ export default function Home() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
 
         {/* Testimonials */}
         <section
           id="testimonials"
-          className="py-12 md:py-16 lg:py-24 bg-muted scroll-mt-16"
+          className="py-12 md:py-16 lg:py-24 scroll-mt-16"
         >
           <div className="container px-4 md:px-6">
             <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
@@ -268,29 +268,23 @@ export default function Home() {
                 Testimonials
               </h2>
               <p className="text-muted-foreground">
-                Hear from those whose lives have been changed by receiving God's
+                Hear from those whose lives have been changed by receiving Gods
                 Word in their heart language.
               </p>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <TestimonialCard
-                quote="For the first time, I can understand God's promises in my own language. It's like He is speaking directly to me."
-                name="Maria"
-                location="Guatemala"
-                imageSrc="/placeholder.svg?height=200&width=200"
+                quote="In my deepest grief, I turned away from God, but through His Word, He called me back. 1 Samuel 2:6 reminded me that life is in His hands. Now, I translate not just words, but a message that strengthens and transforms lives. God is faithful—He never abandons us."
+                language="Kemtuik"
               />
               <TestimonialCard
                 quote="Our church has grown so much since we received the New Testament in our language. People are hungry for God's Word."
-                name="Pastor Thomas"
-                location="Papua New Guinea"
-                imageSrc="/placeholder.svg?height=200&width=200"
+                language="lorem ipsum"
               />
               <TestimonialCard
                 quote="I've been a monthly donor for 5 years. The updates I receive about how my giving impacts communities brings me so much joy."
-                name="Sarah"
-                location="United States"
-                imageSrc="/placeholder.svg?height=200&width=200"
+               language="ipsum sit"
               />
             </div>
           </div>
