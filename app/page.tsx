@@ -10,11 +10,11 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navigation */}
-      <header className="border-b sticky top-0 bg-background z-10">
+      <header className="border-b sticky top-0 bg-background z-10 p-2">
         <div className="container flex h-16 items-center justify-between">
           <div className="flex items-center gap-2">
-            <BookOpen className="h-6 w-6 text-primary" />
-            <span className="text-xl font-bold">WordReach</span>
+            {/* <BookOpen className="h-6 w-6 text-primary" /> */}
+            <span className="text-xl font-bold text-orange-400">BAHTRAKU</span>
           </div>
           <nav className="hidden md:flex gap-6">
             <Link href="/" className="text-sm font-medium hover:underline underline-offset-4">
@@ -30,8 +30,8 @@ export default function Home() {
               Testimonials
             </Link>
           </nav>
-          <div className="flex items-center gap-2">
-            <Button asChild className="hidden sm:flex">
+          <div className="flex items-center gap-2 ">
+            <Button asChild className="hidden sm:flex bg-orange-400 hover:bg-slate-200 hover:text-orange-400">
               <Link href="#donate">Donate Now</Link>
             </Button>
             <MobileNav />
