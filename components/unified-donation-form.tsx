@@ -14,7 +14,7 @@ export default function UnifiedDonationForm() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null)
   const [customAmount, setCustomAmount] = useState<string>("")
 
-  const donationAmounts = [50, 100, 250, 500]
+  const donationAmounts = [39, 79, 109]
 
   const handleAmountClick = (amount: number) => {
     setSelectedAmount(amount)
@@ -45,7 +45,7 @@ export default function UnifiedDonationForm() {
           {/* Donation Amount Section */}
           <div className="space-y-4">
             <h3 className="text-lg font-medium">Donation Amount</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {donationAmounts.map((amount) => (
                 <Button
                   key={amount}
@@ -113,10 +113,11 @@ export default function UnifiedDonationForm() {
                     <SelectValue placeholder="Select your country" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="us">United States</SelectItem>
-                    <SelectItem value="ca">Canada</SelectItem>
+                  <SelectItem value="us">United States</SelectItem>
+                  <SelectItem value="id">Indonesia</SelectItem>
+                    {/* <SelectItem value="ca">Canada</SelectItem>
                     <SelectItem value="uk">United Kingdom</SelectItem>
-                    <SelectItem value="au">Australia</SelectItem>
+                    <SelectItem value="au">Australia</SelectItem> */}
                     <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>

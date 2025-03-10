@@ -1,5 +1,13 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen , Heart, PrinterCheck, BookMarked } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  Heart,
+  PrinterCheck,
+  BookMarked,
+  Instagram,
+  Youtube,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 import DonationCard from "@/components/donation-card";
 import TestimonialCard from "@/components/testimonial-card";
@@ -70,7 +78,11 @@ export default function Home() {
                   heart language.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-3">
-                  <Button size="lg" asChild className="w-full sm:w-auto bg-orange-400 hover:bg-slate-200 hover:text-orange-500">
+                  <Button
+                    size="lg"
+                    asChild
+                    className="w-full sm:w-auto bg-orange-400 hover:bg-slate-200 hover:text-orange-500"
+                  >
                     <Link href="#donate">
                       Donate Now <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
@@ -146,13 +158,13 @@ export default function Home() {
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 order-1 lg:order-2 rounded-xl">
-              <Image
+                <Image
                   src="/2.png"
                   width={900}
                   height={900}
                   alt="Picture of the author"
                 />
-               <Image
+                <Image
                   src="/1.png"
                   width={900}
                   height={900}
@@ -163,8 +175,8 @@ export default function Home() {
           </div>
         </section>
 
-         {/* Donation Section */}
-         <section id="donate" className="py-12 bg-primary/5 scroll-mt-16">
+        {/* Donation Section */}
+        <section id="donate" className="py-12 bg-primary/5 scroll-mt-16">
           <div className="container px-4 md:px-6">
             <UnifiedDonationForm />
           </div>
@@ -310,16 +322,16 @@ export default function Home() {
             <div>
               <div className="flex items-center gap-2 mb-4">
                 <BookOpen className="h-6 w-6 text-primary" />
-                <span className="text-xl font-bold">WordReach</span>
+                <span className="text-xl font-bold">BAHTRAKU</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Bringing God's Word to every language since 1985.
+                Acceleration of transformation
               </p>
             </div>
-            <div className="space-y-3">
-              <h4 className="text-sm font-medium">Quick Links</h4>
+            <div className="space-y-3 col-span-2">
+              <h4 className="text-sm font-medium">BAHTRAKU Registered In:</h4>
               <ul className="space-y-2">
-                <li>
+                {/* <li>
                   <Link
                     href="#about"
                     className="text-sm text-muted-foreground hover:text-foreground"
@@ -350,66 +362,45 @@ export default function Home() {
                   >
                     Volunteer
                   </Link>
+                </li> */}
+                <li className="text-sm text-muted-foreground hover:text-foreground">
+                  Indonesia Ministry of Law and Human Rights No.
+                  AHU-0034498.AH.01.12 (2022)
+                </li>
+                <li className="text-sm text-muted-foreground hover:text-foreground">
+                  Indonesia Ministry of Religious Affairs, Director General for
+                  Guidance of the Christian Community Letter No. 363 (2023)
+                </li>
+                <li className="text-sm text-muted-foreground hover:text-foreground">
+                  Fellowship of Indonesian Evangelical Churches and Institutions
+                  (Persekutuan Gereja dan Lembaga Injili Indonesia / PGLII)
+                </li>
+                <li className="text-sm text-muted-foreground hover:text-foreground">
+                  Registered Member of the Indonesian Christian Council for
+                  Stewardship & Accountability (ICCSA) since 2023
+                </li>
+                <li className="text-sm text-muted-foreground hover:text-foreground">
+                  Associate Member of Asia Evangelical Alliance
                 </li>
               </ul>
             </div>
-            <div className="space-y-3">
-              <h4 className="text-sm font-medium">Resources</h4>
-              <ul className="space-y-2">
-                <li>
-                  <Link
-                    href="#"
-                    className="text-sm text-muted-foreground hover:text-foreground"
-                  >
-                    Annual Report
-                  </Link>
+            <div className="space-y-3 ">
+              <h4 className="text-sm font-medium">Connect With Us</h4>
+              <ul className="">
+                <li className="flex flex-row text-sm text-muted-foreground hover:text-foreground">
+                  <Instagram className="h-6 w-6 mr-2"/> 
+                  <span>bahtraku</span>
                 </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-sm text-muted-foreground hover:text-foreground"
-                  >
-                    Financial Accountability
-                  </Link>
+                <li className="flex flex-row text-sm text-muted-foreground hover:text-foreground">
+                  <Youtube className="h-6 w-6 mr-2"/> 
+                  <span>a ministry of bahtraku</span>
                 </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-sm text-muted-foreground hover:text-foreground"
-                  >
-                    Translation Progress
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-sm text-muted-foreground hover:text-foreground"
-                  >
-                    FAQ
-                  </Link>
-                </li>
-              </ul>
-            </div>
-            <div className="space-y-3">
-              <h4 className="text-sm font-medium">Contact</h4>
-              <ul className="space-y-2">
-                <li className="text-sm text-muted-foreground">
-                  123 Translation Way
-                </li>
-                <li className="text-sm text-muted-foreground">
-                  Dallas, TX 75001
-                </li>
-                <li className="text-sm text-muted-foreground">
-                  info@wordreach.org
-                </li>
-                <li className="text-sm text-muted-foreground">
-                  (555) 123-4567
-                </li>
+                
               </ul>
             </div>
           </div>
-          <div className="border-t pt-6 text-center text-sm text-muted-foreground">
-            &copy; {new Date().getFullYear()} WordReach Bible Translation. All
+          <div className="border-t p-4 text-center text-sm text-orange-400">
+            &copy; {new Date().getFullYear()} BAHTRAKU. All
             rights reserved.
           </div>
         </div>
