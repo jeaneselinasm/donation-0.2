@@ -18,7 +18,7 @@ export default function MobileNav() {
         </Button>
       </SheetTrigger>
       <SheetContent side="left" className="w-[300px] sm:w-[350px]">
-        <nav className="flex flex-col gap-6 mt-10">
+        <nav className="flex flex-col gap-6 mt-10 p-4">
           <Link 
             href="/" 
             className="text-lg font-medium hover:text-primary"
