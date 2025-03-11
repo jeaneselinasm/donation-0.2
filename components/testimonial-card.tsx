@@ -3,13 +3,14 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Quote } from "lucide-react"
 import { Button } from "./ui/button"
 import { Badge } from "./ui/badge"
-
+import Link from "next/link"
 interface TestimonialCardProps {
+  id : string
   quote: string
   language: string
 }
 
-export default function TestimonialCard({ quote, language }: TestimonialCardProps) {
+export default function TestimonialCard({id, quote, language }: TestimonialCardProps) {
   return (
     <Card className="h-full">
       <CardContent className="p-6 flex flex-col h-full">
@@ -18,7 +19,9 @@ export default function TestimonialCard({ quote, language }: TestimonialCardProp
         
         <div className="flex flex-row justify-between">
         <Badge variant="secondary" className="text-sm text-orange-400">{language} Language </Badge>
-        <Button>Read More</Button>
+        <Button asChild  className=" mt-auto">
+          <Link href={`/testimonials/${id}`}>Read Full Story</Link>
+        </Button>
         
         {/* <Avatar>
             <AvatarImage src={imageSrc} alt={name} />

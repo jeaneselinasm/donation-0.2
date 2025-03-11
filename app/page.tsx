@@ -275,14 +275,17 @@ export default function Home() {
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <TestimonialCard
+              id="kemtuik"
                 quote="In my deepest grief, I turned away from God, but through His Word, He called me back. 1 Samuel 2:6 reminded me that life is in His hands. Now, I translate not just words, but a message that strengthens and transforms lives. God is faithful—He never abandons us."
                 language="Kemtuik"
               />
               <TestimonialCard
+              id="suku-laut"
                 quote="I was torn between fishing to provide for my family or joining Bible translation training. Praise God, I chose to translate His Word into the Suku Laut language. For the first time, I read the Bible in my own language—and I was one of those who translated it. It filled my heart with joy!"
                 language="Suku Laut"
               />
               <TestimonialCard
+              id="bakati-rara"
                 quote="A historic moment for the Bakati’ Rara people! After dedicated efforts since February 2023, the New Testament was completed by August 2024. The launch at GKKI Bukit Sion Church was special—the first worship service entirely in Bakati’ Rara, proving the Bible’s deep impact on faith and culture."
                language="Bakati Rara"
               />
@@ -320,16 +323,16 @@ export default function Home() {
         <div className="container px-4 md:px-6">
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 md:py-12">
             <div>
-              <div className="flex items-center gap-2 mb-4">
-                <BookOpen className="h-6 w-6 text-primary" />
-                <span className="text-xl font-bold">BAHTRAKU</span>
+              <div className="flex items-center gap-2 mb-2">
+                {/* <BookOpen className="h-6 w-6 text-primary" /> */}
+                <span className="text-xl font-bold text-orange-400">BAHTRAKU</span>
               </div>
               <p className="text-sm text-muted-foreground">
                 Acceleration of transformation
               </p>
             </div>
             <div className="space-y-3 col-span-2">
-              <h4 className="text-sm font-medium">BAHTRAKU Registered In:</h4>
+              <h4 className="text-md font-medium text-orange-400">BAHTRAKU Registered In:</h4>
               <ul className="space-y-2">
                 {/* <li>
                   <Link
@@ -398,8 +401,10 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          <div className="border-t p-4 text-center text-sm text-orange-400">
-            &copy; {new Date().getFullYear()} BAHTRAKU. All rights reserved.
+          <div className="border-t md:flex md:flex-col-2 p-4 justify-center items-center text-center text-sm text-orange-400">
+          <div className="mr-2">Privacy Policy</div>
+          <div>  &copy; {new Date().getFullYear()} BAHTRAKU. All rights reserved.</div>
+            
           </div>
         </div>
       </footer>
