@@ -13,11 +13,11 @@ export default function TestimonialCard({ quote, language }: TestimonialCardProp
   return (
     <Card className="h-full">
       <CardContent className="p-6 flex flex-col h-full">
-        <Quote className="h-8 w-8 text-primary/40 mb-4" />
+        <Quote className="h-8 w-8 mb-4 text-orange-400" />
         <p className="text-muted-foreground flex-1 mb-6 text-justify">&rdquo;{quote}&rdquo;</p>
         
         <div className="flex flex-row justify-between">
-        <Badge variant="outline">language : {language}</Badge>
+        <Badge variant="secondary" className="text-sm text-orange-400">{language} Language </Badge>
         <Button>Read More</Button>
         
         {/* <Avatar>

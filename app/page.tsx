@@ -182,7 +182,7 @@ export default function Home() {
         </section>
 
         {/* Donation Section */}
-        <section id="donate" className="py-12 bg-primary/5 scroll-mt-16">
+        <section id="donate" className="py-12 bg-orange-50 scroll-mt-16">
           <div className="container px-4 md:px-6">
             <UnifiedDonationForm />
           </div>
@@ -260,7 +260,7 @@ export default function Home() {
         {/* Testimonials */}
         <section
           id="testimonials"
-          className="py-12 md:py-16 lg:py-24 scroll-mt-16"
+          className="py-12 md:py-16 lg:py-24 scroll-mt-10"
         >
           <div className="container px-4 md:px-6">
             <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
@@ -279,12 +279,12 @@ export default function Home() {
                 language="Kemtuik"
               />
               <TestimonialCard
-                quote="Our church has grown so much since we received the New Testament in our language. People are hungry for God's Word."
-                language="lorem ipsum"
+                quote="I was torn between fishing to provide for my family or joining Bible translation training. Praise God, I chose to translate His Word into the Suku Laut language. For the first time, I read the Bible in my own language—and I was one of those who translated it. It filled my heart with joy!"
+                language="Suku Laut"
               />
               <TestimonialCard
-                quote="I've been a monthly donor for 5 years. The updates I receive about how my giving impacts communities brings me so much joy."
-               language="ipsum sit"
+                quote="A historic moment for the Bakati’ Rara people! After dedicated efforts since February 2023, the New Testament was completed by August 2024. The launch at GKKI Bukit Sion Church was special—the first worship service entirely in Bakati’ Rara, proving the Bible’s deep impact on faith and culture."
+               language="Bakati Rara"
               />
             </div>
           </div>
