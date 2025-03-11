@@ -33,13 +33,13 @@ export default function MobileNav() {
           >
             About
           </Link>
-          <Link 
+          {/* <Link 
             href="#impact" 
             className="text-lg font-medium hover:text-primary"
             onClick={() => setOpen(false)}
           >
             Our Impact
-          </Link>
+          </Link> */}
           <Link 
             href="#testimonials" 
             className="text-lg font-medium hover:text-primary"
@@ -47,7 +47,7 @@ export default function MobileNav() {
           >
             Testimonials
           </Link>
-          <Button asChild className="mt-4">
+          <Button asChild className="mt-4 bg-orange-400">
             <Link 
               href="#donate"
               onClick={() => setOpen(false)}

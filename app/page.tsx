@@ -42,12 +42,12 @@ export default function Home() {
             >
               About
             </Link>
-            <Link
+            {/* <Link
               href="#impact"
               className="text-sm font-medium hover:underline underline-offset-4"
             >
               Our Impact
-            </Link>
+            </Link> */}
             <Link
               href="#testimonials"
               className="text-sm font-medium hover:underline underline-offset-4"
@@ -402,7 +402,9 @@ export default function Home() {
             </div>
           </div>
           <div className="border-t md:flex md:flex-col-2 p-4 justify-center items-center text-center text-sm text-orange-400">
-          <div className="mr-2">Privacy Policy</div>
+          <div className="mr-2"> <Link href="/privacy-policy" className="hover:underline">
+                Privacy Policy
+              </Link></div>
           <div>  &copy; {new Date().getFullYear()} BAHTRAKU. All rights reserved.</div>
             
           </div>
