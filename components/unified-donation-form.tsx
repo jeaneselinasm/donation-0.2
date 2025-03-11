@@ -51,7 +51,7 @@ export default function UnifiedDonationForm() {
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl md:text-3xl">
+        <CardTitle className="text-2xl md:text-3xl text-blue-400">
           Support Bible Translation
         </CardTitle>
         <CardDescription className="">
@@ -179,8 +179,8 @@ export default function UnifiedDonationForm() {
             </div>
           </div>
 
-          <Button type="submit" className="w-full" size="lg">
-            Complete Donation
+          <Button type="submit" className="w-full bg-blue-400 hover:bg-blue-700" size="lg">
+           Complete Your Donation
           </Button>
         </form>
       </CardContent>
