@@ -73,7 +73,7 @@ export default function Home() {
           <div className="container px-4 md:px-6">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="space-y-4">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-400 tracking-tighter">
                   Bringing God&apos;s Word to Every Language
                 </h1>
                 <p className="text-muted-foreground text-base md:text-xl ">
