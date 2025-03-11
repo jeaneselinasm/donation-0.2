@@ -19,7 +19,7 @@ export default function TestimonialCard({id, quote, language }: TestimonialCardP
         
         <div className="flex flex-row justify-between">
         <Badge variant="secondary" className="text-sm text-orange-400">{language} Language </Badge>
-        <Button asChild  className=" mt-auto">
+        <Button asChild  className="mt-auto bg-blue-500 hover:bg-blue-700">
           <Link href={`/testimonials/${id}`}>Read Full Story</Link>
         </Button>
         

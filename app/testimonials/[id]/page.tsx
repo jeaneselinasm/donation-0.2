@@ -7,7 +7,7 @@ const testimonials = [
   {
     id: "kemtuik",
     language: "Kemtuik",
-    image: "/placeholder.svg?height=400&width=400",
+    location: "Papua, Indonesia",
     shortQuote:
       "In my deepest grief, I turned away from God, but through His Word, He called me back. 1 Samuel 2:6 reminded me that life is in His hands. Now, I translate not just words, but a message that strengthens and transforms lives. God is faithful—He never abandons us.",
     fullStory: `In December, while translating the book of Exodus, a deeply painful event struck my life. On December 27, my only child passed away. This loss plunged me into profound grief, filling my heart with anger and a desperate desire to find out who was responsible for my child’s death. In my despair, I sought out shamans to take revenge, but strangely, I couldn’t find a single one.
@@ -25,7 +25,7 @@ May this testimony be a blessing to future generations and strengthen those who 
   {
     id: "suku-laut",
     language: "Suku Laut",
-    image: "/placeholder.svg?height=400&width=400",
+    location: "/placeholder.svg?height=400&width=400",
     shortQuote:
       "I was torn between fishing to provide for my family or joining Bible translation training. Praise God, I chose to translate His Word into the Suku Laut language. For the first time, I read the Bible in my own language—and I was one of those who translated it. It filled my heart with joy!",
     fullStory: `When I was invited to become a translator, I initially felt fear and hesitation about joining the team.
@@ -75,7 +75,7 @@ export default function TestimonialPage({
             A Testimony from {testimonial.language} Language
           </h1>
           <p className="text-muted-foreground">
-            Location: {testimonial.language}
+            Location: {testimonial.location}
           </p>
         </div>
 

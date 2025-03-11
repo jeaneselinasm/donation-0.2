@@ -260,11 +260,11 @@ export default function Home() {
         {/* Testimonials */}
         <section
           id="testimonials"
-          className="py-12 md:py-16 lg:py-24 scroll-mt-10"
+          className="py-8 md:py-8 lg:py-12 scroll-mt-10"
         >
           <div className="container px-4 md:px-6">
             <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-blue-500 tracking-tighter mb-4">
                 Testimonials
               </h2>
               <p className="text-muted-foreground">
@@ -294,7 +294,7 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-12 md:py-16 lg:py-24 bg-primary text-primary-foreground">
+        <section className="py-12 md:py-16 lg:py-24 bg-blue-400 text-primary-foreground">
           <div className="container px-4 md:px-6 text-center">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">
               Join Our Mission Today
