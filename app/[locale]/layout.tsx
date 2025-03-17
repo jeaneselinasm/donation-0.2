@@ -3,6 +3,7 @@ import {getMessages} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import { Inter } from "next/font/google";
+// add difference
 
 const inter = Inter({ subsets: ['latin'] })
 
