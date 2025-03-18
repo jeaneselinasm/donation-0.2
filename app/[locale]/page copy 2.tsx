@@ -1,30 +1,26 @@
-"use client"
-
 import Link from "next/link"
-import { ArrowRight, BookOpen,  PrinterCheck, BookMarked, Instagram, Youtube } from "lucide-react"
+import { ArrowRight, BookOpen, FileCheckIcon as PrinterCheck, BookMarked, Instagram, Youtube } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import TestimonialCard from "@/components/testimonial-card"
 import ImpactCounter from "@/components/impact-counter"
 import MobileNav from "@/components/mobile-nav"
 import Image from "next/image"
 import UnifiedDonationForm from "@/components/unified-donation-form"
-import { useTranslations } from "next-intl"
 export default function Home() {
-  const t = useTranslations("HomePage")
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navigation */}
       <header className="border-b sticky top-0 bg-background z-10 p-2">
-        <div className="container flex h-16 items-center justify-between xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
+        <div className="container flex h-16 items-center justify-between max-w-7xl mx-auto">
           <div className="flex items-center gap-2">
             <Image src="/icons/BAHTRAKU_logo.png" width={150} height={150} alt="BAHTRAKU Logo" />
           </div>
           <nav className="hidden md:flex gap-6">
             <Link href="/" className="text-sm font-medium hover:underline hover:text-orange-500 underline-offset-4">
-              {t("home")}
+              Home
             </Link>
-            <Link href="#about" className="text-sm font-medium hover:underline hover:text-orange-500 underline-offset-4">
-              {t("about")}
+            <Link href="#about" className="text-sm font-medium hover:underline underline-offset-4">
+              About
             </Link>
             {/* <Link
               href="#impact"
@@ -32,13 +28,13 @@ export default function Home() {
             >
               Our Impact
             </Link> */}
-            <Link href="#testimonials" className="text-sm font-medium hover:underline hover:text-orange-500 underline-offset-4">
-              {t("testimonials")}
+            <Link href="#testimonials" className="text-sm font-medium hover:underline underline-offset-4">
+              Testimonials
             </Link>
           </nav>
           <div className="flex items-center gap-2 ">
             <Button asChild className="hidden sm:flex bg-orange-400 hover:bg-slate-200 hover:text-orange-400">
-              <Link href="#donate">{t("donate")}</Link>
+              <Link href="#donate">Donate Now</Link>
             </Button>
             <MobileNav />
           </div>
@@ -48,13 +44,16 @@ export default function Home() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="py-10 md:py-10 lg:py-10 ">
-          <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16 2xl:gap-20 items-center">
-              <div className="space-y-4">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-blue-400 tracking-tighter">
-                  {t("mission")}
+          <div className="container px-4 md:px-6 max-w-7xl mx-auto">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
+              <div className="space-y-4 ">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-400 tracking-tighter">
+                  Bringing God&apos;s Word to Every Language
                 </h1>
-                <p className="text-muted-foreground text-base md:text-xl xl:text-2xl max-w-3xl">{t("missionText")}</p>
+                <p className="text-muted-foreground text-base md:text-xl ">
+                  Join our mission to translate the Bible into every language, reaching communities that have never had
+                  Scripture in their heart language.
+                </p>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Button
                     size="lg"
@@ -62,16 +61,17 @@ export default function Home() {
                     className="w-full sm:w-auto bg-orange-400 hover:bg-slate-200 hover:text-orange-500"
                   >
                     <Link href="#donate">
-                      {t("donate")} <ArrowRight className="ml-2 h-4 w-4" />
+                      Donate Now <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild className="w-full sm:w-auto">
-                    <Link href="#about"> {t("learnMore")}</Link>
+                    <Link href="#about">Learn More</Link>
                   </Button>
                 </div>
               </div>
-              <div className=" relative aspect-video overflow-hidden rounded-lg mt-6 lg:mt-0">
-                <Image src="/3.png" width={900} height={900} alt="Picture of the author" />
+              <div className="bg-red-300 relative aspect-video overflow-hidden rounded-lg mt-6 lg:mt-0 xl:items-end">
+                <Image src="/3.png" width={900} height={900} alt="Bible Translation Picture" />
+                ss
               </div>
             </div>
           </div>
@@ -79,8 +79,8 @@ export default function Home() {
 
         {/* Stats Section */}
         <section className="py-10 md:py-12 bg-orange-50">
-          <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 xl:gap-12 2xl:gap-16 text-center">
+          <div className="container px-4 md:px-6 max-w-7xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center">
               <ImpactCounter
                 value={141}
                 label="Bible Translation Projects"
@@ -107,8 +107,8 @@ export default function Home() {
 
         {/* About Section */}
         <section id="about" className="py-10 md:py-16 lg:py-20 scroll-mt-16">
-          <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
-            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16 2xl:gap-20 items-center">
+          <div className="container px-4 md:px-6 max-w-7xl mx-auto">
+            <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 items-center">
               <div className="space-y-4 order-2 lg:order-1">
                 <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">Our Mission</h2>
                 <p className="text-muted-foreground text-justify">
@@ -131,7 +131,7 @@ export default function Home() {
 
         {/* Donation Section */}
         <section id="donate" className="py-12 bg-orange-50 scroll-mt-16">
-          <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
+          <div className="container px-4 md:px-6 max-w-7xl mx-auto">
             <UnifiedDonationForm />
           </div>
         </section>
@@ -207,7 +207,7 @@ export default function Home() {
 
         {/* Testimonials */}
         <section id="testimonials" className="py-8 md:py-8 lg:py-12 scroll-mt-10">
-          <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
+          <div className="container px-4 md:px-6 max-w-7xl mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
               <h2 className="text-2xl md:text-3xl font-bold text-blue-500 tracking-tighter mb-4">Testimonials</h2>
               <p className="text-muted-foreground">
@@ -215,7 +215,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8 2xl:gap-10">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <TestimonialCard
                 id="kemtuik"
                 quote="In my deepest grief, I turned away from God, but through His Word, He called me back. 1 Samuel 2:6 reminded me that life is in His hands. Now, I translate not just words, but a message that strengthens and transforms lives. God is faithful—He never abandons us."
@@ -237,7 +237,7 @@ export default function Home() {
 
         {/* CTA Section */}
         <section className="py-12 md:py-16 lg:py-24 bg-blue-400 text-primary-foreground">
-          <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto text-center">
+          <div className="container px-4 md:px-6 text-center max-w-7xl mx-auto">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">Join Our Mission Today</h2>
             <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-6 md:mb-8">
               Your gift, no matter the size, helps bring God's Word to people who have never had Scripture in their
@@ -254,8 +254,8 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="border-t py-8 md:py-0">
-        <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 xl:gap-12 2xl:gap-16 md:py-12">
+        <div className="container px-4 md:px-6 max-w-7xl mx-auto">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 md:py-12">
             <div>
               <div className="flex items-center gap-2 mb-2">
                 {/* <BookOpen className="h-6 w-6 text-primary" /> */}
