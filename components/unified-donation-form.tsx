@@ -25,22 +25,34 @@ import { cn } from "@/lib/utils";
 import { useTranslations, useLocale } from "next-intl"
 
 export default function UnifiedDonationForm() {
- 
+
   const locale = useLocale(); // ✅ Get the current locale
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
 
   const donationAmounts = locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
 
+  // ✅ Format input while keeping it numeric
+  const formatNumber = (value: string) => {
+    const rawNumber = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
+    if (!rawNumber) return ""; // Return empty if input is cleared
+
+    // Format number based on locale
+    return new Intl.NumberFormat(locale === "id" ? "id-ID" : "en-US").format(Number(rawNumber));
+  };
+
+  // ✅ Handle custom amount change
+  const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedValue = formatNumber(e.target.value);
+    setCustomAmount(formattedValue);
+    setSelectedAmount(null); // Unselect preset amounts when typing custom value
+  };
+
   const handleAmountClick = (amount: number) => {
     setSelectedAmount(amount);
     setCustomAmount("");
   };
 
-  const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomAmount(e.target.value);
-    setSelectedAmount(null);
-  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +62,7 @@ export default function UnifiedDonationForm() {
     // In a real application, this would connect to a payment processor
     alert(`Processing one-time donation of $${donationAmount}`);
 
-    
+
   };
   const tDonation = useTranslations('donation')
   return (
@@ -60,7 +72,7 @@ export default function UnifiedDonationForm() {
           {tDonation('title')}
         </CardTitle>
         <CardDescription className="">
-        {tDonation('description')}
+          {tDonation('description')}
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -78,7 +90,7 @@ export default function UnifiedDonationForm() {
                   className={cn(
                     "h-12 text-base",
                     selectedAmount === amount &&
-                      "bg-primary text-primary-foreground"
+                    "bg-primary text-primary-foreground"
                   )}
                 >
                   {locale === "id" ? `Rp. ${amount.toLocaleString("id-ID")}` : `$${amount}`}
@@ -87,13 +99,11 @@ export default function UnifiedDonationForm() {
             </div>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-              {locale === "id" ? "Rp." : "$"}
+                {locale === "id" ? "Rp." : "$"}
               </span>
               <Input
                 id="custom-amount"
-                type="number"
-                min="1"
-                step="1"
+                type="text" // ✅ Keep it text to prevent unwanted default number formatting
                 placeholder={tDonation('customAmount')}
                 value={customAmount}
                 onChange={handleCustomAmountChange}
@@ -156,7 +166,7 @@ export default function UnifiedDonationForm() {
               />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
+              <div className="space-y-2">
                 <Label htmlFor="country">Country *</Label>
                 <Input id="country" placeholder="Enter your country" required />
               </div>
@@ -183,7 +193,7 @@ export default function UnifiedDonationForm() {
           </div>
 
           <Button type="submit" className="w-full bg-blue-400 hover:bg-blue-700" size="lg">
-           Complete Your Donation
+            Complete Your Donation
           </Button>
         </form>
       </CardContent>
