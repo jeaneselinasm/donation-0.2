@@ -65,6 +65,7 @@ export default function UnifiedDonationForm() {
 
   };
   const tDonation = useTranslations('donation')
+  const tPersonalInformation = useTranslations('personalInformation')
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="text-center">
@@ -114,41 +115,41 @@ export default function UnifiedDonationForm() {
 
           {/* Personal Information Section */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Personal Information</h3>
+            <h3 className="text-lg font-medium">{tPersonalInformation('title')}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="first-name">First Name *</Label>
+                <Label htmlFor="first-name">{tPersonalInformation('firstName')}*</Label>
                 <Input
                   id="first-name"
-                  placeholder="Enter your first name"
+                  placeholder={tPersonalInformation('firstNamePlaceholder')}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="last-name">Last Name *</Label>
+                <Label htmlFor="last-name">{tPersonalInformation('lastName')} *</Label>
                 <Input
                   id="last-name"
-                  placeholder="Enter your last name"
+                  placeholder={tPersonalInformation('lastNamePlaceholder')}
                   required
                 />
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address *</Label>
+                <Label htmlFor="email">{tPersonalInformation('email')} *</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={tPersonalInformation('emailPlaceholder')}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone">Phone Number</Label>
+                <Label htmlFor="phone">{tPersonalInformation('phoneNumber')}</Label>
                 <Input
                   id="phone"
-                  type="tel"
-                  placeholder="Enter your phone number"
+                  type="tel"     
+                  placeholder={tPersonalInformation('phoneNumberPlaceholder')}
                 />
               </div>
             </div>
@@ -156,37 +157,37 @@ export default function UnifiedDonationForm() {
 
           {/* Address Section */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Address Information</h3>
+            <h3 className="text-lg font-medium">{tPersonalInformation('addressInformation')}</h3>
             <div className="space-y-2">
-              <Label htmlFor="address">Street Address *</Label>
+              <Label htmlFor="address">{tPersonalInformation('streetAddress')} *</Label>
               <Input
                 id="address"
-                placeholder="Enter your street address"
+                placeholder={tPersonalInformation('streetAddressPlaceholder')}
                 required
               />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="country">Country *</Label>
-                <Input id="country" placeholder="Enter your country" required />
+                <Label htmlFor="country">{tPersonalInformation('country')} *</Label>
+                <Input id="country" placeholder={tPersonalInformation('countryPlaceholder')} required />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="city">City *</Label>
-                <Input id="city" placeholder="Enter your city" required />
+                <Label htmlFor="city">{tPersonalInformation('city')} *</Label>
+                <Input id="city" placeholder={tPersonalInformation('cityPlaceholder')} required />
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="postal-code">Postal Code *</Label>
+                <Label htmlFor="postal-code">{tPersonalInformation('postalCode')} *</Label>
                 <Input
                   id="postal-code"
-                  placeholder="Enter your postal code"
+                  placeholder={tPersonalInformation('postalCodePlaceholder')}
                   required
                 />
               </div>
               <div className="sm:pt-7 flex items-center">
                 <p className="text-xs text-muted-foreground">
-                  * Required fields
+                  * {tPersonalInformation('requiredFields')}
                 </p>
               </div>
             </div>

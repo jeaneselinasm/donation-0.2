@@ -22,7 +22,27 @@
       "title" : "Support Bible Translation",
       "description" : "By donating, you will directly impact communities that have never heard the Word of God. Your contribution will fund essential translation efforts and outreach initiatives.",
       "amount" : "Donation Amount",
-      "personalInformation" : "",
       "customAmount" : "Custom Amount"
+    },
+    "personalInformation" : {
+      "title" : "Personal Information",
+      "firstName" : "First Name",
+      "firstNamePlaceholder" : "Enter your first name",
+      "lastName" : "Last Name",
+      "lastNamePlaceholder" : "Enter your last name",
+      "email" : "Email Address",
+      "emailPlaceholder" : "Enter your email",
+      "phoneNumber" : "Phone Number",
+      "phoneNumberPlaceholder" : "Enter your phone number",
+      "addressInformation" : "Address Information",
+      "streetAddress" : "Street Address",
+      "streetAddressPlaceholder" : "Enter your street address",
+      "country" : "Country",
+      "countryPlaceholder" : "Enter your country",
+      "city" : "City",
+      "cityPlaceholder" : "Enter your city",
+      "postalCode" : "Postal Code",
+      "postalCodePlaceholder" : "Enter your postal code",
+      "requiredFields" : "Required fields"
     }
   }
