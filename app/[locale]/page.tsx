@@ -9,36 +9,36 @@ import MobileNav from "@/components/mobile-nav"
 import Image from "next/image"
 import UnifiedDonationForm from "@/components/unified-donation-form"
 import { useTranslations } from "next-intl"
+import LanguageSwitcher from "@/components/languageSwitcher"
+
+
+
 export default function Home() {
-  const t = useTranslations("HomePage")
+  const tHomePage = useTranslations("HomePage")
+  
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navigation */}
       <header className="border-b sticky top-0 bg-background z-10 p-2">
-        <div className="container flex h-16 items-center justify-between xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
+        <div className="container flex h-16 items-center justify-between xl:max-w-5xl 2xl:max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2">
             <Image src="/icons/BAHTRAKU_logo.png" width={150} height={150} alt="BAHTRAKU Logo" />
           </div>
           <nav className="hidden md:flex gap-6">
             <Link href="/" className="text-sm font-medium hover:underline hover:text-orange-500 underline-offset-4">
-              {t("home")}
+              {tHomePage("home")}
             </Link>
             <Link href="#about" className="text-sm font-medium hover:underline hover:text-orange-500 underline-offset-4">
-              {t("about")}
+              {tHomePage("about")}
             </Link>
-            {/* <Link
-              href="#impact"
-              className="text-sm font-medium hover:underline underline-offset-4"
-            >
-              Our Impact
-            </Link> */}
             <Link href="#testimonials" className="text-sm font-medium hover:underline hover:text-orange-500 underline-offset-4">
-              {t("testimonials")}
+              {tHomePage("testimonials")}
             </Link>
           </nav>
           <div className="flex items-center gap-2 ">
+            <LanguageSwitcher />
             <Button asChild className="hidden sm:flex bg-orange-400 hover:bg-slate-200 hover:text-orange-400">
-              <Link href="#donate">{t("donate")}</Link>
+              <Link href="#donate">{tHomePage("donate")}</Link>
             </Button>
             <MobileNav />
           </div>
@@ -51,10 +51,10 @@ export default function Home() {
           <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16 2xl:gap-20 items-center">
               <div className="space-y-4">
-                <h1 className="text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-blue-400 tracking-tighter">
-                  {t("mission")}
+                <h1 className="text-balance text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-blue-400">
+                  {tHomePage("mission")}
                 </h1>
-                <p className="text-muted-foreground text-base md:text-xl xl:text-2xl max-w-3xl">{t("missionText")}</p>
+                <p className="text-muted-foreground text-base md:text-xl xl:text-2xl max-w-3xl">{tHomePage("missionText")}</p>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Button
                     size="lg"
@@ -62,11 +62,11 @@ export default function Home() {
                     className="w-full sm:w-auto bg-orange-400 hover:bg-slate-200 hover:text-orange-500"
                   >
                     <Link href="#donate">
-                      {t("donate")} <ArrowRight className="ml-2 h-4 w-4" />
+                      {tHomePage("donate")} <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                   <Button variant="outline" size="lg" asChild className="w-full sm:w-auto">
-                    <Link href="#about"> {t("learnMore")}</Link>
+                    <Link href="#about"> {tHomePage("learnMore")}</Link>
                   </Button>
                 </div>
               </div>
@@ -83,22 +83,22 @@ export default function Home() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 xl:gap-12 2xl:gap-16 text-center">
               <ImpactCounter
                 value={141}
-                label="Bible Translation Projects"
+                label={tHomePage("bibleTranslationProjects")}
                 icon={<BookMarked className="h-5 md:h-6 w-5 md:w-6" />}
               />
               <ImpactCounter
                 value={43}
-                label="Completed Translation of NT"
+                label={tHomePage("newTestamentTranslations")}
                 icon={<BookOpen className="h-5 md:h-6 w-5 md:w-6" />}
               />
               <ImpactCounter
                 value={2}
-                label="Completed Translation of OT"
+                label={tHomePage("oldTestamentTranslations")}
                 icon={<BookOpen className="h-5 md:h-6 w-5 md:w-6" />}
               />
               <ImpactCounter
                 value={17}
-                label="Printed Trial Editions"
+                label={tHomePage("printedTrialEditions")}
                 icon={<PrinterCheck className="h-5 md:h-6 w-5 md:w-6" />}
               />
             </div>
@@ -110,15 +110,12 @@ export default function Home() {
           <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16 2xl:gap-20 items-center">
               <div className="space-y-4 order-2 lg:order-1">
-                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">Our Mission</h2>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">{tHomePage("ourMissionTitle")}</h2>
                 <p className="text-muted-foreground text-justify">
-                  We believe that everyone should have access to God&apos;s Word in their heart language. That&apos;s
-                  why we partner with local churches and language communities to translate the Bible accurately and
-                  faithfully, ensuring it remains true to its original meaning.
+                {tHomePage("ourMissionDescription1")}
                 </p>
                 <p className="text-muted-foreground text-justify">
-                  With your support, we can accelerate Bible translation projects worldwide, bringing Scripture to
-                  communities that have waited for generations to experience God&apos;s Word in their own language.
+                {tHomePage("ourMissionDescription2")}
                 </p>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 order-1 lg:order-2 rounded-xl">

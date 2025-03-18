@@ -22,8 +22,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-
+import { useTranslations } from "next-intl"
 export default function UnifiedDonationForm() {
+
+
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
 
@@ -46,18 +48,18 @@ export default function UnifiedDonationForm() {
 
     // In a real application, this would connect to a payment processor
     alert(`Processing one-time donation of $${donationAmount}`);
-  };
 
+    
+  };
+  const tDonation = useTranslations('donation')
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl md:text-3xl text-blue-400">
-          Support Bible Translation
+          {tDonation('title')}
         </CardTitle>
         <CardDescription className="">
-          By donating, you will directly impact communities that have never
-          heard the Word of God. Your contribution will fund essential
-          translation efforts and outreach initiatives.
+        {tDonation('description')}
         </CardDescription>
       </CardHeader>
       <CardContent>

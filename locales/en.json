@@ -6,6 +6,21 @@
       "donate": "Donate Now",
       "mission": "Bringing God's Word to Every Language",
       "missionText": "Join our mission to translate the Bible into every language, reaching communities that have never had Scripture in their heart language.",
-      "learnMore": "Learn More"
+      "learnMore": "Learn More",
+   "bibleTranslationProjects": "Bible Translation Projects",
+  "newTestamentTranslations": "Completed translations of the New Testament",
+  "oldTestamentTranslations": "Completed translations of the Old Testament",
+  "printedTrialEditions": "Printed Trial Editions",
+  "ourMissionTitle" : "Our Mission",
+  "ourMissionDescription1" : "We believe that everyone should have access to God&apos;s Word in their heart language. That's why we partner with local churches to translate the Bible accurately and faithfully, ensuring it remains true to its original meaning.",
+  "ourMissionDescription2" : "With your support, we can accelerate Bible translation projects worldwide, bringing Scripture to  communities that have waited for generations to experience God's Word in their own language."
+
+
+
+    },
+    "donation" :{
+      "title" : "Support Bible Translation",
+      "description" : "By donating, you will directly impact communities that have never heard the Word of God. Your contribution will fund essential translation efforts and outreach initiatives.",
+      "personalInformation" : ""
     }
   }

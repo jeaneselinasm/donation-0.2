@@ -6,6 +6,19 @@
       "donate": "Donasi Sekarang",
       "mission": "Membawa Firman Tuhan ke Setiap Bahasa",
       "missionText": "Bergabunglah dengan misi kami untuk menerjemahkan Alkitab ke dalam setiap bahasa, menjangkau komunitas yang belum pernah memiliki Firman Tuhan dalam bahasa hati mereka.",
-      "learnMore": "Pelajari Lebih Lanjut"
+      "learnMore": "Pelajari Lebih Lanjut",
+"bibleTranslationProjects": "Proyek Penerjemahan Alkitab",
+  "newTestamentTranslations": "Terjemahan Perjanjian Baru yang Telah disusun",
+  "oldTestamentTranslations": "Terjemahan Perjanjian Lama yang Telah disusun",
+  "printedTrialEditions": "Edisi Percobaan yang Dicetak",
+  "ourMissionTitle" : "Misi Kami",
+  "ourMissionDescription1" : "Kami percaya bahwa setiap orang harus memiliki akses ke Firman Tuhan dalam bahasa hati mereka. Itulah sebabnya kami bermitra dengan gereja-gereja lokal dan komunitas bahasa untuk menerjemahkan Alkitab secara akurat dan setia, memastikan Alkitab tetap sesuai dengan makna aslinya.",
+  "ourMissionDescription2" : "Dengan dukungan Anda, kami dapat mempercepat proyek-proyek penerjemahan Alkitab di seluruh dunia, membawa Alkitab kepada komunitas-komunitas yang telah menantikan selama beberapa generasi untuk mengalami Firman Tuhan dalam bahasa mereka sendiri."
+    },
+    "donation" :{
+      "title" : "Dukung Penerjemahan Alkitab",
+      "description" : "Dengan berdonasi, Anda akan secara langsung memberikan dampak kepada komunitas yang belum pernah mendengar Firman Tuhan. Kontribusi Anda akan mendanai upaya penerjemahan yang penting dan inisiatif penjangkauan.",
+      "amount" : "Jumlah Donasi",
+      "personalInformation" : ""
     }
   }
