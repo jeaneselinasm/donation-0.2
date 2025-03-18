@@ -55,6 +55,10 @@
       "bakatiRaraQuote" : "A historic moment for the Bakati’ Rara people! After dedicated efforts since February 2023, the New Testament was completed by August 2024. The launch at GKKI Bukit Sion Church was special—the first worship service entirely in Bakati’ Rara, proving the Bible’s deep impact on faith and culture.",
       "language" : "Language",
       "readFullStory" : "Read Full Story"
-
+    },
+    "CTA" : {
+      "title" : "Join Our Mission Today",
+      "description" : "Your gift, no matter the size, helps bring God's Word to people who have never had Scripture in their heart language.",
+      "buttonDonor" : "Become a Translation Partner"
     }
   }
