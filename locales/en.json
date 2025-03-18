@@ -22,7 +22,9 @@
       "title" : "Support Bible Translation",
       "description" : "By donating, you will directly impact communities that have never heard the Word of God. Your contribution will fund essential translation efforts and outreach initiatives.",
       "amount" : "Donation Amount",
-      "customAmount" : "Custom Amount"
+      "customAmount" : "Custom Amount",
+      "completeButton" : "Complete Your Donation",
+      "notes" : "You are entering amounts in USD. Our system will convert and display the amount in IDR when you proceed to choose your payment method."
     },
     "personalInformation" : {
       "title" : "Personal Information",

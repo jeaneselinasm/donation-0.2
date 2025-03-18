@@ -194,16 +194,15 @@ export default function UnifiedDonationForm() {
           </div>
 
           <Button type="submit" className="w-full bg-blue-400 hover:bg-blue-700" size="lg">
-            Complete Your Donation
+           {tDonation('completeButton')}
           </Button>
         </form>
       </CardContent>
       <CardFooter className="flex justify-center border-t pt-6">
-        <p className="text-xs text-center text-muted-foreground max-w-lg">
-          You are entering amounts in USD. Our system will convert and display
-          the amount in IDR when you proceed to choose your payment method.
-        </p>
-      </CardFooter>
+  <p className="text-xs text-center text-muted-foreground max-w-lg">
+    {locale === "en" ? tDonation("notes") : ""}
+  </p>
+</CardFooter>
     </Card>
   );
 }
