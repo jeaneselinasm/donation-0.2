@@ -15,14 +15,14 @@
   "ourMissionDescription1" : "Kami percaya bahwa setiap orang harus memiliki akses ke Firman Tuhan dalam bahasa hati mereka. Itulah sebabnya kami bermitra dengan gereja-gereja lokal dan komunitas bahasa untuk menerjemahkan Alkitab secara akurat dan setia, memastikan Alkitab tetap sesuai dengan makna aslinya.",
   "ourMissionDescription2" : "Dengan dukungan Anda, kami dapat mempercepat proyek-proyek penerjemahan Alkitab di seluruh dunia, membawa Alkitab kepada komunitas-komunitas yang telah menantikan selama beberapa generasi untuk mengalami Firman Tuhan dalam bahasa mereka sendiri."
     },
-    "donation" :{
+    "Donation" :{
       "title" : "Dukung Penerjemahan Alkitab",
       "description" : "Dengan berdonasi, Anda akan secara langsung memberikan dampak kepada komunitas yang belum pernah mendengar Firman Tuhan. Kontribusi Anda akan mendanai upaya penerjemahan yang penting dan inisiatif penjangkauan.",
       "amount" : "Jumlah Donasi",
       "customAmount" : "Masukkan Jumlah Donasi",
       "completeButton" : "Selesaikan donasi anda"
     },
-    "personalInformation" : {
+    "PersonalInformation" : {
       "title" : "Informasi Pribadi",
       "firstName" : "Nama Depan",
       "firstNamePlaceholder" : "Masukkan nama depan anda",
@@ -42,6 +42,16 @@
       "postalCode" : "Kode Pos",
       "postalCodePlaceholder" : "Masukkan kode pos anda",
       "requiredFields" : "Kolom yang wajib diisi"
+    },
+    "Testimonials": {
+      "title" : "Kesaksian-Kesaksian",
+      "description" : "Dengarkanlah mereka yang hidupnya telah diubahkan dengan menerima Firman Tuhan dalam bahasa hati mereka.",
+      "kemtuikQuote" : "Dalam kesedihan yang paling dalam, saya berpaling dari Tuhan, tetapi melalui Firman-Nya, Dia memanggil saya kembali. 1 Samuel 2:6 mengingatkan saya bahwa hidup ada di tangan-Nya. Sekarang, saya menerjemahkan bukan hanya kata-kata, tetapi juga sebuah pesan yang menguatkan dan mengubah hidup. Tuhan itu setia—Dia tidak pernah meninggalkan kita.",
+      "sukuLautQuote" : "Saya bingung antara mencari ikan untuk menafkahi keluarga atau mengikuti pelatihan penerjemahan Alkitab. Puji Tuhan, saya memilih untuk menerjemahkan Firman Tuhan ke dalam bahasa Suku Laut. Untuk pertama kalinya, saya membaca Alkitab dalam bahasa saya sendiri-dan saya adalah salah satu dari mereka yang menerjemahkannya. Hal itu memenuhi hati saya dengan sukacita!",
+      "bakatiRaraQuote" : "A historic moment for the Bakati’ Rara people! After dedicated efforts since February 2023, the New Testament was completed by August 2024. The launch at GKKI Bukit Sion Church was special—the first worship service entirely in Bakati’ Rara, proving the Bible’s deep impact on faith and culture.",
+      "language" : "Bahasa",
+      "readFullStory" : "Baca cerita selengkapnya"
+
     }
     
   }

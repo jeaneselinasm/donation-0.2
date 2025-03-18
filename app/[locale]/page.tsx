@@ -15,7 +15,7 @@ import LanguageSwitcher from "@/components/languageSwitcher"
 
 export default function Home() {
   const tHomePage = useTranslations("HomePage")
-  
+  const tTestimonials = useTranslations('Testimonials')
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navigation */}
@@ -133,80 +133,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Impact Section */}
-        {/* <section id="impact" className="py-12 md:py-16 lg:py-24 scroll-mt-16">
-          <div className="container px-4 md:px-6">
-            <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">
-                Your Impact
-              </h2>
-              <p className="text-muted-foreground">
-                See how your donations transform lives by bringing God's Word to
-                communities around the world.
-              </p>
-            </div>
-
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden">
-                <img
-                  src="/placeholder.svg?height=300&width=500"
-                  alt="Community Bible study"
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 md:p-6">
-                  <h3 className="text-lg md:text-xl font-bold mb-2">
-                    Community Transformation
-                  </h3>
-                  <p className="text-muted-foreground text-sm md:text-base">
-                    When people receive Scripture in their heart language,
-                    entire communities are transformed through God's Word.
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden">
-                <img
-                  src="/placeholder.svg?height=300&width=500"
-                  alt="Literacy class"
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 md:p-6">
-                  <h3 className="text-lg md:text-xl font-bold mb-2">
-                    Literacy Development
-                  </h3>
-                  <p className="text-muted-foreground text-sm md:text-base">
-                    Bible translation projects often include literacy programs,
-                    helping people read and write in their own language.
-                  </p>
-                </div>
-              </div>
-
-              <div className="rounded-lg border bg-card text-card-foreground shadow-sm overflow-hidden">
-                <img
-                  src="/placeholder.svg?height=300&width=500"
-                  alt="Digital Scripture access"
-                  className="w-full h-48 object-cover"
-                />
-                <div className="p-4 md:p-6">
-                  <h3 className="text-lg md:text-xl font-bold mb-2">
-                    Digital Access
-                  </h3>
-                  <p className="text-muted-foreground text-sm md:text-base">
-                    Your support helps create digital Scripture resources,
-                    making God's Word accessible on phones and devices
-                    worldwide.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section> */}
-
         {/* Testimonials */}
         <section id="testimonials" className="py-8 md:py-8 lg:py-12 scroll-mt-10">
           <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold text-blue-500 tracking-tighter mb-4">Testimonials</h2>
+              <h2 className="text-2xl md:text-3xl font-bold text-blue-500 tracking-tighter mb-4">{tTestimonials('title')}</h2>
               <p className="text-muted-foreground">
                 Hear from those whose lives have been changed by receiving Gods Word in their heart language.
               </p>
@@ -215,17 +146,17 @@ export default function Home() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8 2xl:gap-10">
               <TestimonialCard
                 id="kemtuik"
-                quote="In my deepest grief, I turned away from God, but through His Word, He called me back. 1 Samuel 2:6 reminded me that life is in His hands. Now, I translate not just words, but a message that strengthens and transforms lives. God is faithful—He never abandons us."
+                quote={tTestimonials('kemtuikQuote')}
                 language="Kemtuik"
               />
               <TestimonialCard
                 id="suku-laut"
-                quote="I was torn between fishing to provide for my family or joining Bible translation training. Praise God, I chose to translate His Word into the Suku Laut language. For the first time, I read the Bible in my own language—and I was one of those who translated it. It filled my heart with joy!"
+                quote={tTestimonials('sukuLautQuote')}
                 language="Suku Laut"
               />
               <TestimonialCard
                 id="bakati-rara"
-                quote="A historic moment for the Bakati’ Rara people! After dedicated efforts since February 2023, the New Testament was completed by August 2024. The launch at GKKI Bukit Sion Church was special—the first worship service entirely in Bakati’ Rara, proving the Bible’s deep impact on faith and culture."
+                quote={tTestimonials('bakatiRaraQuote')}
                 language="Bakati Rara"
               />
             </div>
@@ -263,38 +194,6 @@ export default function Home() {
             <div className="space-y-3 col-span-2">
               <h4 className="text-md font-medium text-orange-400">BAHTRAKU Registered In:</h4>
               <ul className="space-y-2">
-                {/* <li>
-                  <Link
-                    href="#about"
-                    className="text-sm text-muted-foreground hover:text-foreground"
-                  >
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#donate"
-                    className="text-sm text-muted-foreground hover:text-foreground"
-                  >
-                    Ways to Give
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-sm text-muted-foreground hover:text-foreground"
-                  >
-                    Prayer Requests
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="#"
-                    className="text-sm text-muted-foreground hover:text-foreground"
-                  >
-                    Volunteer
-                  </Link>
-                </li> */}
                 <li className="text-sm text-muted-foreground hover:text-foreground">
                   Indonesia Ministry of Law and Human Rights No. AHU-0034498.AH.01.12 (2022)
                 </li>

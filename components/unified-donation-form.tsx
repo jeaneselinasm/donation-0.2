@@ -64,8 +64,8 @@ export default function UnifiedDonationForm() {
 
 
   };
-  const tDonation = useTranslations('donation')
-  const tPersonalInformation = useTranslations('personalInformation')
+  const tDonation = useTranslations('Donation')
+  const tPersonalInformation = useTranslations('PersonalInformation')
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="text-center">

@@ -18,7 +18,7 @@
 
 
     },
-    "donation" :{
+    "Donation" :{
       "title" : "Support Bible Translation",
       "description" : "By donating, you will directly impact communities that have never heard the Word of God. Your contribution will fund essential translation efforts and outreach initiatives.",
       "amount" : "Donation Amount",
@@ -26,7 +26,7 @@
       "completeButton" : "Complete Your Donation",
       "notes" : "You are entering amounts in USD. Our system will convert and display the amount in IDR when you proceed to choose your payment method."
     },
-    "personalInformation" : {
+    "PersonalInformation" : {
       "title" : "Personal Information",
       "firstName" : "First Name",
       "firstNamePlaceholder" : "Enter your first name",
@@ -46,5 +46,15 @@
       "postalCode" : "Postal Code",
       "postalCodePlaceholder" : "Enter your postal code",
       "requiredFields" : "Required fields"
+    },
+    "Testimonials": {
+      "title" : "Testimonials",
+      "description" : "Hear from those whose lives have been changed by receiving Gods Word in their heart language.",
+      "kemtuikQuote" : "In my deepest grief, I turned away from God, but through His Word, He called me back. 1 Samuel 2:6 reminded me that life is in His hands. Now, I translate not just words, but a message that strengthens and transforms lives. God is faithful—He never abandons us.",
+      "sukuLautQuote" : "I was torn between fishing to provide for my family or joining Bible translation training. Praise God, I chose to translate His Word into the Suku Laut language. For the first time, I read the Bible in my own language—and I was one of those who translated it. It filled my heart with joy!",
+      "bakatiRaraQuote" : "A historic moment for the Bakati’ Rara people! After dedicated efforts since February 2023, the New Testament was completed by August 2024. The launch at GKKI Bukit Sion Church was special—the first worship service entirely in Bakati’ Rara, proving the Bible’s deep impact on faith and culture.",
+      "language" : "Language",
+      "readFullStory" : "Read Full Story"
+
     }
   }
