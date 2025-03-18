@@ -22,14 +22,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
+
 export default function UnifiedDonationForm() {
-
-
+ 
+  const locale = useLocale(); // ✅ Get the current locale
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
 
-  const donationAmounts = [39, 79, 109];
+  const donationAmounts = locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
 
   const handleAmountClick = (amount: number) => {
     setSelectedAmount(amount);
@@ -66,7 +67,7 @@ export default function UnifiedDonationForm() {
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Donation Amount Section */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">Donation Amount</h3>
+            <h3 className="text-lg font-medium">{tDonation('amount')}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {donationAmounts.map((amount) => (
                 <Button
@@ -80,23 +81,23 @@ export default function UnifiedDonationForm() {
                       "bg-primary text-primary-foreground"
                   )}
                 >
-                  ${amount}
+                  {locale === "id" ? `Rp. ${amount.toLocaleString("id-ID")}` : `$${amount}`}
                 </Button>
               ))}
             </div>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                $
+              {locale === "id" ? "Rp." : "$"}
               </span>
               <Input
                 id="custom-amount"
                 type="number"
                 min="1"
                 step="1"
-                placeholder="Custom amount"
+                placeholder={tDonation('customAmount')}
                 value={customAmount}
                 onChange={handleCustomAmountChange}
-                className="pl-7"
+                className="pl-14"
               />
             </div>
           </div>

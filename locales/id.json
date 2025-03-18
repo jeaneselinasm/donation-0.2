@@ -19,6 +19,7 @@
       "title" : "Dukung Penerjemahan Alkitab",
       "description" : "Dengan berdonasi, Anda akan secara langsung memberikan dampak kepada komunitas yang belum pernah mendengar Firman Tuhan. Kontribusi Anda akan mendanai upaya penerjemahan yang penting dan inisiatif penjangkauan.",
       "amount" : "Jumlah Donasi",
-      "personalInformation" : ""
+      "personalInformation" : "",
+      "customAmount" : "Masukkan Jumlah Donasi"
     }
   }

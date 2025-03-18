@@ -21,6 +21,8 @@
     "donation" :{
       "title" : "Support Bible Translation",
       "description" : "By donating, you will directly impact communities that have never heard the Word of God. Your contribution will fund essential translation efforts and outreach initiatives.",
-      "personalInformation" : ""
+      "amount" : "Donation Amount",
+      "personalInformation" : "",
+      "customAmount" : "Custom Amount"
     }
   }
