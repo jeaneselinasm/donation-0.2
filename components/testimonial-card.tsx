@@ -22,7 +22,7 @@ export default function TestimonialCard({
     <Card className="h-full">
       <CardContent className="p-6 flex flex-col h-full">
         <Quote className="h-8 w-8 mb-4 text-orange-400" />
-        <p className="text-muted-foreground flex-1 mb-6 text-justify">
+        <p className="text-muted-foreground flex-1 mb-6 text-justify text-wrap">
           &rdquo;{quote}&rdquo;
         </p>
 

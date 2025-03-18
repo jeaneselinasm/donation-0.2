@@ -138,8 +138,8 @@ export default function Home() {
           <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
               <h2 className="text-2xl md:text-3xl font-bold text-blue-500 tracking-tighter mb-4">{tTestimonials('title')}</h2>
-              <p className="text-muted-foreground">
-                Hear from those whose lives have been changed by receiving Gods Word in their heart language.
+              <p className="text-muted-foreground md:text-nowrap">
+               {tTestimonials('description')}
               </p>
             </div>
 

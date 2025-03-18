@@ -193,7 +193,7 @@ export default function UnifiedDonationForm() {
             </div>
           </div>
 
-          <Button type="submit" className="w-full bg-blue-400 hover:bg-blue-700" size="lg">
+          <Button type="submit" className="w-full text-md bg-blue-400 hover:bg-blue-700" size="lg">
            {tDonation('completeButton')}
           </Button>
         </form>
