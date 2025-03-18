@@ -51,10 +51,10 @@ export default function Home() {
           <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
             <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:gap-16 2xl:gap-20 items-center">
               <div className="space-y-4">
-                <h1 className="text-balance text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-blue-400">
+                <h1 className="text-balance text-3xl md:text-3xl lg:text-4xl xl:text-5xl  font-bold text-[#086ec5]">
                   {tHomePage("mission")}
                 </h1>
-                <p className="text-muted-foreground text-base md:text-xl xl:text-2xl max-w-3xl">{tHomePage("missionText")}</p>
+                <p className="text-muted-foreground text-base md:text-xl xl:text-xl max-w-3xl">{tHomePage("missionText")}</p>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Button
                     size="lg"
@@ -138,9 +138,9 @@ export default function Home() {
           <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
             <div className="text-center max-w-3xl mx-auto mb-8 md:mb-12">
               <h2 className="text-2xl md:text-3xl font-bold text-blue-500 tracking-tighter mb-4">{tTestimonials('title')}</h2>
-              <p className="text-muted-foreground md:text-nowrap">
+              <h4 className="text-muted-foreground md:text-nowrap">
                {tTestimonials('description')}
-              </p>
+              </h4>
             </div>
 
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8 2xl:gap-10">

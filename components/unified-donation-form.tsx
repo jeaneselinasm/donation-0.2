@@ -69,7 +69,7 @@ export default function UnifiedDonationForm() {
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl md:text-3xl text-blue-400">
+        <CardTitle className="text-2xl md:text-3xl text-[#0087ee]">
           {tDonation('title')}
         </CardTitle>
         <CardDescription className="">
@@ -91,7 +91,7 @@ export default function UnifiedDonationForm() {
                   className={cn(
                     "h-12 text-base",
                     selectedAmount === amount &&
-                    "bg-primary text-primary-foreground"
+                    "bg-[#f78540] text-primary-foreground"
                   )}
                 >
                   {locale === "id" ? `Rp. ${amount.toLocaleString("id-ID")}` : `$${amount}`}
