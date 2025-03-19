@@ -1,9 +1,16 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useTranslations , useLocale} from "next-intl";
+import { getTranslations } from "next-intl/server";
+import { notFound } from "next/navigation";
 
 // This would typically come from a database or API
+
+// ✅ Define the expected TypeScript type for `params`
+interface PageParams {
+  id: string;
+  locale: string;
+}
 const testimonials = [
   {
     id: "kemtuik",
@@ -26,7 +33,7 @@ May this testimony be a blessing to future generations and strengthen those who 
   {
     id: "suku-laut",
     language: "Suku Laut",
-    location: "/placeholder.svg?height=400&width=400",
+    location: "Riau",
     shortQuote:
       "I was torn between fishing to provide for my family or joining Bible translation training. Praise God, I chose to translate His Word into the Suku Laut language. For the first time, I read the Bible in my own language—and I was one of those who translated it. It filled my heart with joy!",
     fullStory: `When I was invited to become a translator, I initially felt fear and hesitation about joining the team.
@@ -38,8 +45,7 @@ I had never read the Bible in my mother tongue before. But when we, the translat
   {
     id: "bakati-rara",
     language: "Bakati Rara",
-    location: "United States",
-    image: "/placeholder.svg?height=400&width=400",
+    location: "Kalimantan",
     shortQuote:
       "A historic moment for the Bakati’ Rara people! After dedicated efforts since February 2023, the New Testament was completed by August 2024. The launch at GKKI Bukit Sion Church was special—the first worship service entirely in Bakati’ Rara, proving the Bible’s deep impact on faith and culture.",
     fullStory: `The launch of the Bible in the Bakati' Rara language was a truly historic moment and the result of much hard work and dedication from the language group. Starting with training in February 2023, they were able to complete the New Testament translation by August 2024. The event, held at GKKI Bukit Sion Church, was very meaningful because it was the first time that the entire worship service, including songs and Bible readings, was done completely in Bekati Rara. This shows how important local languages are in faith practices and how the Bible can become a valuable heritage for future generations.
@@ -50,17 +56,16 @@ This launch is an inspiration for other language groups in West Kalimantan. It a
   },
 ];
 
-export default function TestimonialPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const locale = useLocale()
-  const tTestimonials = useTranslations('Testimonials')
-  const testimonial = testimonials.find((t) => t.id === params.id);
-
-  if (!testimonial) {
-    return <div>Testimonial not found</div>;
+export default async function TestimonialPage({ params }) {
+  const { id, locale } = await params;
+  const tTestimonials = await getTranslations("Testimonials");
+  const testimonial = testimonials.find((t) => t.id === id);
+  const quoteKey = `${id}Quote`;
+  const fullStoryKey = `${id}FullStory`;
+  const quote = tTestimonials(quoteKey);
+  const fullStory = tTestimonials(fullStoryKey);
+  if (!testimonial || !quote || !fullStory) {
+    notFound();
   }
 
   return (
@@ -68,41 +73,52 @@ export default function TestimonialPage({
       <Button variant="ghost" asChild className="mb-6">
         <Link href="/#testimonials">
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Testimonials {locale}
+          {tTestimonials("back")}
         </Link>
       </Button>
 
       <div className="space-y-6">
         <div className="bg-muted p-6 rounded-lg">
           <h1 className="text-2xl font-bold mb-2 text-blue-500">
-            A Testimony from {testimonial.language} Language
+            {tTestimonials("titlePage")}{" "}
+            {locale === "id" ? (
+              <>
+                {tTestimonials("language")} {testimonial.language}
+              </>
+            ) : (
+              <>
+                {testimonial.language} {tTestimonials("language")}
+              </>
+            )}
           </h1>
           <p className="text-muted-foreground">
-            Location: {testimonial.location}
+            {tTestimonials("location")}: {testimonial.location}
           </p>
         </div>
 
         <blockquote className="text-xl italic border-l-4 border-primary pl-4 py-2">
-        {tTestimonials('kemtuikQuote')}
+          {quote}
         </blockquote>
 
         <div className="space-y-4 text-justify">
-          {testimonial.fullStory.split("\n\n").map((paragraph, index) => (
-            <p key={index} className="text-muted-foreground">
-              {paragraph}
-            </p>
-          ))}
+          {fullStory
+            .replace(/\\n/g, "\n") // ✅ Convert escaped `\n` back to actual new lines
+            .split("\n\n") // ✅ Now it can split properly
+            .map((paragraph, index) => (
+              <p key={index} className="text-muted-foreground">
+                {paragraph}
+              </p>
+            ))}
         </div>
       </div>
 
       <div className="mt-12 text-center">
-        <h2 className="text-2xl font-bold mb-4">Inspired by This Story?</h2>
+        <h2 className="text-xl md:text-2xl font-bold mb-4">{tTestimonials('inspired')} </h2>
         <p className="mb-6">
-          Your support can help bring God&apos;s Word to more communities in
-          their heart language.
+          {tTestimonials('support')}
         </p>
         <Button asChild size="lg" className="bg-orange-400 hover:bg-orange-500">
-          <Link href="/#donate">Make a Donation</Link>
+          <Link href="/#donate">{tTestimonials('donation')}</Link>
         </Button>
       </div>
     </div>

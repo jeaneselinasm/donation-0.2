@@ -145,7 +145,7 @@ export default function Home() {
               </h4>
             </div>
 
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8 2xl:gap-10">
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:gap-8 2xl:gap-10 justify-items-center">
               <TestimonialCard
                 id="kemtuik"
                 quote={tTestimonials('kemtuikQuote')}
@@ -153,12 +153,12 @@ export default function Home() {
               />
               <TestimonialCard
                 id="suku-laut"
-                quote={tTestimonials('sukuLautQuote')}
+                quote={tTestimonials('suku-lautQuote')}
                 language="Suku Laut"
               />
               <TestimonialCard
                 id="bakati-rara"
-                quote={tTestimonials('bakatiRaraQuote')}
+                quote={tTestimonials('bakati-raraQuote')}
                 language="Bakati Rara"
               />
             </div>
