@@ -39,7 +39,7 @@ export default function TestimonialCard({
             )}
           </Badge>
           <Button asChild className="mt-auto bg-blue-500 hover:bg-blue-700">
-            <Link href={`/testimonials/${id}`}>
+            <Link href={`/${locale}/testimonials/${id}`}>
               {tTestimonials("readFullStory")}
             </Link>
           </Button>

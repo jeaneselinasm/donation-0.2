@@ -16,6 +16,8 @@ import LanguageSwitcher from "@/components/languageSwitcher"
 export default function Home() {
   const tHomePage = useTranslations("HomePage")
   const tTestimonials = useTranslations('Testimonials')
+  const tCTA = useTranslations('CTA')
+  const tFooter = useTranslations('Footer')
   return (
     <div className="flex flex-col min-h-screen">
       {/* Navigation */}
@@ -164,16 +166,15 @@ export default function Home() {
         </section>
 
         {/* CTA Section */}
-        <section className="py-12 md:py-16 lg:py-24 bg-blue-400 text-primary-foreground">
+        <section className="py-12 md:py-16 lg:py-24 bg-[#feead6] text-primary-foreground">
           <div className="container px-4 md:px-6 xl:max-w-7xl 2xl:max-w-[1400px] mx-auto text-center">
-            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4">Join Our Mission Today</h2>
-            <p className="text-primary-foreground/80 max-w-2xl mx-auto mb-6 md:mb-8">
-              Your gift, no matter the size, helps bring God's Word to people who have never had Scripture in their
-              heart language.
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tighter mb-4 text-[#086ec5]">{tCTA('title')}</h2>
+            <p className="text-[#086ec5] max-w-2xl mx-auto mb-6 md:mb-8">
+            {tCTA('description')}
             </p>
             <Button size="lg" variant="secondary" asChild className="w-full sm:w-auto">
               <Link href="#donate">
-                Become a Translation Partner <ArrowRight className="ml-2 h-4 w-4" />
+              {tCTA('buttonDonor')} <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
           </div>
@@ -189,33 +190,30 @@ export default function Home() {
                 {/* <BookOpen className="h-6 w-6 text-primary" /> */}
                 <span className="text-xl font-bold text-orange-400">BAHTRAKU</span>
               </div>
-              <p className="text-sm text-muted-foreground">Acceleration of transformation</p>
+              <p className="text-sm text-muted-foreground">{tFooter('description')}</p>
             </div>
             <div className="space-y-3 col-span-2">
-              <h4 className="text-md font-medium text-orange-400">BAHTRAKU Registered In:</h4>
+              <h4 className="text-md font-medium text-orange-400">{tFooter('footerTitle')}</h4>
               <ul className="space-y-2">
                 <li className="text-sm text-muted-foreground hover:text-foreground">
-                  Indonesia Ministry of Law and Human Rights No. AHU-0034498.AH.01.12 (2022)
+                {tFooter('registration1')}
                 </li>
                 <li className="text-sm text-muted-foreground hover:text-foreground">
-                  Indonesia Ministry of Religious Affairs, Director General for Guidance of the Christian Community
-                  Letter No. 363 (2023)
+                {tFooter('registration2')}
                 </li>
                 <li className="text-sm text-muted-foreground hover:text-foreground">
-                  Fellowship of Indonesian Evangelical Churches and Institutions (Persekutuan Gereja dan Lembaga Injili
-                  Indonesia / PGLII)
+                {tFooter('registration3')}
                 </li>
                 <li className="text-sm text-muted-foreground hover:text-foreground">
-                  Registered Member of the Indonesian Christian Council for Stewardship & Accountability (ICCSA) since
-                  2023
+                {tFooter('registration4')}
                 </li>
                 <li className="text-sm text-muted-foreground hover:text-foreground">
-                  Associate Member of Asia Evangelical Alliance
+                {tFooter('registration5')}
                 </li>
               </ul>
             </div>
             <div className="space-y-3 ">
-              <h4 className="text-sm font-medium">Connect With Us</h4>
+              <h4 className="text-sm font-medium">{tFooter('connectWithUs')}</h4>
               <ul className="">
                 <li className="flex flex-row text-sm text-muted-foreground hover:text-foreground">
                   <Instagram className="h-6 mr-2" />
@@ -232,10 +230,10 @@ export default function Home() {
             <div className="mr-2">
               {" "}
               <Link href="/privacy-policy" className="hover:underline">
-                Privacy Policy
+                {tFooter('privacyPolicyTitle')}
               </Link>
             </div>
-            <div> &copy; {new Date().getFullYear()} BAHTRAKU. All rights reserved.</div>
+            <div> &copy; {new Date().getFullYear()} BAHTRAKU. {tFooter('allRightsReserved')}</div>
           </div>
         </div>
       </footer>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslations , useLocale} from "next-intl";
 
 // This would typically come from a database or API
 const testimonials = [
@@ -54,6 +55,8 @@ export default function TestimonialPage({
 }: {
   params: { id: string };
 }) {
+  const locale = useLocale()
+  const tTestimonials = useTranslations('Testimonials')
   const testimonial = testimonials.find((t) => t.id === params.id);
 
   if (!testimonial) {
@@ -65,7 +68,7 @@ export default function TestimonialPage({
       <Button variant="ghost" asChild className="mb-6">
         <Link href="/#testimonials">
           <ArrowLeft className="mr-2 h-4 w-4" />
-          Back to Testimonials
+          Back to Testimonials {locale}
         </Link>
       </Button>
 
@@ -80,7 +83,7 @@ export default function TestimonialPage({
         </div>
 
         <blockquote className="text-xl italic border-l-4 border-primary pl-4 py-2">
-          &quot;{testimonial.shortQuote}&quot;
+        {tTestimonials('kemtuikQuote')}
         </blockquote>
 
         <div className="space-y-4 text-justify">
