@@ -193,7 +193,7 @@ export default function Home() {
               <p className="text-sm text-muted-foreground">{tFooter('description')}</p>
             </div>
             <div className="space-y-3 col-span-2">
-              <h4 className="text-md font-medium text-orange-400">{tFooter('footerTitle')}</h4>
+              <h4 className="text-md font-medium ">{tFooter('footerTitle')}</h4>
               <ul className="space-y-2">
                 <li className="text-sm text-muted-foreground hover:text-foreground">
                 {tFooter('registration1')}
