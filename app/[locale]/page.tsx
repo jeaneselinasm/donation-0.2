@@ -8,12 +8,14 @@ import ImpactCounter from "@/components/impact-counter"
 import MobileNav from "@/components/mobile-nav"
 import Image from "next/image"
 import UnifiedDonationForm from "@/components/unified-donation-form"
-import { useTranslations } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
 import LanguageSwitcher from "@/components/languageSwitcher"
 
 
 
 export default function Home() {
+  
+   const locale = useLocale(); // ✅ Get the current locale
   const tHomePage = useTranslations("HomePage")
   const tTestimonials = useTranslations('Testimonials')
   const tCTA = useTranslations('CTA')
@@ -229,7 +231,7 @@ export default function Home() {
           <div className="border-t md:flex md:flex-col-2 p-4 justify-center items-center text-center text-sm text-orange-400">
             <div className="mr-2">
               {" "}
-              <Link href="/privacy-policy" className="hover:underline">
+              <Link href={`/${locale}/privacy-policy`} className="hover:underline">
                 {tFooter('privacyPolicyTitle')}
               </Link>
             </div>

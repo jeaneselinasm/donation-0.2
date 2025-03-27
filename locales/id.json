@@ -77,6 +77,11 @@
   "registration4": "Anggota Teregistrasi dari Perkumpulan Majelis Penatalayanan dan Akuntabilitas Kristiani Indonesia sejak 2023",
   "registration5": "Anggota Asosiasi Aliansi Injili Asia",
   "privacyPolicyTitle": "Kebijakan Privasi"
+    },
+    "PrivacyPolicy": {
+      "title" : "Kebijakan Privasi",
+      "description" : "Di BAHTRAKU, kami mengutamakan privasi dan keamanan informasi pribadi Anda. Kami mengumpulkan nama dan alamat email Anda untuk berkomunikasi terkait donasi dan memberikan pembaruan mengenai misi kami. Detail pembayaran Anda diproses secara aman melalui penyedia layanan pembayaran yang terpercaya, dan kami tidak menyimpan informasi lengkap kartu kredit Anda di server kami. Kami menerapkan langkah-langkah keamanan yang ketat untuk melindungi data Anda dari akses yang tidak sah. Jika Anda memiliki pertanyaan mengenai praktik privasi kami, silakan hubungi kami di ",
+      "backButton" : "Kembali ke Beranda"
     }
     
   }
