@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useTranslations, useLocale } from "next-intl"
-
+import { createDonation } from "@/lib/action";
 export default function UnifiedDonationForm() {
 
   const locale = useLocale(); // ✅ Get the current locale
@@ -56,9 +56,7 @@ export default function UnifiedDonationForm() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const donationAmount =
-      selectedAmount || (customAmount ? Number.parseFloat(customAmount) : 0);
-
+    createDonation(form)
     // In a real application, this would connect to a payment processor
     alert(`Processing one-time donation of $${donationAmount}`);
 
@@ -121,6 +119,7 @@ export default function UnifiedDonationForm() {
                 <Label htmlFor="first-name">{tPersonalInformation('firstName')}*</Label>
                 <Input
                   id="first-name"
+                  name="firstName"
                   placeholder={tPersonalInformation('firstNamePlaceholder')}
                   required
                 />
@@ -129,6 +128,7 @@ export default function UnifiedDonationForm() {
                 <Label htmlFor="last-name">{tPersonalInformation('lastName')} *</Label>
                 <Input
                   id="last-name"
+                  name="lastName"
                   placeholder={tPersonalInformation('lastNamePlaceholder')}
                   required
                 />
@@ -139,6 +139,7 @@ export default function UnifiedDonationForm() {
                 <Label htmlFor="email">{tPersonalInformation('email')} *</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder={tPersonalInformation('emailPlaceholder')}
                   required
@@ -148,6 +149,7 @@ export default function UnifiedDonationForm() {
                 <Label htmlFor="phone">{tPersonalInformation('phoneNumber')}</Label>
                 <Input
                   id="phone"
+                  name="phone"
                   type="tel"     
                   placeholder={tPersonalInformation('phoneNumberPlaceholder')}
                 />
@@ -162,6 +164,7 @@ export default function UnifiedDonationForm() {
               <Label htmlFor="address">{tPersonalInformation('streetAddress')} *</Label>
               <Input
                 id="address"
+                name="address"
                 placeholder={tPersonalInformation('streetAddressPlaceholder')}
                 required
               />
@@ -169,11 +172,11 @@ export default function UnifiedDonationForm() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="country">{tPersonalInformation('country')} *</Label>
-                <Input id="country" placeholder={tPersonalInformation('countryPlaceholder')} required />
+                <Input id="country" name="country" placeholder={tPersonalInformation('countryPlaceholder')} required />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="city">{tPersonalInformation('city')} *</Label>
-                <Input id="city" placeholder={tPersonalInformation('cityPlaceholder')} required />
+                <Input id="city" name="city" placeholder={tPersonalInformation('cityPlaceholder')} required />
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -181,6 +184,7 @@ export default function UnifiedDonationForm() {
                 <Label htmlFor="postal-code">{tPersonalInformation('postalCode')} *</Label>
                 <Input
                   id="postal-code"
+                  name="postal-code"
                   placeholder={tPersonalInformation('postalCodePlaceholder')}
                   required
                 />
