@@ -69,10 +69,10 @@ export default function UnifiedDonationForm() {
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="text-center">
-        <CardTitle className="text-2xl md:text-3xl text-[#0087ee]">
+        <CardTitle className="text-2xl md:text-3xl text-[#0087ee] ">
           {tDonation('title')}
         </CardTitle>
-        <CardDescription className="">
+        <CardDescription className="text-justify md:text-center">
           {tDonation('description')}
         </CardDescription>
       </CardHeader>
