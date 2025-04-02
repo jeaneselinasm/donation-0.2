@@ -23,6 +23,9 @@ const CreateDonation = DonationFormSchema.omit({ amount: true })
 type DonationFields = z.infer<typeof CreateDonation>
 
 export async function createDonation(formData: FormData) {
+
+  console.log('<<<')
+  console.log('form data', formData)
   const values: Record<string, FormDataEntryValue | null> = {
     amount: formData.get('amount'),
     firstName: formData.get('firstName'),

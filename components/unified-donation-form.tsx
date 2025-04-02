@@ -54,11 +54,31 @@ export default function UnifiedDonationForm() {
   };
 
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createDonation(form)
+    const form = e.currentTarget
+    console.log('<<<')
+    console.log(form)
+    const formData = new FormData(form);
+
+
+    console.log("🚀 Form Data:");
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+    
     // In a real application, this would connect to a payment processor
-    alert(`Processing one-time donation of $${donationAmount}`);
+    alert(`Processing one-time donation of `);
+
+
+    // Add amount manually if it's not already added as hidden input:
+  if (!formData.get("amount")) {
+    
+    const amount : string = selectedAmount || customAmount.replace(/[^0-9]/g, "");
+    formData.append("amount", amount);
+  }
+
+  await createDonation(formData);
 
 
   };
