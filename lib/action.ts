@@ -23,7 +23,8 @@ const CreateDonation = DonationFormSchema.omit({ amount: true })
 type DonationFields = z.infer<typeof CreateDonation>
 
 export async function createDonation(formData: FormData) {
-
+  const locale = formData.get('locale') as string
+  console.log('Locale : ', locale)
   console.log('<<<')
   console.log('form data', formData)
   const values: Record<string, FormDataEntryValue | null> = {
@@ -33,6 +34,7 @@ export async function createDonation(formData: FormData) {
 
   const validateFields = CreateDonation.safeParse({
     firstName: values.firstName,
+    lastName : values.lastName
   })
 
   if (!validateFields.success) {

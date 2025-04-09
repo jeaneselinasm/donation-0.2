@@ -62,10 +62,7 @@ export default function UnifiedDonationForm() {
     const formData = new FormData(form);
 
 
-    console.log("🚀 Form Data:");
-  for (let [key, value] of formData.entries()) {
-    console.log(`${key}: ${value}`);
-  }
+  
     
     // In a real application, this would connect to a payment processor
     alert(`Processing one-time donation of `);
@@ -78,6 +75,14 @@ export default function UnifiedDonationForm() {
     formData.append("amount", amount);
   }
 
+  // Append the locale value
+  formData.append("locale", locale);
+
+
+  console.log("🚀 Form Data: heree");
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
   await createDonation(formData);
 
 
