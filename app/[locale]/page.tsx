@@ -26,7 +26,9 @@ export default function Home() {
       <header className="border-b sticky top-0 bg-background z-10 p-2">
         <div className="container flex h-16 items-center justify-between xl:max-w-5xl 2xl:max-w-[1400px] mx-auto">
           <div className="flex items-center gap-2">
+            <Link href='/'>
             <Image src="/icons/BAHTRAKU_logo.png" width={150} height={150} alt="BAHTRAKU Logo" />
+            </Link>
           </div>
           <nav className="hidden md:flex gap-6">
             <Link href="/" className="text-sm font-medium hover:underline hover:text-orange-500 underline-offset-4">
