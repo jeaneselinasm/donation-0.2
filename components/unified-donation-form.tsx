@@ -75,7 +75,7 @@ export default function UnifiedDonationForm() {
     }
     
 // Call your server action
-const result = await createDonation(formData);
+const result = await createDonation(formData, locale);
 
 if (result?.errors) {
   setFormErrors(result.errors);
