@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import Swal from 'sweetalert2'
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,25 +14,23 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useTranslations, useLocale } from "next-intl"
 import { createDonation } from "@/lib/action";
 export default function UnifiedDonationForm() {
-  const [formErrors, setFormErrors] = useState<Record<string, string[]>>({}); // ✅ Error state
+
   const locale = useLocale(); // ✅ Get the current locale
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
-  const donationAmounts = locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
-// form
-// const [firstName, setFirstName] = useState('')
 
+  const donationAmounts = locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
 
   // ✅ Format input while keeping it numeric
   const formatNumber = (value: string) => {
@@ -58,52 +56,34 @@ export default function UnifiedDonationForm() {
 
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget;
+    const form = e.currentTarget
+    console.log('<<<')
+    console.log(form)
     const formData = new FormData(form);
 
-    if (!formData.get("amount")) {
-      const amount: string = selectedAmount 
-      ? selectedAmount.toString() 
-      : customAmount.replace(/[^0-9]/g, "");
-      formData.append("amount", amount);
-    }
 
-    formData.append("locale", locale);
-    console.log("🚀 Form Data: heree");
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+  
     
-// Call your server action
-const result = await createDonation(formData);
+    // In a real application, this would connect to a payment processor
+    alert(`Processing one-time donation of `);
 
-if (result?.errors) {
-  setFormErrors(result.errors);
-  return;
-}
 
-setFormErrors({}); // Clear any existing errors
-
-// Show Snap payment pop-up if available
-if (result?.token && (window as any).snap) {
-  (window as any).snap.pay(result.token, {
-    onSuccess: function () {
-      Swal.fire("Success", "Thank you for your donation!", "success");
-    },
-    onPending: function () {
-      Swal.fire("Pending", "Your payment is being processed.", "info");
-    },
-    onError: function () {
-      Swal.fire("Failed", "There was an error processing your payment.", "error");
-    },
-    onClose: function () {
-      Swal.fire("Closed", "You closed the payment window.", "info");
-    },
-  });
-} else {
-  Swal.fire("Oops", "Something went wrong with the payment setup.", "warning");
-}
+    // Add amount manually if it's not already added as hidden input:
+  if (!formData.get("amount")) {
     
+    const amount : string = selectedAmount || customAmount.replace(/[^0-9]/g, "");
+    formData.append("amount", amount);
+  }
+
+  // Append the locale value
+  formData.append("locale", locale);
+
+
+  console.log("🚀 Form Data: heree");
+  for (let [key, value] of formData.entries()) {
+    console.log(`${key}: ${value}`);
+  }
+  await createDonation(formData);
 
 
   };
@@ -168,10 +148,6 @@ if (result?.token && (window as any).snap) {
                   placeholder={tPersonalInformation('firstNamePlaceholder')}
                   
                 />
-               {formErrors.firstName && (
-  <p className="text-sm text-red-500">{formErrors.firstName[0]}</p>
-)}
-                
               </div>
               <div className="space-y-2">
                 <Label htmlFor="last-name">{tPersonalInformation('lastName')} *</Label>
