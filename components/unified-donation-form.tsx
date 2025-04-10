@@ -181,6 +181,9 @@ if (result?.token && (window as any).snap) {
                   placeholder={tPersonalInformation('lastNamePlaceholder')}
                   
                 />
+                {formErrors.lastName && (
+  <p className="text-sm text-red-500">{formErrors.lastName[0]}</p>
+)}
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -193,6 +196,9 @@ if (result?.token && (window as any).snap) {
                   placeholder={tPersonalInformation('emailPlaceholder')}
                   
                 />
+                {formErrors.email && (
+  <p className="text-sm text-red-500">{formErrors.email[0]}</p>
+)}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="phone">{tPersonalInformation('phoneNumber')}</Label>

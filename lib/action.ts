@@ -2,11 +2,17 @@
 import axios from 'axios'
 import {z} from 'zod'
 
-const DonationFormSchema = z.object({
-  firstName: z.string({
-    required_error: "First name is required"
-  }).min(1, { message: "First name cannot be empty" })
-})
+// const DonationFormSchema = z.object({
+//   firstName: z.string({
+//     required_error: "First name is required"
+//   }).min(1, { message: "First name cannot be empty" }),
+//   lastName: z.string({
+//     required_error: "Last name is required"
+//   }).min(1, { message: "Last name cannot be empty" }),
+//   email: z.string({
+//     required_error: "Email is required"
+//   }).min(1, { message: "Email cannot be empty" })
+// })
 
 export async function getDonationSchema(locale: "en" | "id") {
   return z.object({
@@ -14,26 +20,39 @@ export async function getDonationSchema(locale: "en" | "id") {
       required_error: locale === "id"
         ? "Nama depan wajib diisi"
         : "First name is required"
-    }).min(1, {
+    }).min(3, {
       message: locale === "id"
         ? "Nama depan tidak boleh kosong"
         : "First name cannot be empty"
     }),
+    lastName : z.string({
+      required_error : locale === 'id' ?
+      "Nama belakang wajib diisi" : "Last name is required"
+    }).min(1, {
+      message : locale === 'id' ? "Nama belakang tidak boleh kosong" : 'Last name cannot be empty'
+    }),
+    email : z.string()
+    .min(5, { message: locale === 'id' ? 'Email wajib diisi' : "Email is required" })
+    .email(locale === 'id' ? 'Format email tidak valid' : 'This is not a valid email')
     // Add more fields here
   });
 }
 
 interface Payload {
-  firstName : string
+  firstName : string,
+  lastName : string,
+  email : string
 }
 
 const backend = `http://localhost:2053`
-const CreateDonation = DonationFormSchema
+// const CreateDonation = DonationFormSchema
 
 
 export async function createDonation(formData: FormData, locale: "en" | "id") {
   const payload: Payload = {
-    firstName: formData.get('firstName')?.toString() ?? ''
+    firstName: formData.get('firstName')?.toString() ,
+    lastName: formData.get('lastName')?.toString() ,
+    email : formData.get('email')?.toString()
   };
 
   const schema = await getDonationSchema(locale); // ✅ use await
