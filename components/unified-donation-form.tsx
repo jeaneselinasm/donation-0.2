@@ -208,6 +208,9 @@ if (result?.token && (window as any).snap) {
                   type="tel"     
                   placeholder={tPersonalInformation('phoneNumberPlaceholder')}
                 />
+                {formErrors.phone && (
+  <p className="text-sm text-red-500">{formErrors.phone[0]}</p>
+)}
               </div>
             </div>
           </div>

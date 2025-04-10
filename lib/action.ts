@@ -33,7 +33,9 @@ export async function getDonationSchema(locale: "en" | "id") {
     }),
     email : z.string()
     .min(5, { message: locale === 'id' ? 'Email wajib diisi' : "Email is required" })
-    .email(locale === 'id' ? 'Format email tidak valid' : 'This is not a valid email')
+    .email(locale === 'id' ? 'Format email tidak valid' : 'This is not a valid email'),
+    phone : z.string()
+    .min(5, {message : locale === 'id' ? 'Nomor telepon wajib diisi' : 'Phone number is required'})
     // Add more fields here
   });
 }
@@ -41,7 +43,8 @@ export async function getDonationSchema(locale: "en" | "id") {
 interface Payload {
   firstName : string,
   lastName : string,
-  email : string
+  email : string,
+  phone : string,
 }
 
 const backend = `http://localhost:2053`
@@ -52,7 +55,8 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
   const payload: Payload = {
     firstName: formData.get('firstName')?.toString() ,
     lastName: formData.get('lastName')?.toString() ,
-    email : formData.get('email')?.toString()
+    email : formData.get('email')?.toString(),
+    phone : formData.get('phone')?.toString()
   };
 
   const schema = await getDonationSchema(locale); // ✅ use await
