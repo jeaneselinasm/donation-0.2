@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -22,17 +22,17 @@ import { Label } from "@/components/ui/label";
 //   SelectValue,
 // } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
-import { useTranslations, useLocale } from "next-intl"
+import { useTranslations, useLocale } from "next-intl";
 import { createDonation } from "@/lib/action";
 export default function UnifiedDonationForm() {
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({}); // ✅ Error state
   const locale = useLocale(); // ✅ Get the current locale
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
-  const donationAmounts = locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
-// form
-// const [firstName, setFirstName] = useState('')
-
+  const donationAmounts =
+    locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
+  // form
+  // const [firstName, setFirstName] = useState('')
 
   // ✅ Format input while keeping it numeric
   const formatNumber = (value: string) => {
@@ -40,7 +40,9 @@ export default function UnifiedDonationForm() {
     if (!rawNumber) return ""; // Return empty if input is cleared
 
     // Format number based on locale
-    return new Intl.NumberFormat(locale === "id" ? "id-ID" : "en-US").format(Number(rawNumber));
+    return new Intl.NumberFormat(locale === "id" ? "id-ID" : "en-US").format(
+      Number(rawNumber)
+    );
   };
 
   // ✅ Handle custom amount change
@@ -55,16 +57,15 @@ export default function UnifiedDonationForm() {
     setCustomAmount("");
   };
 
-
-  const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     const formData = new FormData(form);
 
     if (!formData.get("amount")) {
-      const amount: string = selectedAmount 
-      ? selectedAmount.toString() 
-      : customAmount.replace(/[^0-9]/g, "");
+      const amount: string = selectedAmount
+        ? selectedAmount.toString()
+        : customAmount.replace(/[^0-9]/g, "");
       formData.append("amount", amount);
     }
 
@@ -72,58 +73,64 @@ export default function UnifiedDonationForm() {
     console.log("🚀 Form Data: heree");
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
+      // console.log(typeof(` ${value}`))
     }
-    
-// Call your server action
-const result = await createDonation(formData, locale);
 
-if (result?.errors) {
-  setFormErrors(result.errors);
-  return;
-}
+    // Call your server action
+    const result = await createDonation(formData, locale);
 
-setFormErrors({}); // Clear any existing errors
+    if (result?.errors) {
+      setFormErrors(result.errors);
+      return;
+    }
 
-// Show Snap payment pop-up if available
-if (result?.token && (window as any).snap) {
-  (window as any).snap.pay(result.token, {
-    onSuccess: function () {
-      Swal.fire("Success", "Thank you for your donation!", "success");
-    },
-    onPending: function () {
-      Swal.fire("Pending", "Your payment is being processed.", "info");
-    },
-    onError: function () {
-      Swal.fire("Failed", "There was an error processing your payment.", "error");
-    },
-    onClose: function () {
-      Swal.fire("Closed", "You closed the payment window.", "info");
-    },
-  });
-} else {
-  Swal.fire("Oops", "Something went wrong with the payment setup.", "warning");
-}
-    
+    setFormErrors({}); // Clear any existing errors
 
-
+    // Show Snap payment pop-up if available
+    if (result?.token && (window as any).snap) {
+      (window as any).snap.pay(result.token, {
+        onSuccess: function () {
+          Swal.fire("Success", "Thank you for your donation!", "success");
+        },
+        onPending: function () {
+          Swal.fire("Pending", "Your payment is being processed.", "info");
+        },
+        onError: function () {
+          Swal.fire(
+            "Failed",
+            "There was an error processing your payment.",
+            "error"
+          );
+        },
+        onClose: function () {
+          Swal.fire("Closed", "You closed the payment window.", "info");
+        },
+      });
+    } else {
+      Swal.fire(
+        "Oops",
+        "Something went wrong with the payment setup.",
+        "warning"
+      );
+    }
   };
-  const tDonation = useTranslations('Donation')
-  const tPersonalInformation = useTranslations('PersonalInformation')
+  const tDonation = useTranslations("Donation");
+  const tPersonalInformation = useTranslations("PersonalInformation");
   return (
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl md:text-3xl text-[#0087ee] ">
-          {tDonation('title')}
+          {tDonation("title")}
         </CardTitle>
         <CardDescription className="text-justify md:text-center">
-          {tDonation('description')}
+          {tDonation("description")}
         </CardDescription>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-8">
           {/* Donation Amount Section */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">{tDonation('amount')}</h3>
+            <h3 className="text-lg font-medium">{tDonation("amount")}</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {donationAmounts.map((amount) => (
                 <Button
@@ -134,10 +141,12 @@ if (result?.token && (window as any).snap) {
                   className={cn(
                     "h-12 text-base",
                     selectedAmount === amount &&
-                    "bg-[#f78540] text-primary-foreground"
+                      "bg-[#f78540] text-primary-foreground"
                   )}
                 >
-                  {locale === "id" ? `Rp. ${amount.toLocaleString("id-ID")}` : `$${amount}`}
+                  {locale === "id"
+                    ? `Rp. ${amount.toLocaleString("id-ID")}`
+                    : `$${amount}`}
                 </Button>
               ))}
             </div>
@@ -148,135 +157,170 @@ if (result?.token && (window as any).snap) {
               <Input
                 id="custom-amount"
                 type="text" // ✅ Keep it text to prevent unwanted default number formatting
-                placeholder={tDonation('customAmount')}
+                placeholder={tDonation("customAmount")}
                 value={customAmount}
                 onChange={handleCustomAmountChange}
                 className="pl-14"
               />
             </div>
+              {formErrors.amount && (
+                  <p className="text-sm text-red-500">
+                    {formErrors.amount[0]}
+                  </p>
+                )}
           </div>
 
           {/* Personal Information Section */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">{tPersonalInformation('title')}</h3>
+            <h3 className="text-lg font-medium">
+              {tPersonalInformation("title")}
+            </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="first-name">{tPersonalInformation('firstName')}*</Label>
+                <Label htmlFor="first-name">
+                  {tPersonalInformation("firstName")}*
+                </Label>
                 <Input
                   id="first-name"
                   name="firstName"
-                  placeholder={tPersonalInformation('firstNamePlaceholder')}
-                  
+                  placeholder={tPersonalInformation("firstNamePlaceholder")}
                 />
-               {formErrors.firstName && (
-  <p className="text-sm text-red-500">{formErrors.firstName[0]}</p>
-)}
-                
+                {formErrors.firstName && (
+                  <p className="text-sm text-red-500">
+                    {formErrors.firstName[0]}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="last-name">{tPersonalInformation('lastName')} *</Label>
+                <Label htmlFor="last-name">
+                  {tPersonalInformation("lastName")} *
+                </Label>
                 <Input
                   id="last-name"
                   name="lastName"
-                  placeholder={tPersonalInformation('lastNamePlaceholder')}
-                  
+                  placeholder={tPersonalInformation("lastNamePlaceholder")}
                 />
                 {formErrors.lastName && (
-  <p className="text-sm text-red-500">{formErrors.lastName[0]}</p>
-)}
+                  <p className="text-sm text-red-500">
+                    {formErrors.lastName[0]}
+                  </p>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="email">{tPersonalInformation('email')} *</Label>
+                <Label htmlFor="email">{tPersonalInformation("email")} *</Label>
                 <Input
                   id="email"
                   name="email"
                   type="email"
-                  placeholder={tPersonalInformation('emailPlaceholder')}
-                  
+                  placeholder={tPersonalInformation("emailPlaceholder")}
                 />
                 {formErrors.email && (
-  <p className="text-sm text-red-500">{formErrors.email[0]}</p>
-)}
+                  <p className="text-sm text-red-500">{formErrors.email[0]}</p>
+                )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="phone">{tPersonalInformation('phoneNumber')}</Label>
+                <Label htmlFor="phone">
+                  {tPersonalInformation("phoneNumber")}
+                </Label>
                 <Input
                   id="phone"
                   name="phone"
-                  type="tel"     
-                  placeholder={tPersonalInformation('phoneNumberPlaceholder')}
+                  type="tel"
+                  placeholder={tPersonalInformation("phoneNumberPlaceholder")}
                 />
                 {formErrors.phone && (
-  <p className="text-sm text-red-500">{formErrors.phone[0]}</p>
-)}
+                  <p className="text-sm text-red-500">{formErrors.phone[0]}</p>
+                )}
               </div>
             </div>
           </div>
 
           {/* Address Section */}
           <div className="space-y-4">
-            <h3 className="text-lg font-medium">{tPersonalInformation('addressInformation')}</h3>
+            <h3 className="text-lg font-medium">
+              {tPersonalInformation("addressInformation")}
+            </h3>
             <div className="space-y-2">
-              <Label htmlFor="address">{tPersonalInformation('streetAddress')} *</Label>
+              <Label htmlFor="address">
+                {tPersonalInformation("streetAddress")} *
+              </Label>
               <Input
                 id="address"
                 name="address"
-                placeholder={tPersonalInformation('streetAddressPlaceholder')}
-                
+                placeholder={tPersonalInformation("streetAddressPlaceholder")}
               />
               {formErrors.address && (
-  <p className="text-sm text-red-500">{formErrors.address[0]}</p>
-)}
+                <p className="text-sm text-red-500">{formErrors.address[0]}</p>
+              )}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="country">{tPersonalInformation('country')} *</Label>
-                <Input id="country" name="country" placeholder={tPersonalInformation('countryPlaceholder')}  />
+                <Label htmlFor="country">
+                  {tPersonalInformation("country")} *
+                </Label>
+                <Input
+                  id="country"
+                  name="country"
+                  placeholder={tPersonalInformation("countryPlaceholder")}
+                />
                 {formErrors.country && (
-  <p className="text-sm text-red-500">{formErrors.country[0]}</p>
-)}
+                  <p className="text-sm text-red-500">
+                    {formErrors.country[0]}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
-                <Label htmlFor="city">{tPersonalInformation('city')} *</Label>
-                <Input id="city" name="city" placeholder={tPersonalInformation('cityPlaceholder')}  />
+                <Label htmlFor="city">{tPersonalInformation("city")} *</Label>
+                <Input
+                  id="city"
+                  name="city"
+                  placeholder={tPersonalInformation("cityPlaceholder")}
+                />
                 {formErrors.city && (
-  <p className="text-sm text-red-500">{formErrors.city[0]}</p>
-)}
+                  <p className="text-sm text-red-500">{formErrors.city[0]}</p>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="postal-code">{tPersonalInformation('postalCode')} *</Label>
+                <Label htmlFor="postal-code">
+                  {tPersonalInformation("postalCode")} *
+                </Label>
                 <Input
                   id="postalCode"
                   name="postalCode"
-                  placeholder={tPersonalInformation('postalCodePlaceholder')}
-                  
+                  placeholder={tPersonalInformation("postalCodePlaceholder")}
                 />
                 {formErrors.postalCode && (
-  <p className="text-sm text-red-500">{formErrors.postalCode[0]}</p>
-)}
+                  <p className="text-sm text-red-500">
+                    {formErrors.postalCode[0]}
+                  </p>
+                )}
               </div>
               <div className="sm:pt-7 flex items-center">
                 <p className="text-xs text-muted-foreground">
-                  * {tPersonalInformation('requiredFields')}
+                  * {tPersonalInformation("requiredFields")}
                 </p>
               </div>
             </div>
           </div>
 
-          <Button type="submit" className="w-full text-md bg-blue-400 hover:bg-blue-700" size="lg">
-           {tDonation('completeButton')}
+          <Button
+            type="submit"
+            className="w-full text-md bg-blue-400 hover:bg-blue-700"
+            size="lg"
+          >
+            {tDonation("completeButton")}
           </Button>
         </form>
       </CardContent>
       <CardFooter className="flex justify-center border-t pt-6">
-  <p className="text-xs text-center text-muted-foreground max-w-lg">
-    {locale === "en" ? tDonation("notes") : ""}
-  </p>
-</CardFooter>
+        <p className="text-xs text-center text-muted-foreground max-w-lg">
+          {locale === "en" ? tDonation("notes") : ""}
+        </p>
+      </CardFooter>
     </Card>
   );
 }

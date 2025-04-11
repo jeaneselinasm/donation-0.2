@@ -2,20 +2,11 @@
 import axios from 'axios'
 import {z} from 'zod'
 
-// const DonationFormSchema = z.object({
-//   firstName: z.string({
-//     required_error: "First name is required"
-//   }).min(1, { message: "First name cannot be empty" }),
-//   lastName: z.string({
-//     required_error: "Last name is required"
-//   }).min(1, { message: "Last name cannot be empty" }),
-//   email: z.string({
-//     required_error: "Email is required"
-//   }).min(1, { message: "Email cannot be empty" })
-// })
-
 export async function getDonationSchema(locale: "en" | "id") {
   return z.object({
+    amount : z.number({
+      required_error :  locale === 'id' ? 'Jumlah donasi harus diisi'  : 'Amount of donation is required'
+    }).min(locale === 'id' ? 10000 : 1, {message : locale === 'id' ? 'Jumlah donasi minimum adalah Rp.10.000' : 'The minimum donation amount is 1 USD'}),
     firstName: z.string({
       required_error: locale === "id"
         ? "Nama depan wajib diisi"
@@ -28,14 +19,12 @@ export async function getDonationSchema(locale: "en" | "id") {
     lastName : z.string({
       required_error : locale === 'id' ?
       "Nama belakang wajib diisi" : "Last name is required"
-    }).min(1, {
+    }).min(3, {
       message : locale === 'id' ? "Nama belakang tidak boleh kosong" : 'Last name cannot be empty'
     }),
     email : z.string()
     .min(5, { message: locale === 'id' ? 'Email wajib diisi' : "Email is required" })
     .email(locale === 'id' ? 'Format email tidak valid' : 'This is not a valid email'),
-    phone : z.string()
-    .min(5, {message : locale === 'id' ? 'Nomor telepon wajib diisi' : 'Phone number is required'}),
     address : z.string()
     .min(5, {message : locale === 'id' ? 'Alamat wajib diisi' : 'Address is required'}),
     country : z.string()
@@ -43,12 +32,13 @@ export async function getDonationSchema(locale: "en" | "id") {
     city : z.string()
     .min(5, {message : locale === 'id' ? 'Kota wajib diisi' : 'City is required'}),
     postalCode : z.string()
-    .min(5, {message : locale === 'id' ? 'Kode Pos wajib diisi' : 'Postal Code is required'})
+    .min(5, {message : locale === 'id' ? 'Kode Pos wajib diisi' : 'Postal Code is required'}),
     // Add more fields here
   });
 }
 
 interface Payload {
+  amount : number,
   firstName : string,
   lastName : string,
   email : string,
@@ -66,6 +56,7 @@ const backend = `http://localhost:2053`
 
 export async function createDonation(formData: FormData, locale: "en" | "id") {
   const payload: Payload = {
+    amount : Number(formData.get('amount')),
     firstName: formData.get('firstName')?.toString() ,
     lastName: formData.get('lastName')?.toString() ,
     email : formData.get('email')?.toString(),
@@ -79,7 +70,7 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
   const schema = await getDonationSchema(locale); // ✅ use await
   const validation = schema.safeParse(payload);
   
-
+console.log('type amount payload : ',typeof(payload.amount))
   if (!validation.success) {
     const zodErrors: Record<string, string[]> = {};
     validation.error.errors.forEach((err) => {
