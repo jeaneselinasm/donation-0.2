@@ -2,7 +2,7 @@
 
 import type React from "react";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -24,6 +24,8 @@ import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import { useTranslations, useLocale } from "next-intl";
 import { createDonation } from "@/lib/action";
+import Script from "next/script";
+
 export default function UnifiedDonationForm() {
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({}); // ✅ Error state
   const locale = useLocale(); // ✅ Get the current locale
@@ -44,6 +46,7 @@ export default function UnifiedDonationForm() {
       Number(rawNumber)
     );
   };
+  
 
   // ✅ Handle custom amount change
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -77,7 +80,7 @@ export default function UnifiedDonationForm() {
     }
 
     // Call your server action
-    const result = await createDonation(formData, locale);
+    const result = await createDonation(formData, locale as 'id' || 'en') ;
 
     if (result?.errors) {
       setFormErrors(result.errors);
@@ -87,36 +90,49 @@ export default function UnifiedDonationForm() {
     setFormErrors({}); // Clear any existing errors
 
     // Show Snap payment pop-up if available
-    if (result?.token && (window as any).snap) {
+    console.log('<<<token : ', result?.token)
+    if (
+      result?.token &&
+      typeof window !== "undefined" &&
+      (window as any).snap &&
+      typeof (window as any).snap.pay === "function"
+    ) {
       (window as any).snap.pay(result.token, {
-        onSuccess: function () {
-          Swal.fire("Success", "Thank you for your donation!", "success");
-        },
-        onPending: function () {
-          Swal.fire("Pending", "Your payment is being processed.", "info");
-        },
-        onError: function () {
-          Swal.fire(
-            "Failed",
-            "There was an error processing your payment.",
-            "error"
-          );
-        },
-        onClose: function () {
-          Swal.fire("Closed", "You closed the payment window.", "info");
-        },
+        onSuccess: () => Swal.fire("Success", "Thank you!", "success"),
+        onPending: () => Swal.fire("Pending", "Payment is being processed", "info"),
+        onError: () => Swal.fire("Failed", "Payment error", "error"),
+        onClose: () => Swal.fire("Closed", "Payment popup closed", "info"),
       });
     } else {
-      Swal.fire(
-        "Oops",
-        "Something went wrong with the payment setup.",
-        "warning"
-      );
+      Swal.fire("Oops", "Snap is not ready or token is missing", "warning");
     }
+    
   };
   const tDonation = useTranslations("Donation");
   const tPersonalInformation = useTranslations("PersonalInformation");
+
+  useEffect(() => {
+    if (typeof window !== "undefined" && !(window as any).snap) {
+      const script = document.createElement("script");
+      script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
+      script.setAttribute("data-client-key", process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || "");
+      script.async = true;
+      document.body.appendChild(script);
+    }
+  }, []);
   return (
+
+    <>
+      <Script
+        src="https://app.sandbox.midtrans.com/snap/snap.js"
+        data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
+        strategy="afterInteractive"
+        onError={(e) => {
+          console.error("Failed to load Midtrans script", e);
+        }}
+      />
+
+
     <Card className="w-full max-w-3xl mx-auto">
       <CardHeader className="text-center">
         <CardTitle className="text-2xl md:text-3xl text-[#0087ee] ">
@@ -322,5 +338,7 @@ export default function UnifiedDonationForm() {
         </p>
       </CardFooter>
     </Card>
+
+    </>
   );
 }
