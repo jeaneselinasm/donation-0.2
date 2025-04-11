@@ -97,11 +97,31 @@ export default function UnifiedDonationForm() {
       typeof (window as any).snap.pay === "function"
     ) {
       (window as any).snap.pay(result.token, {
-        onSuccess: () => Swal.fire("Success", "Thank you!", "success"),
+        onSuccess: () => Swal.fire("Success", locale === 'id' ? 'Terima kasih atas donasinya Tuhan Memberkati' :"Thank you for your donation God bless you", "success"),
         onPending: () =>
-          Swal.fire("Pending", "Payment is being processed", "info"),
-        onError: () => Swal.fire("Failed", "Payment error", "error"),
-        onClose: () => Swal.fire("Closed", "Payment popup closed", "info"),
+          Swal.fire("Pending", locale === 'id' ? 'Pembayaran sedang diproses' : "Payment is being processed", "info"),
+        onError: () => {
+          const title : string = locale === 'id' ? 'Gagal membuat pembayaran' : 'Failed create payment'
+          const text : string = locale === 'id' ? 'Tolong coba kembali' : 'Please try again'
+
+          Swal.fire({
+            icon : 'error',
+            title,
+            text
+          })
+        },
+        onClose: () => {
+          const title : string = locale === 'id' ? 'Apakah anda yakin?' : 'Are you sure?'
+          const text : string = locale === 'id' ? 'Ingin menutup pembayaran ini?' : 'Want to close this payment?'
+
+          Swal.fire(
+            {
+              icon : 'question',
+              title,
+              text
+            }
+          )
+        },
       });
     } else {
       Swal.fire("Oops", "Snap is not ready or token is missing", "warning");
