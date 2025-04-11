@@ -226,26 +226,38 @@ if (result?.token && (window as any).snap) {
                 placeholder={tPersonalInformation('streetAddressPlaceholder')}
                 
               />
+              {formErrors.address && (
+  <p className="text-sm text-red-500">{formErrors.address[0]}</p>
+)}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="country">{tPersonalInformation('country')} *</Label>
                 <Input id="country" name="country" placeholder={tPersonalInformation('countryPlaceholder')}  />
+                {formErrors.country && (
+  <p className="text-sm text-red-500">{formErrors.country[0]}</p>
+)}
               </div>
               <div className="space-y-2">
                 <Label htmlFor="city">{tPersonalInformation('city')} *</Label>
                 <Input id="city" name="city" placeholder={tPersonalInformation('cityPlaceholder')}  />
+                {formErrors.city && (
+  <p className="text-sm text-red-500">{formErrors.city[0]}</p>
+)}
               </div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="postal-code">{tPersonalInformation('postalCode')} *</Label>
                 <Input
-                  id="postal-code"
-                  name="postal-code"
+                  id="postalCode"
+                  name="postalCode"
                   placeholder={tPersonalInformation('postalCodePlaceholder')}
                   
                 />
+                {formErrors.postalCode && (
+  <p className="text-sm text-red-500">{formErrors.postalCode[0]}</p>
+)}
               </div>
               <div className="sm:pt-7 flex items-center">
                 <p className="text-xs text-muted-foreground">
