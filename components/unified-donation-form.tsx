@@ -27,6 +27,9 @@ import { createDonation } from "@/lib/action";
 import Script from "next/script";
 
 export default function UnifiedDonationForm() {
+  const tDonation = useTranslations("Donation");
+  const tPersonalInformation = useTranslations("PersonalInformation");
+const tOnSuccess = useTranslations('OnSuccess')
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({}); // ✅ Error state
   const locale = useLocale(); // ✅ Get the current locale
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
@@ -97,38 +100,69 @@ export default function UnifiedDonationForm() {
       typeof (window as any).snap.pay === "function"
     ) {
       (window as any).snap.pay(result.token, {
-        onSuccess: () => Swal.fire("Success", locale === 'id' ? 'Terima kasih atas donasinya Tuhan Memberkati' :"Thank you for your donation God bless you", "success"),
+        onSuccess: () =>
+          Swal.fire({
+            icon: "success",
+            title : tOnSuccess("title"),
+            text : tOnSuccess('message'),
+          }),
+
         onPending: () =>
-          Swal.fire("Pending", locale === 'id' ? 'Pembayaran sedang diproses' : "Payment is being processed", "info"),
+          Swal.fire(
+            "Pending",
+            locale === "id"
+              ? "Pembayaran sedang diproses"
+              : "Payment is being processed",
+            "info"
+          ),
         onError: () => {
-          const title : string = locale === 'id' ? 'Gagal membuat pembayaran' : 'Failed create payment'
-          const text : string = locale === 'id' ? 'Tolong coba kembali' : 'Please try again'
+          const title: string =
+            locale === "id"
+              ? "Gagal membuat pembayaran"
+              : "Failed create payment";
+          const text: string =
+            locale === "id" ? "Tolong coba kembali" : "Please try again";
 
           Swal.fire({
-            icon : 'error',
+            icon: "error",
             title,
-            text
-          })
+            text,
+          });
         },
         onClose: () => {
-          const title : string = locale === 'id' ? 'Apakah anda yakin?' : 'Are you sure?'
-          const text : string = locale === 'id' ? 'Ingin menutup pembayaran ini?' : 'Want to close this payment?'
+          const title: string =
+            locale === "id" ? "Apakah anda yakin?" : "Are you sure?";
+          const text: string =
+            locale === "id"
+              ? "Ingin menutup pembayaran ini?"
+              : "Want to close this payment?";
 
-          Swal.fire(
-            {
-              icon : 'question',
-              title,
-              text
+          const confirmButtonText : string = locale === 'id' ? 'Ya' : 'Yes'
+          const cancelButtonText : string = locale === 'id' ? 'Tidak' : 'No'
+          Swal.fire({
+            icon: "question",
+            title,
+            text,
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText,
+            cancelButtonText,
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+              });
             }
-          )
+          });
         },
       });
     } else {
       Swal.fire("Oops", "Snap is not ready or token is missing", "warning");
     }
   };
-  const tDonation = useTranslations("Donation");
-  const tPersonalInformation = useTranslations("PersonalInformation");
 
   useEffect(() => {
     if (typeof window !== "undefined" && !(window as any).snap) {

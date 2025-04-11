@@ -84,5 +84,9 @@
       "title" : "Privacy Policy",
       "description" : "At BAHTRAKU, we prioritize your privacy and the security of your personal information. We collect your name and email address to communicate with you regarding your donation and to provide updates about our mission. Your payment details are securely processed through a trusted payment gateway, and we do not store your full credit card information on our servers. We implement strict security measures to protect your data from unauthorized access. If you have any questions about our privacy practices, please contact us at",
       "backButton" : "Back to Home"
+    },
+    "OnSuccess" : {
+      "title" : "Success",
+      "message" : "Thank you for your donation God bless you"
     }
   }
