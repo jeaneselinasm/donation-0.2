@@ -2,7 +2,7 @@
 
 import type React from "react";
 import Swal from "sweetalert2";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -27,13 +27,18 @@ import { createDonation } from "@/lib/action";
 import Script from "next/script";
 
 export default function UnifiedDonationForm() {
+  
   const tDonation = useTranslations("Donation");
   const tPersonalInformation = useTranslations("PersonalInformation");
 const tOnSuccess = useTranslations('OnSuccess')
+const tOnClose = useTranslations('OnClose')
+
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({}); // ✅ Error state
   const locale = useLocale(); // ✅ Get the current locale
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
+  const lastTokenRef = useRef<string | null>(null);
+
   const donationAmounts =
     locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
   // form
@@ -93,6 +98,9 @@ const tOnSuccess = useTranslations('OnSuccess')
 
     // Show Snap payment pop-up if available
     console.log("<<<token : ", result?.token);
+    lastTokenRef.current = result?.token;
+    console.log(" lastTokenRef.current >>> ", lastTokenRef.current);
+
     if (
       result?.token &&
       typeof window !== "undefined" &&
@@ -130,34 +138,39 @@ const tOnSuccess = useTranslations('OnSuccess')
           });
         },
         onClose: () => {
-          const title: string =
-            locale === "id" ? "Apakah anda yakin?" : "Are you sure?";
-          const text: string =
-            locale === "id"
-              ? "Ingin menutup pembayaran ini?"
-              : "Want to close this payment?";
-
-          const confirmButtonText : string = locale === 'id' ? 'Ya' : 'Yes'
-          const cancelButtonText : string = locale === 'id' ? 'Tidak' : 'No'
+          // const title: string =
+          //   locale === "id" ? "Apakah anda yakin?" : "Are you sure?";
+          // const text: string =
+          //   locale === "id"
+          //     ? "Ingin menutup pembayaran ini?"
+          //     : "Want to close this payment?";
+          // const confirmButtonText = locale === "id" ? "Ya" : "Yes";
+          // const cancelButtonText = locale === "id" ? "Tidak" : "No";
+        
           Swal.fire({
             icon: "question",
-            title,
-            text,
+            title : tOnClose("title"),
+            text : tOnClose('text'),
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText,
-            cancelButtonText,
+            confirmButtonText : tOnClose('confirmButtonText'),
+            cancelButtonText: tOnClose('cancelButtonText') ,
           }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
+              Swal.fire(tOnClose('isConfirmedText'), "", "success").then(() => {
+                // Make sure to close the Snap popup here
+                window.snap.hide(); // or window.snap.close() depending on your setup
               });
+            } else if (result.isDismissed) {
+              // Optionally handle cancel logic
+              window.snap.pay(lastTokenRef.current);
+              Swal.fire(tOnClose('isDismissed'), "", "info");
             }
           });
         },
+        
+        
       });
     } else {
       Swal.fire("Oops", "Snap is not ready or token is missing", "warning");

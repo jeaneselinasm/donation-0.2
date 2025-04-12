@@ -88,5 +88,22 @@
     "OnSuccess" : {
       "title" : "Success",
       "message" : "Thank you for your donation God bless you"
+    },
+    "OnClose" : {
+      "title" : "Are you sure?",
+      "text" : "want to close this payment?",
+      "confirmButtonText" : "Yes",
+      "cancelButtonText" : "No",
+      "isConfirmedText" : "Closed!",
+      "isDismissed" : "Payment not closed"
+
+    },
+    "OnPending" : {
+      "title" : "Pending",
+      "message" : "Payment is being processed"
+    },
+    "OnError" : {
+      "title" : "Failed create payment",
+      "message" : "Please try again"
     }
   }

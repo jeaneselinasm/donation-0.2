@@ -86,6 +86,22 @@
     "OnSuccess" : {
       "title" : "Berhasil",
       "message" : "Terima kasih atas donasinya Tuhan Memberkati"
+    },
+    "OnClose" : {
+      "title" : "Apakah anda yakin?",
+      "text" : "ingin menutup pembayaran ini?",
+      "confirmButtonText" : "Ya",
+      "cancelButtonText" : "Tidak",
+      "isConfirmedText" : "Ditutup!",
+      "isDismissed" : "Pembayaran tidak ditutup"
+    },
+    "OnPending" : {
+      "title" : "Pending",
+      "message" : "Pembayaran sedang diproses"
+    },
+    "OnError" : {
+      "title" : "Gagal membuat pembayaran",
+      "message" : "Tolong coba kembali"
     }
     
   }
