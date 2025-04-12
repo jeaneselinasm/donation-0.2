@@ -103,7 +103,7 @@ export default function UnifiedDonationForm() {
           Swal.fire({
             icon: "success",
             title: tOnSuccess("title"),
-            text: tOnSuccess("message"),
+            text: tOnSuccess("text"),
           }),
 
         onPending: () =>

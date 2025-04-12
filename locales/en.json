@@ -86,7 +86,7 @@
   },
   "OnSuccess": {
     "title": "Success",
-    "message": "Thank you for your donation God bless you"
+    "text": "Thank you for your donation God bless you"
   },
   "OnClose": {
     "title": "Are you sure?",

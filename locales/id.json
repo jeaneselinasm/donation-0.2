@@ -85,7 +85,7 @@
   },
   "OnSuccess": {
     "title": "Berhasil",
-    "message": "Terima kasih atas donasinya Tuhan Memberkati"
+    "text": "Terima kasih atas donasinya Tuhan Memberkati"
   },
   "OnClose": {
     "title": "Apakah anda yakin?",
