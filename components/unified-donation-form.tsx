@@ -99,6 +99,7 @@ export default function UnifiedDonationForm() {
       typeof (window as any).snap.pay === "function"
     ) {
       (window as any).snap.pay(result.token, {
+        language : locale,
         onSuccess: () =>
           Swal.fire({
             icon: "success",
