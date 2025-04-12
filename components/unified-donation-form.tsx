@@ -14,24 +14,18 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-// import {
-//   Select,
-//   SelectContent,
-//   SelectItem,
-//   SelectTrigger,
-//   SelectValue,
-// } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import { useTranslations, useLocale } from "next-intl";
 import { createDonation } from "@/lib/action";
 import Script from "next/script";
 
 export default function UnifiedDonationForm() {
-  
   const tDonation = useTranslations("Donation");
   const tPersonalInformation = useTranslations("PersonalInformation");
-const tOnSuccess = useTranslations('OnSuccess')
-const tOnClose = useTranslations('OnClose')
+  const tOnSuccess = useTranslations("OnSuccess");
+  const tOnClose = useTranslations("OnClose");
+  const tOnPending = useTranslations("OnPending");
+  const tOnError = useTranslations("OnError");
 
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({}); // ✅ Error state
   const locale = useLocale(); // ✅ Get the current locale
@@ -41,8 +35,6 @@ const tOnClose = useTranslations('OnClose')
 
   const donationAmounts =
     locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
-  // form
-  // const [firstName, setFirstName] = useState('')
 
   // ✅ Format input while keeping it numeric
   const formatNumber = (value: string) => {
@@ -83,7 +75,6 @@ const tOnClose = useTranslations('OnClose')
     console.log("🚀 Form Data: heree");
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
-      // console.log(typeof(` ${value}`))
     }
 
     // Call your server action
@@ -111,66 +102,45 @@ const tOnClose = useTranslations('OnClose')
         onSuccess: () =>
           Swal.fire({
             icon: "success",
-            title : tOnSuccess("title"),
-            text : tOnSuccess('message'),
+            title: tOnSuccess("title"),
+            text: tOnSuccess("message"),
           }),
 
         onPending: () =>
-          Swal.fire(
-            "Pending",
-            locale === "id"
-              ? "Pembayaran sedang diproses"
-              : "Payment is being processed",
-            "info"
-          ),
+          Swal.fire({
+            title: tOnPending("title"),
+            text: tOnPending("text"),
+          }),
         onError: () => {
-          const title: string =
-            locale === "id"
-              ? "Gagal membuat pembayaran"
-              : "Failed create payment";
-          const text: string =
-            locale === "id" ? "Tolong coba kembali" : "Please try again";
-
           Swal.fire({
             icon: "error",
-            title,
-            text,
+            title: tOnError("title"),
+            text: tOnError("text"),
           });
         },
         onClose: () => {
-          // const title: string =
-          //   locale === "id" ? "Apakah anda yakin?" : "Are you sure?";
-          // const text: string =
-          //   locale === "id"
-          //     ? "Ingin menutup pembayaran ini?"
-          //     : "Want to close this payment?";
-          // const confirmButtonText = locale === "id" ? "Ya" : "Yes";
-          // const cancelButtonText = locale === "id" ? "Tidak" : "No";
-        
           Swal.fire({
             icon: "question",
-            title : tOnClose("title"),
-            text : tOnClose('text'),
+            title: tOnClose("title"),
+            text: tOnClose("text"),
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText : tOnClose('confirmButtonText'),
-            cancelButtonText: tOnClose('cancelButtonText') ,
+            confirmButtonText: tOnClose("confirmButtonText"),
+            cancelButtonText: tOnClose("cancelButtonText"),
           }).then((result) => {
             if (result.isConfirmed) {
-              Swal.fire(tOnClose('isConfirmedText'), "", "success").then(() => {
+              Swal.fire(tOnClose("isConfirmedText"), "", "success").then(() => {
                 // Make sure to close the Snap popup here
                 window.snap.hide(); // or window.snap.close() depending on your setup
               });
             } else if (result.isDismissed) {
-              // Optionally handle cancel logic
+              // ReOpen the snap window with same token
               window.snap.pay(lastTokenRef.current);
-              Swal.fire(tOnClose('isDismissed'), "", "info");
+              Swal.fire(tOnClose("isDismissed"), "", "info");
             }
           });
         },
-        
-        
       });
     } else {
       Swal.fire("Oops", "Snap is not ready or token is missing", "warning");
