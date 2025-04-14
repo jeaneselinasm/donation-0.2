@@ -19,6 +19,7 @@ import { useTranslations, useLocale } from "next-intl";
 import { createDonation } from "@/lib/action";
 import Script from "next/script";
 import { CountryCombobox } from "./country-list";
+import { Skeleton } from "./ui/skeleton";
 
 export default function UnifiedDonationForm() {
   const tDonation = useTranslations("Donation");
@@ -34,7 +35,7 @@ export default function UnifiedDonationForm() {
   const [customAmount, setCustomAmount] = useState<string>("");
   const lastTokenRef = useRef<string | null>(null);
   const [country, setCountry] = useState<string | null>(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const donationAmounts =
     locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
 
@@ -63,6 +64,7 @@ export default function UnifiedDonationForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true); // ✅ Start loading
     const form = e.currentTarget;
     const formData = new FormData(form);
 
@@ -92,9 +94,14 @@ export default function UnifiedDonationForm() {
 
     // Show Snap payment pop-up if available
     console.log("<<<token : ", result?.token);
+
+    if (!result.token) {
+      setIsLoading(true);
+      return;
+    }
     lastTokenRef.current = result?.token;
     console.log(" lastTokenRef.current >>> ", lastTokenRef.current);
-
+    setIsLoading(false); // ✅ Stop loading once token is ready
     if (
       result?.token &&
       typeof window !== "undefined" &&
@@ -164,6 +171,14 @@ export default function UnifiedDonationForm() {
     }
   }, []);
 
+  // useEffect(() => {
+  //   const timer = setTimeout(() => {
+  //     setIsLoading(false)
+  //   }, 3000) // Simulate 3 seconds of loading
+
+  //   return () => clearTimeout(timer)
+  // }, [])
+
   return (
     <>
       <Script
@@ -177,8 +192,13 @@ export default function UnifiedDonationForm() {
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl md:text-3xl text-[#0087ee] ">
-            {tDonation("title")}
+            {isLoading ? (
+              <Skeleton className="h-8 w-3/4 mx-auto" />
+            ) : (
+              tDonation("title")
+            )}
           </CardTitle>
+
           <CardDescription className="text-justify md:text-center">
             {tDonation("description")}
           </CardDescription>
@@ -211,14 +231,18 @@ export default function UnifiedDonationForm() {
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                   {locale === "id" ? "Rp." : "$"}
                 </span>
-                <Input
-                  id="custom-amount"
-                  type="text" // ✅ Keep it text to prevent unwanted default number formatting
-                  placeholder={tDonation("customAmount")}
-                  value={customAmount}
-                  onChange={handleCustomAmountChange}
-                  className="pl-14"
-                />
+                {isLoading ? (
+                  <Skeleton className="h-8 w-3/4 mx-auto" />
+                ) : (
+                  <Input
+                    id="custom-amount"
+                    type="text" // ✅ Keep it text to prevent unwanted default number formatting
+                    placeholder={tDonation("customAmount")}
+                    value={customAmount}
+                    onChange={handleCustomAmountChange}
+                    className="pl-14"
+                  />
+                )}
               </div>
               {formErrors.amount && (
                 <p className="text-sm text-red-500">{formErrors.amount[0]}</p>
@@ -329,11 +353,11 @@ export default function UnifiedDonationForm() {
                     placeholder={tPersonalInformation("countryPlaceholder")}
                   /> */}
 
-                     <CountryCombobox
-          countries={countries}
-          value={country}
-          onChange={setCountry}
-        />
+                  <CountryCombobox
+                    countries={countries}
+                    value={country}
+                    onChange={setCountry}
+                  />
 
                   {formErrors.country && (
                     <p className="text-sm text-red-500">
