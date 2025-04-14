@@ -10,11 +10,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params
 }: {
-  children: React.ReactNode
+  children: React.ReactNode,
+  params: { locale: string };
 }) {
   return (
-    <html lang="en">
+    <html lang={params.locale || 'en'  }>
+      <head />
       <body className={inter.className}>{children}
       {/* <Script
   src="https://app.sandbox.midtrans.com/snap/snap.js"
