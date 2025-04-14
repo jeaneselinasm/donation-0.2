@@ -102,5 +102,10 @@
   "OnError": {
     "title": "Gagal membuat pembayaran",
     "text": "Tolong coba kembali"
+  },
+  "CountryList" : {
+    "selectCountry" : "Pilih negara",
+    "searchCountry" : "Cari negara ...",
+    "countryNotFound" : "Negara tidak ditemukan"
   }
 }

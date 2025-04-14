@@ -14,15 +14,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import  { cn, getAlpha3CountryList} from "@/lib/utils";
+import { cn, getAlpha3CountryList } from "@/lib/utils";
 import { useTranslations, useLocale } from "next-intl";
 import { createDonation } from "@/lib/action";
 import Script from "next/script";
 import { CountryCombobox } from "./country-list";
-
-
-
-
 
 export default function UnifiedDonationForm() {
   const tDonation = useTranslations("Donation");
@@ -37,8 +33,6 @@ export default function UnifiedDonationForm() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
   const lastTokenRef = useRef<string | null>(null);
-
-
 
   const donationAmounts =
     locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
@@ -106,7 +100,7 @@ export default function UnifiedDonationForm() {
       typeof (window as any).snap.pay === "function"
     ) {
       (window as any).snap.pay(result.token, {
-        language : locale,
+        language: locale,
         onSuccess: () =>
           Swal.fire({
             icon: "success",
@@ -167,7 +161,6 @@ export default function UnifiedDonationForm() {
       document.body.appendChild(script);
     }
   }, []);
-
 
   return (
     <>
@@ -333,8 +326,8 @@ export default function UnifiedDonationForm() {
                     name="country"
                     placeholder={tPersonalInformation("countryPlaceholder")}
                   /> */}
-<CountryCombobox  countries={getAlpha3CountryList()} />
-                  
+                  <CountryCombobox countries={getAlpha3CountryList()} />
+
                   {formErrors.country && (
                     <p className="text-sm text-red-500">
                       {formErrors.country[0]}

@@ -103,5 +103,10 @@
   "OnError": {
     "title": "Failed create payment",
     "text": "Please try again"
+  },
+  "CountryList" : {
+    "selectCountry" : "Select country",
+    "searchCountry" : "Search country...",
+    "countryNotFound" : "No country found"
   }
 }
