@@ -24,54 +24,56 @@ type Country = {
 };
 
 interface CountryComboboxProps {
-  countries: Country[];
-}
+    countries: Country[];
+    value: string | null; // country code
+    onChange: (code: string) => void;
+  }
 
-export function CountryCombobox({ countries }: CountryComboboxProps) {
-  const [open, setOpen] = useState(false);
-  const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
-  const tCountryList = useTranslations("CountryList");
-  return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          className="w-full justify-between"
-        >
-          {selectedCountry
-            ? selectedCountry.name
-            : tCountryList("selectCountry")}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[250px] p-0">
-        <Command>
-          <CommandInput placeholder={tCountryList("searchCountry")} />
-          <CommandEmpty>{tCountryList("countryNotFound")}</CommandEmpty>
-          <CommandGroup className="max-h-[250px] overflow-y-auto">
-            {countries.map((country) => (
-              <CommandItem
-                key={country.code}
-                onSelect={() => {
-                  setSelectedCountry(country);
-                  setOpen(false);
-                }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    selectedCountry?.code === country.code
-                      ? "opacity-100"
-                      : "opacity-0"
-                  )}
-                />
-                {country.name}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
-  );
+export function CountryCombobox({ countries, value, onChange}: CountryComboboxProps) {
+    const [open, setOpen] = useState(false);
+    const selectedCountry = countries.find((c) => c.code === value) || null;
+    const tCountryList = useTranslations("CountryList");
+    return (
+        <Popover open={open} onOpenChange={setOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              role="combobox"
+              className="w-full justify-between"
+            >
+              {selectedCountry
+                ? selectedCountry.name
+                : tCountryList("selectCountry")}
+              <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[250px] p-0">
+            <Command>
+              <CommandInput placeholder={tCountryList("searchCountry")} />
+              <CommandEmpty>{tCountryList("countryNotFound")}</CommandEmpty>
+    
+              <CommandGroup className="max-h-[240px] overflow-y-auto">
+                {countries.map((country) => (
+                  <CommandItem
+                    key={country.code}
+                    onSelect={() => {
+                      onChange(country.code);
+                      setOpen(false);
+                    }}
+                  >
+                    <Check
+                      className={cn(
+                        "mr-2 h-4 w-4",
+                        value === country.code ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                    {country.name}
+                  </CommandItem>
+                ))}
+              </CommandGroup>
+            </Command>
+          </PopoverContent>
+        </Popover>
+      );
+    
 }

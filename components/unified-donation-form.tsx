@@ -27,12 +27,13 @@ export default function UnifiedDonationForm() {
   const tOnClose = useTranslations("OnClose");
   const tOnPending = useTranslations("OnPending");
   const tOnError = useTranslations("OnError");
-
+  const countries = getAlpha3CountryList();
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({}); // ✅ Error state
   const locale = useLocale(); // ✅ Get the current locale
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
   const lastTokenRef = useRef<string | null>(null);
+  const [country, setCountry] = useState<string | null>(null);
 
   const donationAmounts =
     locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
@@ -73,6 +74,7 @@ export default function UnifiedDonationForm() {
     }
 
     formData.append("locale", locale);
+    formData.append("country", country);
     console.log("🚀 Form Data: heree");
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
@@ -326,7 +328,12 @@ export default function UnifiedDonationForm() {
                     name="country"
                     placeholder={tPersonalInformation("countryPlaceholder")}
                   /> */}
-                  <CountryCombobox countries={getAlpha3CountryList()} />
+
+                     <CountryCombobox
+          countries={countries}
+          value={country}
+          onChange={setCountry}
+        />
 
                   {formErrors.country && (
                     <p className="text-sm text-red-500">

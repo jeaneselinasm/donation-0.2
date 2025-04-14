@@ -59,7 +59,7 @@ export async function getDonationSchema(locale: "en" | "id") {
     phone: z.string(),
     country: z
       .string()
-      .min(5, {
+      .min(3, {
         message: locale === "id" ? "Negara wajib diisi" : "Country is required",
       }),
     city: z
