@@ -1,7 +1,7 @@
 "use server";
 import axios from "axios";
 import { z } from "zod";
-import type { AxiosError } from "axios";
+
 export async function getDonationSchema(locale: "en" | "id") {
   return z.object({
     amount: z

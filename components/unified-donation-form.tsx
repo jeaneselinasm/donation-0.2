@@ -167,7 +167,7 @@ export default function UnifiedDonationForm() {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined" && !(window) {
+    if (typeof window !== "undefined" && ! window.snap) {
       const script = document.createElement("script");
       script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
       script.setAttribute(
