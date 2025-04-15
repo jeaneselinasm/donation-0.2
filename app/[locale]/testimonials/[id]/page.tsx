@@ -7,10 +7,10 @@ import { notFound } from "next/navigation";
 // This would typically come from a database or API
 
 // ✅ Define the expected TypeScript type for `params`
-interface PageParams {
-  id: string;
-  locale: string;
-}
+// interface PageParams {
+//   id: string;
+//   locale: string;
+// }
 const testimonials = [
   {
     id: "kemtuik",

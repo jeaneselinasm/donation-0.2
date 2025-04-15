@@ -1,8 +1,7 @@
-import Link from "@/i18n/routing";
-import {useTranslation} from "next-intl"
+import {useTranslations} from "next-intl"
 
 export default function HomePage(){
-  const t = useTranslation("HomePage")
+  const t = useTranslations("HomePage")
   return (
     <div>
       <h1>{t("title")}</h1>

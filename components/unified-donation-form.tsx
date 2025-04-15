@@ -85,9 +85,9 @@ export default function UnifiedDonationForm() {
     formData.append("locale", locale);
     formData.append("country", country);
     console.log("🚀 Form Data: heree");
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
 
     // Call your server action
     const result = await createDonation(formData, (locale as "id") || "en");
