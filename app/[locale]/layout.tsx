@@ -1,35 +1,33 @@
-// app/[locale]/layout.tsx
-
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
-import { routing } from '@/i18n/routing';
+import { routing, AppLocale } from '@/i18n/routing';
 import { Inter } from 'next/font/google';
+import type { ReactNode } from 'react';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: { locale: string }; // Accept all incoming strings
-}) {
+type LocaleLayoutProps = {
+  children: ReactNode;
+  params: {
+    locale: string;
+  };
+};
+
+export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
   const { locale } = params;
 
-  // Runtime validation of the locale
   if (!routing.locales.includes(locale)) {
-    notFound(); // Will show the 404 page if invalid locale is in URL
+    notFound();
   }
 
-  const messages = await getMessages({ locale });
+  const safeLocale = locale as AppLocale;
+
+  const messages = await getMessages({ locale: safeLocale });
 
   return (
     <div className={inter.className}>
-      <NextIntlClientProvider
-        locale={locale}
-        messages={messages}
-      >
+      <NextIntlClientProvider locale={safeLocale} messages={messages}>
         {children}
       </NextIntlClientProvider>
     </div>
