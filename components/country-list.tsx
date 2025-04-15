@@ -27,9 +27,10 @@ interface CountryComboboxProps {
     countries: Country[];
     value: string | null; // country code
     onChange: (code: string) => void;
+     error?: string; // ⬅️ Add this
   }
 
-export function CountryCombobox({ countries, value, onChange}: CountryComboboxProps) {
+export function CountryCombobox({ countries, value, onChange, error}: CountryComboboxProps) {
     const [open, setOpen] = useState(false);
     const selectedCountry = countries.find((c) => c.code === value) || null;
     const tCountryList = useTranslations("CountryList");
@@ -73,6 +74,9 @@ export function CountryCombobox({ countries, value, onChange}: CountryComboboxPr
               </CommandGroup>
             </Command>
           </PopoverContent>
+          {error && (
+    <p className="text-sm text-red-500 mt-1">{error}</p>
+  )}
         </Popover>
       );
     

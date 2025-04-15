@@ -58,15 +58,15 @@ export async function getDonationSchema(locale: "en" | "id") {
       }),
     phone: z.string(),
     country: z
-      .string({
-        required_error:
-          locale === "id"
-            ? "Negara wajib diisi"
-            : "Country is required",
-      })
+      .string()
       .min(3, {
         message: locale === "id" ? "Negara wajib diisi" : "Country is required",
-      }),
+      })
+      .nullable()
+      .refine((val)=> val !== null, {
+        message: locale === "id" ? "Negara wajib diisi" : "Country is required",
+      })
+      ,
     city: z
       .string()
       .min(5, {

@@ -34,7 +34,7 @@ export default function UnifiedDonationForm() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
   const lastTokenRef = useRef<string | null>(null);
-  const [country, setCountry] = useState<string | null>(null);
+
   const [isLoading, setIsLoading] = useState(false);
   const donationAmounts =
     locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
@@ -45,7 +45,9 @@ export default function UnifiedDonationForm() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] = "";
+  const [postalCode, setPostalCode] =useState("");
+  // const [country, setCountry] = useState<string | null>(null);
+  const [country, setCountry] = useState("");
   // ✅ Format input while keeping it numeric
   const formatNumber = (value: string) => {
     const rawNumber = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
@@ -81,10 +83,14 @@ export default function UnifiedDonationForm() {
         : customAmount.replace(/[^0-9]/g, "");
       formData.append("amount", amount);
     }
-    formData.append("firstName", firstName);
-    formData.append("lastName", lastName);
-    formData.append("email", lastName);
-    formData.append("address", lastName);
+    // formData.append("firstName", firstName);
+    // formData.append("lastName", lastName);
+    // formData.append("email", lastName);
+    // formData.append("address", lastName);
+
+    // formData.append("city", country);
+    // formData.append("postalCode", country);
+
     formData.append("locale", locale);
     formData.append("country", country);
     console.log("🚀 Form Data: heree");
@@ -402,6 +408,7 @@ export default function UnifiedDonationForm() {
                       countries={countries}
                       value={country}
                       onChange={setCountry}
+                      error={formErrors.country?.[0]} // Pass error message here
                     />
                     
                   )}
@@ -422,8 +429,8 @@ export default function UnifiedDonationForm() {
                     id="city"
                     name="city"
                     placeholder={tPersonalInformation("cityPlaceholder")}
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
                     />
                   )}
                   
@@ -437,11 +444,18 @@ export default function UnifiedDonationForm() {
                   <Label htmlFor="postal-code">
                     {tPersonalInformation("postalCode")} *
                   </Label>
-                  <Input
+                  {isLoading ? (
+                    <Skeleton className="h-8 w-3/4 mx-auto" />
+                  ) : (
+                    <Input
                     id="postalCode"
                     name="postalCode"
                     placeholder={tPersonalInformation("postalCodePlaceholder")}
-                  />
+                      value={postalCode}
+                      onChange={(e) => setPostalCode(e.target.value)}
+                    />
+                  )}
+                  
                   {formErrors.postalCode && (
                     <p className="text-sm text-red-500">
                       {formErrors.postalCode[0]}
