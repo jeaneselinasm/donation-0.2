@@ -85,17 +85,23 @@ export default function UnifiedDonationForm() {
     // Call your server action
     const result = await createDonation(formData, (locale as "id") || "en");
 
+    console.log(result.errors, '<<<')
     if (result?.errors) {
       setFormErrors(result.errors);
+      setIsLoading(false); // ⬅️ Reset loading when error
       return;
     }
 
     setFormErrors({}); // Clear any existing errors
 
     // Show Snap payment pop-up if available
-    console.log("<<<token : ", result?.token);
 
-    if (!result.token) {
+    if (!result?.errors && !result.token) {
+
+      console.log("<<<token : ", result?.token);
+      console.log("error : ", result?.errors);
+      
+      console.log('isLoading !result.token')
       setIsLoading(true);
       return;
     }
