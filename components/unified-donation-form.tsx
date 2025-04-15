@@ -113,10 +113,10 @@ export default function UnifiedDonationForm() {
     if (
       result?.token &&
       typeof window !== "undefined" &&
-      (window as any).snap &&
-      typeof (window as any).snap.pay === "function"
+      (window).snap &&
+      typeof (window).snap.pay === "function"
     ) {
-      (window as any).snap.pay(result.token, {
+      (window).snap.pay(result.token, {
         language: locale,
         onSuccess: () =>
           Swal.fire({
