@@ -129,13 +129,36 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
 
     return { errors: zodErrors };
   }
-  const { data } = await axios({
-    method: "post",
-    url: `${backend}/payment`,
-    data: validation.data,
-  });
-  console.log("token : ", data);
-  return {
-    token: data.token,
-  };
-}
+  
+  try {
+    const { data } = await axios({
+      method: "post",
+      url: `${backend}/payment`,
+      data: validation.data,
+    });
+    console.log("token : ", data);
+    return {
+      token: data.token,
+    };
+  }catch (error: any) {
+    let message =
+      locale === "id"
+        ? "Terjadi kesalahan saat memproses donasi Anda."
+        : "An error occurred while processing your donation.";
+  
+    if (error.code === "ECONNREFUSED") {
+      message =
+        locale === "id"
+          ? "Koneksi ke server gagal. Silakan coba lagi nanti."
+          : "Connection to the server failed. Please try again later.";
+    } else if (error.response?.data?.message) {
+      message = error.response.data.message;
+    }
+  
+    return {
+      serverError: message,
+    };
+  }
+  
+  }
+  
