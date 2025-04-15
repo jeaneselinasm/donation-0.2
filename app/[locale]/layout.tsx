@@ -7,27 +7,26 @@ import type { ReactNode } from 'react';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
-type LocaleLayoutProps = {
-  children: ReactNode;
-  params: Promise<{ locale: AppLocale }>; // 👈 mark params as a Promise
-};
-
 export default async function LocaleLayout({
   children,
   params,
-}: LocaleLayoutProps) {
-  const resolvedParams = await params; // 👈 await the params
-  const { locale } = resolvedParams;
+}: {
+  children: ReactNode;
+  params: { locale: string }; // <- use string here, validate at runtime
+}) {
+  const { locale } = params;
 
-  if (!routing.locales.includes(locale)) {
+  // Validate the locale
+  if (!routing.locales.includes(locale as AppLocale)) {
     notFound();
   }
 
-  const messages = await getMessages({ locale });
+  const safeLocale = locale as AppLocale;
+  const messages = await getMessages({ locale: safeLocale });
 
   return (
     <div className={inter.className}>
-      <NextIntlClientProvider locale={locale} messages={messages}>
+      <NextIntlClientProvider locale={safeLocale} messages={messages}>
         {children}
       </NextIntlClientProvider>
     </div>
