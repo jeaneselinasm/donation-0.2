@@ -5,7 +5,7 @@ import { routing } from '@/i18n/routing';
 import { Inter } from "next/font/google";
 type AppLocale = 'en' | 'id';
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ['latin'], display : 'swap' });
 
 export default async function LocaleLayout({
   children,
