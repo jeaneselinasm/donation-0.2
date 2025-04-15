@@ -9,25 +9,25 @@ const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
 type LocaleLayoutProps = {
   children: ReactNode;
-  params: {
-    locale: string;
-  };
+  params: Promise<{ locale: AppLocale }>; // 👈 mark params as a Promise
 };
 
-export default async function LocaleLayout({ children, params }: LocaleLayoutProps) {
-  const { locale } = params;
+export default async function LocaleLayout({
+  children,
+  params,
+}: LocaleLayoutProps) {
+  const resolvedParams = await params; // 👈 await the params
+  const { locale } = resolvedParams;
 
   if (!routing.locales.includes(locale)) {
     notFound();
   }
 
-  const safeLocale = locale as AppLocale;
-
-  const messages = await getMessages({ locale: safeLocale });
+  const messages = await getMessages({ locale });
 
   return (
     <div className={inter.className}>
-      <NextIntlClientProvider locale={safeLocale} messages={messages}>
+      <NextIntlClientProvider locale={locale} messages={messages}>
         {children}
       </NextIntlClientProvider>
     </div>
