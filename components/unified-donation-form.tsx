@@ -43,6 +43,7 @@ export default function UnifiedDonationForm() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = "";
   // ✅ Format input while keeping it numeric
@@ -82,6 +83,8 @@ export default function UnifiedDonationForm() {
     }
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
+    formData.append("email", lastName);
+    formData.append("address", lastName);
     formData.append("locale", locale);
     formData.append("country", country);
     console.log("🚀 Form Data: heree");
@@ -319,12 +322,17 @@ export default function UnifiedDonationForm() {
                   <Label htmlFor="email">
                     {tPersonalInformation("email")} *
                   </Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder={tPersonalInformation("emailPlaceholder")}
-                  />
+                  {isLoading ? (
+                    <Skeleton className="h-8 w-3/4 mx-auto" />
+                  ) : (
+                    <Input
+                      id="email"
+                      name="email"
+                      placeholder={tPersonalInformation("emailPlaceholder")}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                  )}
                   {formErrors.email && (
                     <p className="text-sm text-red-500">
                       {formErrors.email[0]}
@@ -335,12 +343,18 @@ export default function UnifiedDonationForm() {
                   <Label htmlFor="phone">
                     {tPersonalInformation("phoneNumber")}
                   </Label>
-                  <Input
+                   {isLoading ? (
+                    <Skeleton className="h-8 w-3/4 mx-auto" />
+                  ) : (
+                    <Input
                     id="phone"
                     name="phone"
                     type="tel"
                     placeholder={tPersonalInformation("phoneNumberPlaceholder")}
-                  />
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                    />
+                  )}
                   {formErrors.phone && (
                     <p className="text-sm text-red-500">
                       {formErrors.phone[0]}
@@ -359,11 +373,17 @@ export default function UnifiedDonationForm() {
                 <Label htmlFor="address">
                   {tPersonalInformation("streetAddress")} *
                 </Label>
-                <Input
-                  id="address"
-                  name="address"
-                  placeholder={tPersonalInformation("streetAddressPlaceholder")}
-                />
+                {isLoading ? (
+                    <Skeleton className="h-8 w-3/4 mx-auto" />
+                  ) : (
+                    <Input
+                    id="address"
+                    name="address"
+                    placeholder={tPersonalInformation("streetAddressPlaceholder")}
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  )}
                 {formErrors.address && (
                   <p className="text-sm text-red-500">
                     {formErrors.address[0]}
@@ -375,17 +395,17 @@ export default function UnifiedDonationForm() {
                   <Label htmlFor="country">
                     {tPersonalInformation("country")} *
                   </Label>
-                  {/* <Input
-                    id="country"
-                    name="country"
-                    placeholder={tPersonalInformation("countryPlaceholder")}
-                  /> */}
+                  {isLoading ? (
+                    <Skeleton className="h-8 w-3/4 mx-auto" />
+                  ) : (
+                    <CountryCombobox
+                      countries={countries}
+                      value={country}
+                      onChange={setCountry}
+                    />
+                    
+                  )}
 
-                  <CountryCombobox
-                    countries={countries}
-                    value={country}
-                    onChange={setCountry}
-                  />
 
                   {formErrors.country && (
                     <p className="text-sm text-red-500">
@@ -395,11 +415,18 @@ export default function UnifiedDonationForm() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="city">{tPersonalInformation("city")} *</Label>
-                  <Input
+                  {isLoading ? (
+                    <Skeleton className="h-8 w-3/4 mx-auto" />
+                  ) : (
+                    <Input
                     id="city"
                     name="city"
                     placeholder={tPersonalInformation("cityPlaceholder")}
-                  />
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  )}
+                  
                   {formErrors.city && (
                     <p className="text-sm text-red-500">{formErrors.city[0]}</p>
                   )}
