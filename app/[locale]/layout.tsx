@@ -12,11 +12,10 @@ export default async function LocaleLayout({
   params,
 }: {
   children: ReactNode;
-  params: { locale: string }; // <- use string here, validate at runtime
+  params: { locale: string };
 }) {
   const { locale } = params;
 
-  // Validate the locale
   if (!routing.locales.includes(locale as AppLocale)) {
     notFound();
   }
