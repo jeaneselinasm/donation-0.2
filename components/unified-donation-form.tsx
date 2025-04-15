@@ -40,7 +40,11 @@ export default function UnifiedDonationForm() {
     locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
   // form state hooks
   const [firstName, setFirstName] = useState("");
-
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [postalCode, setPostalCode] = "";
   // ✅ Format input while keeping it numeric
   const formatNumber = (value: string) => {
     const rawNumber = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
@@ -77,6 +81,7 @@ export default function UnifiedDonationForm() {
       formData.append("amount", amount);
     }
     formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
     formData.append("locale", locale);
     formData.append("country", country);
     console.log("🚀 Form Data: heree");
@@ -291,11 +296,17 @@ export default function UnifiedDonationForm() {
                   <Label htmlFor="last-name">
                     {tPersonalInformation("lastName")} *
                   </Label>
-                  <Input
-                    id="last-name"
-                    name="lastName"
-                    placeholder={tPersonalInformation("lastNamePlaceholder")}
-                  />
+                  {isLoading ? (
+                    <Skeleton className="h-8 w-3/4 mx-auto" />
+                  ) : (
+                    <Input
+                      id="last-name"
+                      name="lastName"
+                      placeholder={tPersonalInformation("lastNamePlaceholder")}
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                    />
+                  )}
                   {formErrors.lastName && (
                     <p className="text-sm text-red-500">
                       {formErrors.lastName[0]}
