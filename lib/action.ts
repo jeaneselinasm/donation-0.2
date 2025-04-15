@@ -1,7 +1,7 @@
 "use server";
 import axios from "axios";
 import { z } from "zod";
-
+import type { AxiosError } from "axios";
 export async function getDonationSchema(locale: "en" | "id") {
   return z.object({
     amount: z
@@ -140,25 +140,24 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
     return {
       token: data.token,
     };
-  }catch (error: any) {
-    let message =
-      locale === "id"
-        ? "Terjadi kesalahan saat memproses donasi Anda."
-        : "An error occurred while processing your donation.";
+  }catch (error: unknown) {
+    let message = locale === "id"
+      ? "Terjadi kesalahan saat memproses donasi Anda."
+      : "An error occurred while processing your donation.";
   
-    if (error.code === "ECONNREFUSED") {
-      message =
-        locale === "id"
-          ? "Koneksi ke server gagal. Silakan coba lagi nanti."
-          : "Connection to the server failed. Please try again later.";
-    } else if (error.response?.data?.message) {
-      message = error.response.data.message;
+    if (axios.isAxiosError(error)) {
+      if (error.code === "ECONNREFUSED") {
+        message =
+          locale === "id"
+            ? "Koneksi ke server gagal. Silakan coba lagi nanti."
+            : "Connection to the server failed. Please try again later.";
+      } else if (error.response?.data?.message) {
+        message = error.response.data.message;
+      }
     }
   
     return {
       serverError: message,
     };
   }
-  
-  }
-  
+}
