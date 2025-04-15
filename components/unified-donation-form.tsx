@@ -38,6 +38,8 @@ export default function UnifiedDonationForm() {
   const [isLoading, setIsLoading] = useState(false);
   const donationAmounts =
     locale === "id" ? [250000, 500000, 1000000] : [39, 79, 109];
+  // form state hooks
+  const [firstName, setFirstName] = useState("");
 
   // ✅ Format input while keeping it numeric
   const formatNumber = (value: string) => {
@@ -74,7 +76,7 @@ export default function UnifiedDonationForm() {
         : customAmount.replace(/[^0-9]/g, "");
       formData.append("amount", amount);
     }
-
+    formData.append("firstName", firstName);
     formData.append("locale", locale);
     formData.append("country", country);
     console.log("🚀 Form Data: heree");
@@ -85,7 +87,7 @@ export default function UnifiedDonationForm() {
     // Call your server action
     const result = await createDonation(formData, (locale as "id") || "en");
 
-    console.log(result.errors, '<<<')
+    console.log(result.errors, "<<<");
     if (result?.errors) {
       setFormErrors(result.errors);
       setIsLoading(false); // ⬅️ Reset loading when error
@@ -96,12 +98,11 @@ export default function UnifiedDonationForm() {
 
     // Show Snap payment pop-up if available
 
-    if (!result?.errors && !result.token) {
-
+    if (!result.token && !result?.errors) {
       console.log("<<<token : ", result?.token);
       console.log("error : ", result?.errors);
-      
-      console.log('isLoading !result.token')
+
+      console.log("isLoading !result.token");
       setIsLoading(true);
       return;
     }
@@ -198,11 +199,7 @@ export default function UnifiedDonationForm() {
       <Card className="w-full max-w-3xl mx-auto">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl md:text-3xl text-[#0087ee] ">
-            {isLoading ? (
-              <Skeleton className="h-8 w-3/4 mx-auto" />
-            ) : (
-              tDonation("title")
-            )}
+            {tDonation("title")}
           </CardTitle>
 
           <CardDescription className="text-justify md:text-center">
@@ -215,24 +212,31 @@ export default function UnifiedDonationForm() {
             <div className="space-y-4">
               <h3 className="text-lg font-medium">{tDonation("amount")}</h3>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                {donationAmounts.map((amount) => (
-                  <Button
-                    key={amount}
-                    type="button"
-                    variant={selectedAmount === amount ? "default" : "outline"}
-                    onClick={() => handleAmountClick(amount)}
-                    className={cn(
-                      "h-12 text-base",
-                      selectedAmount === amount &&
-                        "bg-[#f78540] text-primary-foreground"
-                    )}
-                  >
-                    {locale === "id"
-                      ? `Rp. ${amount.toLocaleString("id-ID")}`
-                      : `$${amount}`}
-                  </Button>
-                ))}
+                {isLoading
+                  ? Array.from({ length: 3 }).map((_, i) => (
+                      <Skeleton key={i} className="h-12 w-full" />
+                    ))
+                  : donationAmounts.map((amount) => (
+                      <Button
+                        key={amount}
+                        type="button"
+                        variant={
+                          selectedAmount === amount ? "default" : "outline"
+                        }
+                        onClick={() => handleAmountClick(amount)}
+                        className={cn(
+                          "h-12 text-base",
+                          selectedAmount === amount &&
+                            "bg-[#f78540] text-primary-foreground"
+                        )}
+                      >
+                        {locale === "id"
+                          ? `Rp. ${amount.toLocaleString("id-ID")}`
+                          : `$${amount}`}
+                      </Button>
+                    ))}
               </div>
+
               <div className="relative">
                 <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
                   {locale === "id" ? "Rp." : "$"}
@@ -265,11 +269,18 @@ export default function UnifiedDonationForm() {
                   <Label htmlFor="first-name">
                     {tPersonalInformation("firstName")}*
                   </Label>
-                  <Input
-                    id="first-name"
-                    name="firstName"
-                    placeholder={tPersonalInformation("firstNamePlaceholder")}
-                  />
+                  {isLoading ? (
+                    <Skeleton className="h-8 w-3/4 mx-auto" />
+                  ) : (
+                    <Input
+                      id="first-name"
+                      name="firstName"
+                      placeholder={tPersonalInformation("firstNamePlaceholder")}
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                    />
+                  )}
+
                   {formErrors.firstName && (
                     <p className="text-sm text-red-500">
                       {formErrors.firstName[0]}

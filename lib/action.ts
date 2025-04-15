@@ -22,7 +22,7 @@ export async function getDonationSchema(locale: "en" | "id") {
         required_error:
           locale === "id" ? "Nama depan wajib diisi" : "First name is required",
       })
-      .min(3, {
+      .min(2, {
         message:
           locale === "id"
             ? "Nama depan tidak boleh kosong"
@@ -35,7 +35,7 @@ export async function getDonationSchema(locale: "en" | "id") {
             ? "Nama belakang wajib diisi"
             : "Last name is required",
       })
-      .min(3, {
+      .min(2, {
         message:
           locale === "id"
             ? "Nama belakang tidak boleh kosong"
