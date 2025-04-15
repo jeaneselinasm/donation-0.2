@@ -3,24 +3,24 @@ import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/i18n/routing';
 import { Inter } from "next/font/google";
+type AppLocale = 'en' | 'id';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export default async function LocaleLayout({
   children,
-  params
+  params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>; // ✅ Correct for async layout
+  params: { locale: AppLocale  }; 
 }) {
-  const { locale } = await params; // ✅ Await here
+  const { locale } = params; 
 
-  // Validate locale
   if (!routing.locales.includes(locale)) {
     notFound();
   }
 
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   return (
     <div className={inter.className}>
@@ -30,3 +30,4 @@ export default async function LocaleLayout({
     </div>
   );
 }
+
