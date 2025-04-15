@@ -51,11 +51,9 @@ export async function getDonationSchema(locale: "en" | "id") {
           ? "Format email tidak valid"
           : "This is not a valid email"
       ),
-    address: z
-      .string()
-      .min(5, {
-        message: locale === "id" ? "Alamat wajib diisi" : "Address is required",
-      }),
+    address: z.string().min(5, {
+      message: locale === "id" ? "Alamat wajib diisi" : "Address is required",
+    }),
     phone: z.string(),
     country: z
       .string()
@@ -63,15 +61,12 @@ export async function getDonationSchema(locale: "en" | "id") {
         message: locale === "id" ? "Negara wajib diisi" : "Country is required",
       })
       .nullable()
-      .refine((val)=> val !== null, {
+      .refine((val) => val !== null, {
         message: locale === "id" ? "Negara wajib diisi" : "Country is required",
-      })
-      ,
-    city: z
-      .string()
-      .min(5, {
-        message: locale === "id" ? "Kota wajib diisi" : "City is required",
       }),
+    city: z.string().min(5, {
+      message: locale === "id" ? "Kota wajib diisi" : "City is required",
+    }),
     postalCode: z
       .string()
       .min(5, {

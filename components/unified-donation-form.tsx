@@ -29,8 +29,8 @@ export default function UnifiedDonationForm() {
   const tOnPending = useTranslations("OnPending");
   const tOnError = useTranslations("OnError");
   const countries = getAlpha3CountryList();
-  const [formErrors, setFormErrors] = useState<Record<string, string[]>>({}); // ✅ Error state
-  const locale = useLocale(); // ✅ Get the current locale
+  const [formErrors, setFormErrors] = useState<Record<string, string[]>>({});
+  const locale = useLocale(); 
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
   const lastTokenRef = useRef<string | null>(null);
@@ -45,10 +45,8 @@ export default function UnifiedDonationForm() {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [postalCode, setPostalCode] =useState("");
-  // const [country, setCountry] = useState<string | null>(null);
+  const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
-  // ✅ Format input while keeping it numeric
   const formatNumber = (value: string) => {
     const rawNumber = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
     if (!rawNumber) return ""; // Return empty if input is cleared
@@ -83,13 +81,6 @@ export default function UnifiedDonationForm() {
         : customAmount.replace(/[^0-9]/g, "");
       formData.append("amount", amount);
     }
-    // formData.append("firstName", firstName);
-    // formData.append("lastName", lastName);
-    // formData.append("email", lastName);
-    // formData.append("address", lastName);
-
-    // formData.append("city", country);
-    // formData.append("postalCode", country);
 
     formData.append("locale", locale);
     formData.append("country", country);
@@ -113,10 +104,6 @@ export default function UnifiedDonationForm() {
     // Show Snap payment pop-up if available
 
     if (!result.token && !result?.errors) {
-      console.log("<<<token : ", result?.token);
-      console.log("error : ", result?.errors);
-
-      console.log("isLoading !result.token");
       setIsLoading(true);
       return;
     }
@@ -192,14 +179,7 @@ export default function UnifiedDonationForm() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     setIsLoading(false)
-  //   }, 3000) // Simulate 3 seconds of loading
-
-  //   return () => clearTimeout(timer)
-  // }, [])
-
+  
   return (
     <>
       <Script
@@ -260,7 +240,7 @@ export default function UnifiedDonationForm() {
                 ) : (
                   <Input
                     id="custom-amount"
-                    type="text" // ✅ Keep it text to prevent unwanted default number formatting
+                    type="text" 
                     placeholder={tDonation("customAmount")}
                     value={customAmount}
                     onChange={handleCustomAmountChange}
@@ -349,14 +329,16 @@ export default function UnifiedDonationForm() {
                   <Label htmlFor="phone">
                     {tPersonalInformation("phoneNumber")}
                   </Label>
-                   {isLoading ? (
+                  {isLoading ? (
                     <Skeleton className="h-8 w-3/4 mx-auto" />
                   ) : (
                     <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder={tPersonalInformation("phoneNumberPlaceholder")}
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      placeholder={tPersonalInformation(
+                        "phoneNumberPlaceholder"
+                      )}
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                     />
@@ -380,16 +362,18 @@ export default function UnifiedDonationForm() {
                   {tPersonalInformation("streetAddress")} *
                 </Label>
                 {isLoading ? (
-                    <Skeleton className="h-8 w-3/4 mx-auto" />
-                  ) : (
-                    <Input
+                  <Skeleton className="h-8 w-3/4 mx-auto" />
+                ) : (
+                  <Input
                     id="address"
                     name="address"
-                    placeholder={tPersonalInformation("streetAddressPlaceholder")}
-                      value={address}
-                      onChange={(e) => setAddress(e.target.value)}
-                    />
-                  )}
+                    placeholder={tPersonalInformation(
+                      "streetAddressPlaceholder"
+                    )}
+                    value={address}
+                    onChange={(e) => setAddress(e.target.value)}
+                  />
+                )}
                 {formErrors.address && (
                   <p className="text-sm text-red-500">
                     {formErrors.address[0]}
@@ -410,14 +394,6 @@ export default function UnifiedDonationForm() {
                       onChange={setCountry}
                       error={formErrors.country?.[0]} // Pass error message here
                     />
-                    
-                  )}
-
-
-                  {formErrors.country && (
-                    <p className="text-sm text-red-500">
-                      {formErrors.country[0]}
-                    </p>
                   )}
                 </div>
                 <div className="space-y-2">
@@ -426,14 +402,14 @@ export default function UnifiedDonationForm() {
                     <Skeleton className="h-8 w-3/4 mx-auto" />
                   ) : (
                     <Input
-                    id="city"
-                    name="city"
-                    placeholder={tPersonalInformation("cityPlaceholder")}
+                      id="city"
+                      name="city"
+                      placeholder={tPersonalInformation("cityPlaceholder")}
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
                     />
                   )}
-                  
+
                   {formErrors.city && (
                     <p className="text-sm text-red-500">{formErrors.city[0]}</p>
                   )}
@@ -448,14 +424,16 @@ export default function UnifiedDonationForm() {
                     <Skeleton className="h-8 w-3/4 mx-auto" />
                   ) : (
                     <Input
-                    id="postalCode"
-                    name="postalCode"
-                    placeholder={tPersonalInformation("postalCodePlaceholder")}
+                      id="postalCode"
+                      name="postalCode"
+                      placeholder={tPersonalInformation(
+                        "postalCodePlaceholder"
+                      )}
                       value={postalCode}
                       onChange={(e) => setPostalCode(e.target.value)}
                     />
                   )}
-                  
+
                   {formErrors.postalCode && (
                     <p className="text-sm text-red-500">
                       {formErrors.postalCode[0]}
