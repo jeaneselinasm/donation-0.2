@@ -15,7 +15,7 @@ import LanguageSwitcher from "@/components/languageSwitcher"
 
 export default function Home() {
   
-   const locale = useLocale(); // ✅ Get the current locale
+  const locale = useLocale(); // ✅ Get the current locale
   const tHomePage = useTranslations("HomePage")
   const tTestimonials = useTranslations('Testimonials')
   const tCTA = useTranslations('CTA')

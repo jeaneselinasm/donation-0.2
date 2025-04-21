@@ -1,5 +1,5 @@
 import {useTranslations} from "next-intl"
-import "@/lib/definition"; // 👈 this makes sure the global types are registered
+import "@/lib/definition"; 
 
 export default function HomePage(){
   const t = useTranslations("HomePage")
