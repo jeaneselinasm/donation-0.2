@@ -4,14 +4,6 @@ import { Button } from "@/components/ui/button";
 import { getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 
-// This would typically come from a database or API
-
-// ✅ Define the expected TypeScript type for `params`
-// interface PageParams {
-//   id: string;
-//   locale: string;
-// }
-
 const testimonials = [
   {
     id: "kemtuik",
@@ -57,8 +49,12 @@ This launch is an inspiration for other language groups in West Kalimantan. It a
   },
 ];
 
-export default async function TestimonialPage(params  : {id : string; locale:string}) {
-  const { id, locale } = await params;
+export default async function TestimonialPage({
+  params,
+}: {
+  params: { id: string; locale: string };
+}) {
+  const { id, locale } = params;
   const tTestimonials = await getTranslations("Testimonials");
   const testimonial = testimonials.find((t) => t.id === id);
   const quoteKey = `${id}Quote`;
@@ -114,12 +110,12 @@ export default async function TestimonialPage(params  : {id : string; locale:str
       </div>
 
       <div className="mt-12 text-center">
-        <h2 className="text-xl md:text-2xl font-bold mb-4">{tTestimonials('inspired')} </h2>
-        <p className="mb-6">
-          {tTestimonials('support')}
-        </p>
+        <h2 className="text-xl md:text-2xl font-bold mb-4">
+          {tTestimonials("inspired")}{" "}
+        </h2>
+        <p className="mb-6">{tTestimonials("support")}</p>
         <Button asChild size="lg" className="bg-orange-400 hover:bg-orange-500">
-          <Link href="/#donate">{tTestimonials('donation')}</Link>
+          <Link href="/#donate">{tTestimonials("donation")}</Link>
         </Button>
       </div>
     </div>
