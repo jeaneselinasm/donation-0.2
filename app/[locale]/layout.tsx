@@ -1,5 +1,3 @@
-// app/[locale]/layout.tsx
-
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -9,21 +7,18 @@ import type { ReactNode } from 'react';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
-type LocaleLayoutProps = {
+type Props = {
   children: ReactNode;
   params: {
-    locale: AppLocale;
+    locale: string;
   };
 };
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: LocaleLayoutProps) {
+export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = params;
 
   if (!routing.locales.includes(locale as AppLocale)) {
-    notFound(); // Will trigger 404 if locale is invalid
+    notFound();
   }
 
   const safeLocale = locale as AppLocale;
