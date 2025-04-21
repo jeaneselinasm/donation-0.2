@@ -11,6 +11,7 @@ import { notFound } from "next/navigation";
 //   id: string;
 //   locale: string;
 // }
+
 const testimonials = [
   {
     id: "kemtuik",
@@ -56,7 +57,7 @@ This launch is an inspiration for other language groups in West Kalimantan. It a
   },
 ];
 
-export default async function TestimonialPage({ params }) {
+export default async function TestimonialPage(params  : {id : string; locale:string}) {
   const { id, locale } = await params;
   const tTestimonials = await getTranslations("Testimonials");
   const testimonial = testimonials.find((t) => t.id === id);
