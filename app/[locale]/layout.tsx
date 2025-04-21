@@ -8,19 +8,22 @@ import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
-type Props = {
-  children : ReactNode,
-  params : {locale : string}
-}
+
+type LocaleLayoutProps = {
+  children: ReactNode;
+  params: {
+    locale: AppLocale;
+  };
+};
 
 export default async function LocaleLayout({
   children,
   params,
-}: Props ) {
+}: LocaleLayoutProps) {
   const { locale } = params;
 
   if (!routing.locales.includes(locale as AppLocale)) {
-    notFound();
+    notFound(); // Will trigger 404 if locale is invalid
   }
 
   const safeLocale = locale as AppLocale;
