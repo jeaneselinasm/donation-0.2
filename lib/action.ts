@@ -103,14 +103,14 @@ const backend = `http://localhost:2053`;
 export async function createDonation(formData: FormData, locale: "en" | "id") {
   const payload: Payload = {
     amount: Number(formData.get("amount")),
-    firstName: formData.get("firstName")?.toString(),
-    lastName: formData.get("lastName")?.toString(),
-    email: formData.get("email")?.toString(),
-    phone: formData.get("phone")?.toString(),
-    address: formData.get("address")?.toString(),
-    country: formData.get("country")?.toString(),
-    city: formData.get("city")?.toString(),
-    postalCode: formData.get("postalCode").toString(),
+    firstName: formData.get("firstName")?.toString() || "",
+    lastName: formData.get("lastName")?.toString() || "",
+    email: formData.get("email")?.toString() || "",
+    phone: formData.get("phone")?.toString() || "",
+    address: formData.get("address")?.toString() || "",
+    country: formData.get("country")?.toString() || "",
+    city: formData.get("city")?.toString() || "",
+    postalCode: formData.get("postalCode")?.toString() || "",
     currency: locale,
   };
 
@@ -129,7 +129,7 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
 
     return { errors: zodErrors };
   }
-  
+
   try {
     const { data } = await axios({
       method: "post",
@@ -140,11 +140,12 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
     return {
       token: data.token,
     };
-  }catch (error: unknown) {
-    let message = locale === "id"
-      ? "Terjadi kesalahan saat memproses donasi Anda."
-      : "An error occurred while processing your donation.";
-  
+  } catch (error: unknown) {
+    let message =
+      locale === "id"
+        ? "Terjadi kesalahan saat memproses donasi Anda."
+        : "An error occurred while processing your donation.";
+
     if (axios.isAxiosError(error)) {
       if (error.code === "ECONNREFUSED") {
         message =
@@ -155,7 +156,7 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
         message = error.response.data.message;
       }
     }
-  
+
     return {
       serverError: message,
     };
