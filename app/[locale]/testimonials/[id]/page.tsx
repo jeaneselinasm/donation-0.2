@@ -52,9 +52,9 @@ This launch is an inspiration for other language groups in West Kalimantan. It a
 export default async function TestimonialPage({
   params,
 }: {
-  params: { id: string; locale: string };
+  params: Promise<{ id: string; locale: string }>;
 }) {
-  const { id, locale } = params;
+  const { id, locale } = await params;
   const tTestimonials = await getTranslations("Testimonials");
   const testimonial = testimonials.find((t) => t.id === id);
   const quoteKey = `${id}Quote`;
