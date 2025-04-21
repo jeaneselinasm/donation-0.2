@@ -1,3 +1,5 @@
+// app/[locale]/layout.tsx
+
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
 import { notFound } from 'next/navigation';
@@ -7,26 +9,22 @@ import type { ReactNode } from 'react';
 
 const inter = Inter({ subsets: ['latin'], display: 'swap' });
 
-type Props = {
-  children: ReactNode;
-  params: {
-    locale: string;
-  };
-};
-
-export default async function LocaleLayout({ children, params }: Props) {
-  const { locale } = params;
+// ✅ Await params before using it
+export default async function LocaleLayout(
+  props: { children: ReactNode; params: Promise<{ locale: string }> }
+) {
+  const { children, params } = props;
+  const { locale } = await params;
 
   if (!routing.locales.includes(locale as AppLocale)) {
     notFound();
   }
 
-  const safeLocale = locale as AppLocale;
-  const messages = await getMessages({ locale: safeLocale });
+  const messages = await getMessages({ locale: locale as AppLocale });
 
   return (
     <div className={inter.className}>
-      <NextIntlClientProvider locale={safeLocale} messages={messages}>
+      <NextIntlClientProvider locale={locale} messages={messages}>
         {children}
       </NextIntlClientProvider>
     </div>
