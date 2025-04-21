@@ -2,7 +2,7 @@ import type { Config } from "tailwindcss"
 const shadcnConfig = require("./node_modules/ui/tailwind.config.js")
 
 const config = {
-  darkMode: ["class"],
+  darkMode: "class",
   content: [
     "./pages/**/*.{ts,tsx}",
     "./components/**/*.{ts,tsx}",
