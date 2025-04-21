@@ -30,10 +30,10 @@ export default function UnifiedDonationForm() {
   const tOnError = useTranslations("OnError");
   const countries = getAlpha3CountryList();
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({});
-  const locale = useLocale(); 
+  const locale = useLocale();
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState<string>("");
-  const lastTokenRef = useRef<string | null>(null);
+  const lastTokenRef = useRef<string | undefined>(undefined);
 
   const [isLoading, setIsLoading] = useState(false);
   const donationAmounts =
@@ -113,10 +113,10 @@ export default function UnifiedDonationForm() {
     if (
       result?.token &&
       typeof window !== "undefined" &&
-      (window).snap &&
-      typeof (window).snap.pay === "function"
+      window.snap &&
+      typeof window.snap.pay === "function"
     ) {
-      (window).snap.pay(result.token, {
+      window.snap.pay(result.token, {
         language: locale,
         onSuccess: () =>
           Swal.fire({
@@ -151,11 +151,14 @@ export default function UnifiedDonationForm() {
             if (result.isConfirmed) {
               Swal.fire(tOnClose("isConfirmedText"), "", "success").then(() => {
                 // Make sure to close the Snap popup here
-                window.snap.hide(); // or window.snap.close() depending on your setup
+                window?.snap?.hide?.(); // or window.snap.close() depending on your setup
               });
-            } else if (result.isDismissed) {
+            } else if (
+              result.isDismissed &&
+              typeof lastTokenRef.current === "string"
+            ) {
               // ReOpen the snap window with same token
-              window.snap.pay(lastTokenRef.current);
+              window.snap.pay(lastTokenRef.current, { language: locale });
               Swal.fire(tOnClose("isDismissed"), "", "info");
             }
           });
@@ -167,7 +170,7 @@ export default function UnifiedDonationForm() {
   };
 
   useEffect(() => {
-    if (typeof window !== "undefined" && ! window.snap) {
+    if (typeof window !== "undefined" && !window.snap) {
       const script = document.createElement("script");
       script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
       script.setAttribute(
@@ -179,7 +182,6 @@ export default function UnifiedDonationForm() {
     }
   }, []);
 
-  
   return (
     <>
       <Script
@@ -240,7 +242,7 @@ export default function UnifiedDonationForm() {
                 ) : (
                   <Input
                     id="custom-amount"
-                    type="text" 
+                    type="text"
                     placeholder={tDonation("customAmount")}
                     value={customAmount}
                     onChange={handleCustomAmountChange}
