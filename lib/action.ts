@@ -98,7 +98,6 @@ interface Payload {
 }
 
 const backend = `http://localhost:2053`;
-// const CreateDonation = DonationFormSchema
 
 export async function createDonation(formData: FormData, locale: "en" | "id") {
   const payload: Payload = {
@@ -114,11 +113,9 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
     currency: locale,
   };
 
-  const schema = await getDonationSchema(locale); // ✅ use await
+  const schema = await getDonationSchema(locale); 
   const validation = schema.safeParse(payload);
 
-  console.log(payload, "payload");
-  console.log("payload>>>", payload);
   if (!validation.success) {
     const zodErrors: Record<string, string[]> = {};
     validation.error.errors.forEach((err) => {
@@ -136,10 +133,6 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
       url: `${backend}/payment`,
       data: validation.data,
     });
-    console.log("token : ", data.token);
-    console.log('====================================');
-    console.log(data);
-    console.log('====================================');
     return {
       token: data.token,
       converted_amount : data.converted_amount,

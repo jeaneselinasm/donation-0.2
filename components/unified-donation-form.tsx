@@ -48,8 +48,8 @@ export default function UnifiedDonationForm() {
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
   const formatNumber = (value: string) => {
-    const rawNumber = value.replace(/[^0-9]/g, ""); // Remove non-numeric characters
-    if (!rawNumber) return ""; // Return empty if input is cleared
+    const rawNumber = value.replace(/[^0-9]/g, "");
+    if (!rawNumber) return "";
 
     // Format number based on locale
     return new Intl.NumberFormat(locale === "id" ? "id-ID" : "en-US").format(
@@ -61,7 +61,7 @@ export default function UnifiedDonationForm() {
   const handleCustomAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formattedValue = formatNumber(e.target.value);
     setCustomAmount(formattedValue);
-    setSelectedAmount(null); // Unselect preset amounts when typing custom value
+    setSelectedAmount(null);
   };
 
   const handleAmountClick = (amount: number) => {
@@ -70,7 +70,6 @@ export default function UnifiedDonationForm() {
   };
 
   // helper function
-
   const launchSnap = (token: string) => {
     window.snap.pay(token, {
       language: locale,
@@ -118,7 +117,6 @@ export default function UnifiedDonationForm() {
       },
     });
   };
-  
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -136,92 +134,36 @@ export default function UnifiedDonationForm() {
     formData.append("locale", locale);
     formData.append("country", country);
     const submittedAmount = formData.get("amount") as string;
-    console.log("🚀 Form Data: heree");
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
 
     // Call your server action
     const result = await createDonation(formData, (locale as "id") || "en");
-    console.log(result, 'result')
-    console.log(result.errors, "<<<");
     if (result?.errors) {
       setFormErrors(result.errors);
-      setIsLoading(false); // ⬅️ Reset loading when error
+      setIsLoading(false);
       return;
     }
 
-    setFormErrors({}); // Clear any existing errors
-
-    // Show Snap payment pop-up if available
-
+    setFormErrors({});
     if (!result.token && !result?.errors) {
       setIsLoading(true);
       return;
     }
     lastTokenRef.current = result?.token;
-    console.log(" lastTokenRef.current >>> ", lastTokenRef.current);
-    setIsLoading(false); // ✅ Stop loading once token is ready
+    setIsLoading(false);
     if (
       result?.token &&
       typeof window !== "undefined" &&
       window.snap &&
       typeof window.snap.pay === "function"
     ) {
-      // window.snap.pay(result.token, {
-      //   language: locale,
-      //   onSuccess: () =>
-      //     Swal.fire({
-      //       icon: "success",
-      //       title: tOnSuccess("title"),
-      //       text: tOnSuccess("text"),
-      //     }),
-
-      //   onPending: () =>
-      //     Swal.fire({
-      //       title: tOnPending("title"),
-      //       text: tOnPending("text"),
-      //     }),
-      //   onError: () => {
-      //     Swal.fire({
-      //       icon: "error",
-      //       title: tOnError("title"),
-      //       text: tOnError("text"),
-      //     });
-      //   },
-      //   onClose: () => {
-      //     Swal.fire({
-      //       icon: "question",
-      //       title: tOnClose("title"),
-      //       text: tOnClose("text"),
-      //       showCancelButton: true,
-      //       confirmButtonColor: "#3085d6",
-      //       cancelButtonColor: "#d33",
-      //       confirmButtonText: tOnClose("confirmButtonText"),
-      //       cancelButtonText: tOnClose("cancelButtonText"),
-      //     }).then((result) => {
-      //       if (result.isConfirmed) {
-      //         Swal.fire(tOnClose("isConfirmedText"), "", "success").then(() => {
-      //           // Make sure to close the Snap popup here
-      //           window?.snap?.hide?.(); // or window.snap.close() depending on your setup
-      //         });
-      //       } else if (
-      //         result.isDismissed &&
-      //         typeof lastTokenRef.current === "string"
-      //       ) {
-      //         // ReOpen the snap window with same token
-      //         window.snap.pay(lastTokenRef.current, { language: locale });
-      //         Swal.fire(tOnClose("isDismissed"), "", "info");
-      //       }
-      //     });
-      //   },
-      // });
-       // Show info alert first if locale is 'en'
-       if (locale === "en") {
+      // Show info alert first if locale is 'en'
+      if (locale === "en") {
         Swal.fire({
           icon: "info",
           title: "Currency Info",
-          text: `You’ll pay in IDR. The estimated amount for $${submittedAmount} is about IDR ${formatNumber(result.converted_amount.toString())}.`,
+          text: `You’ll pay in IDR. The estimated amount for $${submittedAmount} is about IDR ${formatNumber(
+            result.converted_amount.toString()
+          )}.`,
           confirmButtonText: "Continue",
           showCancelButton: true,
         }).then((res) => {
@@ -241,7 +183,8 @@ export default function UnifiedDonationForm() {
   useEffect(() => {
     if (typeof window !== "undefined" && !window.snap) {
       const script = document.createElement("script");
-      script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
+      // script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
+      script.src = "https://app.midtrans.com/snap/v1/transactions";
       script.setAttribute(
         "data-client-key",
         process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || ""
