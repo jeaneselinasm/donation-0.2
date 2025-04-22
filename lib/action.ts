@@ -136,7 +136,7 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
       url: `${backend}/payment`,
       data: validation.data,
     });
-    console.log("token : ", data);
+    console.log("token : ", data.token);
     return {
       token: data.token,
     };

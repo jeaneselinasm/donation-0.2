@@ -91,7 +91,7 @@ export default function UnifiedDonationForm() {
 
     // Call your server action
     const result = await createDonation(formData, (locale as "id") || "en");
-
+    console.log(result, 'result')
     console.log(result.errors, "<<<");
     if (result?.errors) {
       setFormErrors(result.errors);
