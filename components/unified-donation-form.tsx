@@ -69,6 +69,57 @@ export default function UnifiedDonationForm() {
     setCustomAmount("");
   };
 
+  // helper function
+
+  const launchSnap = (token: string) => {
+    window.snap.pay(token, {
+      language: locale,
+      onSuccess: () =>
+        Swal.fire({
+          icon: "success",
+          title: tOnSuccess("title"),
+          text: tOnSuccess("text"),
+        }),
+      onPending: () =>
+        Swal.fire({
+          title: tOnPending("title"),
+          text: tOnPending("text"),
+        }),
+      onError: () => {
+        Swal.fire({
+          icon: "error",
+          title: tOnError("title"),
+          text: tOnError("text"),
+        });
+      },
+      onClose: () => {
+        Swal.fire({
+          icon: "question",
+          title: tOnClose("title"),
+          text: tOnClose("text"),
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: tOnClose("confirmButtonText"),
+          cancelButtonText: tOnClose("cancelButtonText"),
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire(tOnClose("isConfirmedText"), "", "success").then(() => {
+              window?.snap?.hide?.(); // or snap.close()
+            });
+          } else if (
+            result.isDismissed &&
+            typeof lastTokenRef.current === "string"
+          ) {
+            window.snap.pay(lastTokenRef.current, { language: locale });
+            Swal.fire(tOnClose("isDismissed"), "", "info");
+          }
+        });
+      },
+    });
+  };
+  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true); // ✅ Start loading
@@ -84,6 +135,7 @@ export default function UnifiedDonationForm() {
 
     formData.append("locale", locale);
     formData.append("country", country);
+    const submittedAmount = formData.get("amount") as string;
     console.log("🚀 Form Data: heree");
     // for (let [key, value] of formData.entries()) {
     //   console.log(`${key}: ${value}`);
@@ -116,54 +168,71 @@ export default function UnifiedDonationForm() {
       window.snap &&
       typeof window.snap.pay === "function"
     ) {
-      window.snap.pay(result.token, {
-        language: locale,
-        onSuccess: () =>
-          Swal.fire({
-            icon: "success",
-            title: tOnSuccess("title"),
-            text: tOnSuccess("text"),
-          }),
+      // window.snap.pay(result.token, {
+      //   language: locale,
+      //   onSuccess: () =>
+      //     Swal.fire({
+      //       icon: "success",
+      //       title: tOnSuccess("title"),
+      //       text: tOnSuccess("text"),
+      //     }),
 
-        onPending: () =>
-          Swal.fire({
-            title: tOnPending("title"),
-            text: tOnPending("text"),
-          }),
-        onError: () => {
-          Swal.fire({
-            icon: "error",
-            title: tOnError("title"),
-            text: tOnError("text"),
-          });
-        },
-        onClose: () => {
-          Swal.fire({
-            icon: "question",
-            title: tOnClose("title"),
-            text: tOnClose("text"),
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: tOnClose("confirmButtonText"),
-            cancelButtonText: tOnClose("cancelButtonText"),
-          }).then((result) => {
-            if (result.isConfirmed) {
-              Swal.fire(tOnClose("isConfirmedText"), "", "success").then(() => {
-                // Make sure to close the Snap popup here
-                window?.snap?.hide?.(); // or window.snap.close() depending on your setup
-              });
-            } else if (
-              result.isDismissed &&
-              typeof lastTokenRef.current === "string"
-            ) {
-              // ReOpen the snap window with same token
-              window.snap.pay(lastTokenRef.current, { language: locale });
-              Swal.fire(tOnClose("isDismissed"), "", "info");
-            }
-          });
-        },
-      });
+      //   onPending: () =>
+      //     Swal.fire({
+      //       title: tOnPending("title"),
+      //       text: tOnPending("text"),
+      //     }),
+      //   onError: () => {
+      //     Swal.fire({
+      //       icon: "error",
+      //       title: tOnError("title"),
+      //       text: tOnError("text"),
+      //     });
+      //   },
+      //   onClose: () => {
+      //     Swal.fire({
+      //       icon: "question",
+      //       title: tOnClose("title"),
+      //       text: tOnClose("text"),
+      //       showCancelButton: true,
+      //       confirmButtonColor: "#3085d6",
+      //       cancelButtonColor: "#d33",
+      //       confirmButtonText: tOnClose("confirmButtonText"),
+      //       cancelButtonText: tOnClose("cancelButtonText"),
+      //     }).then((result) => {
+      //       if (result.isConfirmed) {
+      //         Swal.fire(tOnClose("isConfirmedText"), "", "success").then(() => {
+      //           // Make sure to close the Snap popup here
+      //           window?.snap?.hide?.(); // or window.snap.close() depending on your setup
+      //         });
+      //       } else if (
+      //         result.isDismissed &&
+      //         typeof lastTokenRef.current === "string"
+      //       ) {
+      //         // ReOpen the snap window with same token
+      //         window.snap.pay(lastTokenRef.current, { language: locale });
+      //         Swal.fire(tOnClose("isDismissed"), "", "info");
+      //       }
+      //     });
+      //   },
+      // });
+       // Show info alert first if locale is 'en'
+       if (locale === "en") {
+        Swal.fire({
+          icon: "info",
+          title: "Currency Info",
+          text: `You’ll pay in IDR. The estimated amount for $${submittedAmount} is about IDR ${formatNumber(result.converted_amount.toString())}.`,
+          confirmButtonText: "Continue",
+          showCancelButton: true,
+        }).then((res) => {
+          if (res.isConfirmed) {
+            launchSnap(result.token);
+          }
+        });
+      } else {
+        // Directly launch Snap for 'id' or other locales
+        launchSnap(result.token);
+      }
     } else {
       Swal.fire("Oops", "Snap is not ready or token is missing", "warning");
     }

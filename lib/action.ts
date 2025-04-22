@@ -137,8 +137,13 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
       data: validation.data,
     });
     console.log("token : ", data.token);
+    console.log('====================================');
+    console.log(data);
+    console.log('====================================');
     return {
       token: data.token,
+      converted_amount : data.converted_amount,
+      currency : data.currency
     };
   } catch (error: unknown) {
     let message =
