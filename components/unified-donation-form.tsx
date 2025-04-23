@@ -150,6 +150,9 @@ export default function UnifiedDonationForm() {
     }
     lastTokenRef.current = result?.token;
     setIsLoading(false);
+
+    console.log(result.token, '<<'
+    )
     if (
       result?.token &&
       typeof window !== "undefined" &&
@@ -183,8 +186,7 @@ export default function UnifiedDonationForm() {
   useEffect(() => {
     if (typeof window !== "undefined" && !window.snap) {
       const script = document.createElement("script");
-      // script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-      script.src = "https://app.midtrans.com/snap/v1/transactions";
+      script.src = "https://app.midtrans.com/snap/snap.js";
       script.setAttribute(
         "data-client-key",
         process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || ""
@@ -197,7 +199,7 @@ export default function UnifiedDonationForm() {
   return (
     <>
       <Script
-        src="https://app.sandbox.midtrans.com/snap/snap.js"
+        src="https://app.midtrans.com/snap/snap.js"
         data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
         strategy="afterInteractive"
         onError={(e) => {
