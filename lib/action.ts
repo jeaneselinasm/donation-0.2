@@ -97,7 +97,9 @@ interface Payload {
   currency: string;
 }
 
-const backend = `http://localhost:2053`;
+// const backend = `http://localhost:2053`;
+const backend =  process.env.BACKEND_SERVER
+
 
 export async function createDonation(formData: FormData, locale: "en" | "id") {
   const payload: Payload = {
