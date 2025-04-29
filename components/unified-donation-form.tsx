@@ -16,7 +16,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn, getAlpha3CountryList } from "@/lib/utils";
 import { useTranslations, useLocale } from "next-intl";
-import { createDonation } from "@/lib/action";
+import { createDonation, saveDonationSuccess } from "@/lib/action";
 import Script from "next/script";
 import { CountryCombobox } from "./country-list";
 import { Skeleton } from "./ui/skeleton";
@@ -73,12 +73,32 @@ export default function UnifiedDonationForm() {
   const launchSnap = (token: string) => {
     window.snap.pay(token, {
       language: locale,
-      onSuccess: () =>
-        Swal.fire({
-          icon: "success",
-          title: tOnSuccess("title"),
-          text: tOnSuccess("text"),
-        }),
+      onSuccess: async (result) => {
+
+        console.log("Payment Success:", result);
+  
+        const saveResult = await saveDonationSuccess({
+          transactionId: result.transaction_id,
+          orderId: result.order_id,
+          paymentType: result.payment_type,
+          grossAmount: result.gross_amount,
+          status: result.transaction_status,
+        });
+  
+        if (saveResult?.success) {
+          Swal.fire({
+            icon: "success",
+            title: tOnSuccess("title"),
+            text: tOnSuccess("text"),
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Save Failed",
+            text: "Payment succeeded but we failed to record it. Please contact support.",
+          });
+        }
+      },
       onPending: () =>
         Swal.fire({
           title: tOnPending("title"),
@@ -186,7 +206,7 @@ export default function UnifiedDonationForm() {
   useEffect(() => {
     if (typeof window !== "undefined" && !window.snap) {
       const script = document.createElement("script");
-      script.src = "https://app.midtrans.com/snap/snap.js";
+      script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
       script.setAttribute(
         "data-client-key",
         process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY || ""
@@ -199,7 +219,7 @@ export default function UnifiedDonationForm() {
   return (
     <>
       <Script
-        src="https://app.midtrans.com/snap/snap.js"
+        src="https://app.sandbox.midtrans.com/snap/snap.js"
         data-client-key={process.env.NEXT_PUBLIC_MIDTRANS_CLIENT_KEY}
         strategy="afterInteractive"
         onError={(e) => {

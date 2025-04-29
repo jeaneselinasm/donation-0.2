@@ -97,8 +97,8 @@ interface Payload {
   currency: string;
 }
 
-// const backend = `http://localhost:2053`;
-const backend =  process.env.BACKEND_SERVER
+const backend = `http://localhost:2053`;
+// const backend =  process.env.BACKEND_SERVER
 
 
 export async function createDonation(formData: FormData, locale: "en" | "id") {
@@ -160,5 +160,38 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
     return {
       serverError: message,
     };
+  }
+}
+
+interface PaymentResult {
+  transactionId : string;
+  orderId : string;
+  paymentType : string;
+  grossAmount : string;
+  status : string;
+}
+
+export async function saveDonationSuccess(result : PaymentResult){
+  try {
+    const { transactionId, orderId,paymentType,grossAmount, status} = result
+
+    console.log(result, 'result fr')
+    const {data} = await axios({
+      method : 'post',
+      url : `${backend}/payment/notification`,
+      data : {
+        transactionId,
+        paymentType,
+        orderId,
+        grossAmount,
+        status
+      }
+    })
+
+    console.log(data, 'result saveDonation')
+  } catch (error) {
+    console.log(error)
+    return {success : false, error : error}
+    
   }
 }
