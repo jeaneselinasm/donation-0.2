@@ -163,35 +163,47 @@ export async function createDonation(formData: FormData, locale: "en" | "id") {
   }
 }
 
+interface CustomerDetails{
+  firstName : string,
+  lastName : string,
+  email : string,
+}
+
 interface PaymentResult {
   transactionId : string;
   orderId : string;
   paymentType : string;
   grossAmount : string;
   status : string;
+  customerDetails : CustomerDetails
 }
 
-export async function saveDonationSuccess(result : PaymentResult){
+export async function saveDonationSuccess(result: PaymentResult) {
   try {
-    const { transactionId, orderId,paymentType,grossAmount, status} = result
-
-    console.log(result, 'result fr')
-    const {data} = await axios({
-      method : 'post',
-      url : `${backend}/payment/notification`,
-      data : {
-        transactionId,
-        paymentType,
-        orderId,
-        grossAmount,
-        status
-      }
-    })
-
-    console.log(data, 'result saveDonation')
-  } catch (error) {
-    console.log(error)
-    return {success : false, error : error}
+    console.log(result, 'result fr');
     
+    const { data } = await axios({
+      method: 'post',
+      url: `${backend}/payment/notification`,
+      data: {
+        transaction_status: result.status,
+        order_id: result.orderId,
+        gross_amount: result.grossAmount,
+        payment_type: result.paymentType,
+        customer_details: {
+          first_name: result.customerDetails.firstName,
+          last_name: result.customerDetails.lastName,
+          email: result.customerDetails.email,
+        },
+      },
+    });
+
+    console.log(data, 'result saveDonation');
+    return { success: true, data };
+  } catch (error) {
+    // console.log('Axios error:', error?.message);
+    // console.log('Response data:', error?.response?.data);
+    // console.log('Status code:', error?.response?.status);
+    return { success: false, error };
   }
 }

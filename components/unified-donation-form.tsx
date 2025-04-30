@@ -76,28 +76,42 @@ export default function UnifiedDonationForm() {
       onSuccess: async (result) => {
 
         console.log("Payment Success:", result);
+        console.log("Customer name:", firstName, lastName);
+        console.log("Email:", email);
+        console.log("Phone:", phone);
   
-        const saveResult = await saveDonationSuccess({
+        await saveDonationSuccess({
           transactionId: result.transaction_id,
           orderId: result.order_id,
           paymentType: result.payment_type,
           grossAmount: result.gross_amount,
-          status: result.transaction_status,
+          status: result.status_code,
+          customerDetails : {
+            firstName,
+            lastName,
+            email,
+          }
         });
-  
-        if (saveResult?.success) {
-          Swal.fire({
-            icon: "success",
-            title: tOnSuccess("title"),
-            text: tOnSuccess("text"),
-          });
-        } else {
-          Swal.fire({
-            icon: "error",
-            title: "Save Failed",
-            text: "Payment succeeded but we failed to record it. Please contact support.",
-          });
-        }
+
+
+        Swal.fire({
+          icon: "success",
+          title: tOnSuccess("title"),
+          text: tOnSuccess("text"),
+        });
+        // if (saveResult?.success) {
+        //   Swal.fire({
+        //     icon: "success",
+        //     title: tOnSuccess("title"),
+        //     text: tOnSuccess("text"),
+        //   });
+        // } else {
+        //   Swal.fire({
+        //     icon: "error",
+        //     title: "Save Failed",
+        //     text: "Payment succeeded but we failed to record it. Please contact support.",
+        //   });
+        // }
       },
       onPending: () =>
         Swal.fire({

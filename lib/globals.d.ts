@@ -3,6 +3,7 @@ export {};
 
 declare global {
   interface MidtransSnapResult{
+    status_code : string;
     transaction_id : string;
     order_id : string;
     payment_type : string;
